@@ -5,7 +5,7 @@ from show.models import Show
 class NomeLista(models.Model):
     pessoa = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
-    cpf = Usuario.cpf
+
 
 
 
