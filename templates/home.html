@@ -7,11 +7,24 @@
 
 
 <body>
-<div class="container d-flex">
+
+
+
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
 
 {% for banner in banners %}
-<img src="{{ banner.foto_banner.url }}">
-{% endfor %}
+<img src="{{ banner.foto_banner.url }}" style="max-width: 500px">
+            <p>{{ banner.titulo }}</p>
+            {% endfor %}
+            <p></p>
+
+
+        </div>
+    </div>
 </div>
 {% endblock %}
 </body>

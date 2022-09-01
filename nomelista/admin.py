@@ -1,12 +1,15 @@
 from django.contrib import admin
 from .models import NomeLista
+from usuario.models import Usuario
 
 
+@admin.register(NomeLista)
 class ListandoNomeLista(admin.ModelAdmin):
-    list_display = ('id', 'pessoa', 'show', 'cpf')
-    list_display_links = ('id', 'show', 'pessoa',)
+    def _cpf(self, obj):
+        return Usuario.objects.get(id=obj.id).cpf
 
 
 
-admin.site.register(NomeLista, ListandoNomeLista)
+    list_display = ('id', '_cpf')
+    list_display_links = ('id',)
 

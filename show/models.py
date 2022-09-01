@@ -1,6 +1,7 @@
 from django.db import models
 from django.db import models
 from django.utils.html import mark_safe
+from usuario.models import Usuario
 
 
 class Show(models.Model):
@@ -8,6 +9,7 @@ class Show(models.Model):
     descricao_show = models.CharField(max_length=300)
     horario_do_show = models.CharField(max_length=100, null=True)
     data_do_show = models.DateField(null=True)
+    lista_reserva = models.ManyToManyField(Usuario)
 
     def __str__(self):
         return self.titulo_show
