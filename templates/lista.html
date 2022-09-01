@@ -1,0 +1,27 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
+
+             {% for nome_na_lista in show %}
+    Show: {{ nome_na_lista.titulo_show }}<br/>
+    Nome na lista: <br/>{% for area in nome_na_lista.lista_reserva.all %}{{ area }}
+
+            CPF: <br/>{% for area in NAO SEI OQUE POR AQUI %}{{ area }}<br/>{% endfor %}
+{% endfor %}
+{% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+
+</html>
