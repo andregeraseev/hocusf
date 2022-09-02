@@ -8,55 +8,23 @@
 
 <body>
 {% include 'partials/_alertas.html' %}
-<div class="container text-center">
-    <div class="row mt-4">
+{% include 'partials/_carrocel.html' %}
+
+<!--<div class="container text-center">-->
+<!--    <div class="row mt-4">-->
 
 
 
 
-<!--<div class="container">-->
-{% for banner in banners %}
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--{% for banner in banners %}-->
 
-    <div class="card" style="width: 10rem;">
-  <img class="card-img-top" src="{{ banner.foto_banner.url }}" style="max-width: 100px" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show_id }}</p>
-      {% if user.is_authenticated %}
-
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
-
-            <input type="hidden" name="nome" value={{ user.username }} >
-
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
-
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
-
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
-
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
-            </div>
-
-        {% endif %}
-  </div>
-</div>
-
-
-
-
-<!--<div class="row md-4">-->
-<!--<img src="{{ banner.foto_banner.url }}" style="max-width: 100px"><br>-->
-
-<!--        <h2>{{ banner.titulo }} {{ banner.show_id }}</h2><br>-->
-
-<!--            {% if user.is_authenticated %}-->
+<!--    <div class="card" style="width: 10rem;">-->
+<!--  <img class="card-img-top" src="{{ banner.foto_banner.url }}" style="max-width: 100px" alt="Card image cap">-->
+<!--  <div class="card-body">-->
+<!--    <h5 class="card-title">{{ banner.titulo }}</h5>-->
+<!--    <p class="card-text">{{ banner.show_id }}</p>-->
+<!--      {% if user.is_authenticated %}-->
 
 <!--            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >-->
 <!--                {% csrf_token %}-->
@@ -69,67 +37,101 @@
 
 <!--            <input type="hidden" name="show" value={{ banner.show_id }} >-->
 <!--                <div class="col-12 text-center">-->
-<!--                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>-->
+<!--                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>-->
 <!--                </div>-->
 <!--            </form>-->
 <!--            {% else %}-->
-<!--            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista</button>  </a>-->
+
+<!--            <div class="col-12 text-center">-->
+<!--            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>-->
 <!--            </div>-->
 
-<!--    22222222222222222222-->
-
-<!--         <div class="container">-->
-<!--              <div class="container">-->
-<!--        <div class="row mx-md-n5">-->
-<!--            <div class="col-12">-->
-<!--                <div class="section-heading">-->
-<!--                    <h2>Lista Show</h2>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div >-->
-
-<!--        <div class="row mx-md-n5">-->
-<!--            <div class="col-12">-->
-<!--                <div class="contact-form-area">-->
-<!--                    <form action="{% url 'adicionar_nome_lista' %}" method="POST" >-->
-<!--                        {% csrf_token %}-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-12 col-lg-12">-->
-<!--                                <label for="nome"><b>Nome completo</b></label>-->
-<!--                                <input type="text" class="form-control" name="nome" placeholder="Ex.:Andre Geraseev" required>-->
-<!--                            </div>-->
-<!--                            <div class="col-12 col-lg-6">-->
-<!--                                <label  for="cpf"><b>cpf</b></label>-->
-<!--                                <input  type="text" class="form-control" name="cpf" placeholder="Digite seu CPF"  required>-->
-<!--                            </div>-->
-<!--                            <div class="col-12 col-lg-6">-->
-<!--                                <label for="celular"><b>celular</b></label>-->
-<!--                                <input type="text" class="form-control" name="celular" placeholder="Digite seu celular" required>-->
-<!--                            </div>-->
-<!--                            <div class="col-12 col-lg-6">-->
-<!--                                <laber for= "show"></laber><b>show</b></label>-->
-<!--                                <input type="hidden" name="show" value={{ banner.show_id }} >-->
-<!--                            </div>-->
-<!--                            <div class="col-12 text-center">-->
-<!--                                <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div></div>-->
-<!--    {% endif %}-->
-            {% endfor %}
-</div>
-
-
-
-
-<!--   </div>-->
+<!--        {% endif %}-->
+<!--  </div>-->
 <!--</div>-->
-{% endblock %}
+
+
+
+
+<!--&lt;!&ndash;<div class="row md-4">&ndash;&gt;-->
+<!--&lt;!&ndash;<img src="{{ banner.foto_banner.url }}" style="max-width: 100px"><br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <h2>{{ banner.titulo }} {{ banner.show_id }}</h2><br>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            {% if user.is_authenticated %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >&ndash;&gt;-->
+<!--&lt;!&ndash;                {% csrf_token %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <input type="hidden" name="nome" value={{ user.username }} >&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <input type="hidden" name="show" value={{ banner.show_id }} >&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-12 text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista</button>  </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    22222222222222222222&ndash;&gt;-->
+
+<!--&lt;!&ndash;         <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="row mx-md-n5">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="section-heading">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h2>Lista Show</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div >&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="row mx-md-n5">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="contact-form-area">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <form action="{% url 'adicionar_nome_lista' %}" method="POST" >&ndash;&gt;-->
+<!--&lt;!&ndash;                        {% csrf_token %}&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="col-12 col-lg-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <label for="nome"><b>Nome completo</b></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input type="text" class="form-control" name="nome" placeholder="Ex.:Andre Geraseev" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="col-12 col-lg-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <label  for="cpf"><b>cpf</b></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input  type="text" class="form-control" name="cpf" placeholder="Digite seu CPF"  required>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="col-12 col-lg-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <label for="celular"><b>celular</b></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input type="text" class="form-control" name="celular" placeholder="Digite seu celular" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="col-12 col-lg-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <laber for= "show"></laber><b>show</b></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input type="hidden" name="show" value={{ banner.show_id }} >&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="col-12 text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    {% endif %}&ndash;&gt;-->
+<!--            {% endfor %}-->
+<!--</div>-->
+
+
+
+
+<!--&lt;!&ndash;   </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--{% endblock %}-->
 </body>
 
 </html>
