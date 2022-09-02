@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from .models import Usuario
+from show.models import NomeLista
 
 
 
@@ -85,8 +86,6 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
-
-
 
 
 def campo_vazio(campo):

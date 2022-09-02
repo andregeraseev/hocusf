@@ -33,7 +33,7 @@
       </li>
         {% if user.is_authenticated %}
         <div class="container align-items-center">
-        <li class="align-items-center px-3 right"> Ola {{ user.username }}! Seu nomero de telefone eh {{ request.user.usuario.celular }}</li>
+        <li class="align-items-center px-3 right"> Ola {{ user.username }}! Celular {{ request.user.usuario.celular }}</li>
         <li><a class="btn align-items-center btn-dark " href="{% url 'logout' %}">Logout</a></li>
         </div>
       <li class="nav-item right">
@@ -41,7 +41,7 @@
       <li><a class="btn btn-dark" href="{% url 'cadastro' %}">Cadastro</a></li>
       <li><a class="btn btn-dark" href="{% url 'login' %}">Login</a></li>
       {% endif %}
-      <li><a class="btn btn-dark" href="{% url 'lista' %}">lista</a></li>
+      <li><a class="btn btn-dark" href="{% url 'listaevento' %}">ListaEventos</a></li>
       </li>
 
     </ul>

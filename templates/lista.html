@@ -11,13 +11,39 @@
     <div class="row">
         <div class="col-md-12 text-center">
 
-             {% for nome_na_lista in show %}
-    Show: {{ nome_na_lista.titulo_show }}<br/>
-    Nome na lista: <br/>{% for area in nome_na_lista.lista_reserva.all %}{{ area }}
 
-            CPF: <br/>{% for area in NAO SEI OQUE POR AQUI %}{{ area }}<br/>{% endfor %}
+            {% for nome_na_lista in show %}
+            Show: {{ nome_na_lista.titulo_show }}<br/>
+            <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">CPF</th>
+      <th scope="col">Celular</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+  {% for area in nome_na_lista.lista_reserva_sr.all %}
+<!--            Nome: {{ area }} CPF:  {{ area.cpf }}  Celular: {{ area.celular }}-->
+
+
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ area }}</td>
+      <td>{{ area.cpf }}</td>
+      <td>{{ area.celular }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
 {% endfor %}
-{% endfor %}
+
+
+
         </div>
     </div>
 </div>

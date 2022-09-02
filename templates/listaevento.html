@@ -1,0 +1,30 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
+
+
+            {% for nome_na_lista in show %}
+            Show: {{ nome_na_lista.titulo_show }}
+            <a href="http://127.0.0.1:8000/lista/{{ nome_na_lista.id }} " > {{ nome_na_lista.titulo_show }} </a><br/>
+
+
+{% endfor %}
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+
+</html>
