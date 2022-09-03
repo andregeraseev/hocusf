@@ -16,13 +16,19 @@ class Show(models.Model):
     descricao_show = models.CharField(max_length=300)
     horario_do_show = models.CharField(max_length=100, null=True)
     data_do_show = models.DateField(null=True)
-    lista_reserva = models.ManyToManyField(Usuario)
-    lista_reserva_sr = models.ManyToManyField(NomeLista)
+    lista_pix = models.ManyToManyField(Usuario)
+    lista_reserva_sr = models.ManyToManyField(NomeLista, through='Pix')
 
     def __str__(self):
         return self.titulo_show
 
+class Pix(models.Model):
+    nomelista = models.ForeignKey(NomeLista, on_delete=models.CASCADE, blank= True)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE, blank= True)
+    pagamento = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "{}_{}".format(self.nomelista.__str__(), self.show.__str__())
 
 class Banner(models.Model):
     titulo = models.CharField(max_length=100)
