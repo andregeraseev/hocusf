@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuario',
     'show',
-    'nomelista',
     'widget_tweaks',
 ]
 

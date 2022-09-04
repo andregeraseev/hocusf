@@ -1,8 +1,8 @@
 from django.db import models
-from django.db import models
 from django.utils.html import mark_safe
 from usuario.models import Usuario
 
+# Model para adicionar usuario na lista de entrada e pagamento, podendo adicionar comprovante
 class NomeLista(models.Model):
     nome = models.CharField(max_length=100)
     cpf = models.CharField(max_length=300)
@@ -13,26 +13,19 @@ class NomeLista(models.Model):
     def __str__(self):
         return self.nome
 
+# model para controle dos shows com acesso ao Banner
 class Show(models.Model):
     titulo_show = models.CharField(max_length=100)
     descricao_show = models.CharField(max_length=300)
     horario_do_show = models.CharField(max_length=100, null=True)
     data_do_show = models.DateField(null=True)
     lista_pix = models.ManyToManyField(Usuario)
-    lista_reserva_sr = models.ManyToManyField(NomeLista, through='Pix', blank=True, null=True, related_name="show")
+    lista_reserva_sr = models.ManyToManyField(NomeLista, related_name="show")
 
     def __str__(self):
         return self.titulo_show
 
-class Pix(models.Model):
-    nomelista = models.ForeignKey(NomeLista, on_delete=models.CASCADE, blank= True)
-    show = models.ForeignKey(Show, on_delete=models.CASCADE, blank= True)
-    pagamento = models.BooleanField(default=False)
-    comprovante = models.ImageField(upload_to='static/comprovantes', blank=True)
-
-    def __str__(self):
-        return "{}_{}".format(self.nomelista.__str__(), self.show.__str__())
-
+# model par adicionar banner na pagina inicial e descrição
 class Banner(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.CharField(max_length=300)

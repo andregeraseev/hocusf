@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Banner, Show, NomeLista, Pix
+from .models import Banner, Show, NomeLista
+
+
 class ListandoBanners(admin.ModelAdmin):
     list_display = ('id', 'titulo', 'descricao', 'foto_banner', 'publicada','banner_preview')
     list_display_links = ('id', 'titulo',)
@@ -28,8 +30,3 @@ class ListandoNomeLista(admin.ModelAdmin):
 
 admin.site.register(NomeLista, ListandoNomeLista)
 
-class ListandoPix(admin.ModelAdmin):
-    list_display = ('id', 'nomelista', 'show', 'pagamento', 'comprovante')
-    list_display_links = ('id',)
-
-admin.site.register(Pix, ListandoPix)

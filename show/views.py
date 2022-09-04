@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import Banner, Show, NomeLista, Pix
+from .models import Banner, Show, NomeLista
 from usuario.models import Usuario
 from django.contrib import messages
 
@@ -24,16 +23,16 @@ def listaevento(request):
 
     banner = Banner.objects.filter(publicada=True)
     show = Show.objects.all()
-    pix = Pix.objects.all()
+
     dados = {'banners': banner,
              'show': show,
-             'pix': pix
+
     }
 
     return render(request, 'listaevento.html', dados)
 
 def lista(request, id=1):
-
+    # medodo para confimar pagamento e voltar para pagina atual
     if request.method == 'POST':
         id = request.POST['id']
         show = request.POST['show']
@@ -43,6 +42,7 @@ def lista(request, id=1):
 
         print(show)
         return redirect('lista/'+show)
+    # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
     else:
         banner = Banner.objects.filter(publicada=True)
         show = Show.objects.filter(id=id)
@@ -55,7 +55,7 @@ def lista(request, id=1):
 
 def registronomelista(request, id):
 
-
+    # render pagina registro nome lista
     banner = Banner.objects.filter(id=id)
     show = Show.objects.all()
 
@@ -81,6 +81,7 @@ def nomelista(request):
 
 
 def comprovante(request, id):
+    # metodo render para comprovante
 
     banner = Banner.objects.all()
     show = NomeLista.objects.filter(id=id)
@@ -91,20 +92,21 @@ def comprovante(request, id):
 
     return render(request, 'comprovante.html', dados)
 
-def pagamento(request):
-
-    if request.method == 'POST':
-
-        id = request.POST['id']
-        cofirmapagamento = NomeLista.objects.filter(id=id)
-        cofirmapagamento.update(
-            pagamento=True)
-
-        cofirmapagamento.save()
+# def pagamento(request):
+#
+#     if request.method == 'POST':
+#
+#         id = request.POST['id']
+#         cofirmapagamento = NomeLista.objects.filter(id=id)
+#         cofirmapagamento.update(
+#             pagamento=True)
+#
+#         cofirmapagamento.save()
 
 
 
 def adicionar_nome_lista(request):
+    # metodo para adicoonar nome na lista sem registro
     if request.method == 'POST':
         nome = request.POST['nome']
         cpf = request.POST['cpf']
@@ -129,3 +131,4 @@ def adicionar_nome_lista(request):
 
     else:
         return render(request, 'registrarnomelista.html')
+    # adionarnar mensagens de erro

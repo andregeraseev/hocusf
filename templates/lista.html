@@ -1,49 +1,13 @@
-
-
-
+{% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
 
 
 
 
 <body>
-<!--<div class="container mt-4">-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-12 text-center">-->
 
-
-<!--            {% for nome_na_lista in show %}-->
-<!--            Show: {{ nome_na_lista.titulo_show }}<br/>-->
-<!--            <table class="table table-striped">-->
-<!--  <thead>-->
-<!--    <tr>-->
-<!--      <th scope="col">#</th>-->
-<!--      <th scope="col">Nome</th>-->
-<!--      <th scope="col">CPF</th>-->
-<!--      <th scope="col">Celular</th>-->
-<!--    </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-
-
-<!--  {% for area in nome_na_lista.lista_reserva_sr.all %}-->
-<!--&lt;!&ndash;            Nome: {{ area }} CPF:  {{ area.cpf }}  Celular: {{ area.celular }}&ndash;&gt;-->
-
-
-<!--    <tr>-->
-<!--      <th scope="row">1</th>-->
-<!--      <td>{{ area }}</td>-->
-<!--      <td>{{ area.cpf }}</td>-->
-<!--      <td>{{ area.celular }}</td>-->
-<!--    </tr>-->
-<!--  {% endfor %}-->
-<!--  </tbody>-->
-
-<!--</table>-->
-<!--{% endfor %}-->
-
-
-<!--            NOVA TABELA-->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <!-- Optional theme -->
@@ -51,74 +15,6 @@
 
 
 
-<!--<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>-->
-<!--{% for nome_na_lista in show %}-->
-
-<!--<div class="page-content page-container" id="page-content">-->
-<!--    <div class="padding">-->
-<!--        <div class="row container d-flex justify-content-center">-->
-<!--            <div class="col-lg-8 grid-margin stretch-card">-->
-<!--                <div class="card">-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-md-8">-->
-<!--                                <h4 class="card-title">{{ nome_na_lista.titulo_show }}</h4>-->
-
-<!--                                <p class="card-description"> descrição </p>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-4 text-right"> <button id="exporttable" class="btn btn-primary">Export</button> </div>-->
-<!--                        </div>-->
-<!--                        <div class="table-striped table-responsive">-->
-<!--                            <table id="htmltable" class="table">-->
-<!--                                <thead>-->
-
-<!--                                    <tr>-->
-<!--                                        <th>Nome</th>-->
-<!--                                        <th>Cpf</th>-->
-<!--                                        <th>Celular</th>-->
-<!--                                        <th>Pagamento</th>-->
-<!--                                    </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody>-->
-<!--                                {% for area in nome_na_lista.lista_reserva_sr.all %}-->
-<!--                                    <tr>-->
-<!--                                        <td>{{ area }}</td>-->
-<!--                                        <td>{{ area.cpf }}</td>-->
-<!--                                        <td>{{ area.celular }}</td>-->
-
-<!--                                        <td><label class="badge badge-danger">Pagamento Pendente</label></td>-->
-<!--                                    </tr>-->
-<!--                                {% endfor %}-->
-<!--                                </tbody>-->
-<!--                            </table>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--{% endfor %}-->
-<!--<script>-->
-<!--$(function() {-->
-<!--        $("#exporttable").click(function(e){-->
-<!--          var table = $("#htmltable");-->
-<!--          if(table && table.length){-->
-<!--            $(table).table2excel({-->
-<!--              exclude: ".noExl",-->
-<!--              name: "Excel Document Name",-->
-<!--              filename: "ListaEntrada" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",-->
-<!--              fileext: ".xls",-->
-<!--              exclude_img: true,-->
-<!--              exclude_links: true,-->
-<!--              exclude_inputs: true,-->
-<!--              preserveColors: false-->
-<!--            });-->
-<!--          }-->
-<!--        });-->
-
-<!--      });-->
-<!--</script>-->
 
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
@@ -156,7 +52,7 @@
                                         <td><label class="badge badge-danger">{{ area.pagamento }}</label></td>
                                         {% endif %}
                                         {% if area.comprovante %}
-                                        <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"  > comprovante </button>  </a>
+                                        <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"> comprovante </button>  </a></td>
                                         {% else %}
                                         <td> <label class="badge badge-danger"  > sem comprovante </label></td>
                                         {% endif %}
@@ -164,18 +60,10 @@
                                          {% csrf_token %}
                                          <input type="hidden" name="id" value={{ area.id }} >
                                             <input type="hidden" name="show" value={{ nome_na_lista.id }} >
-                                        <td> <button class="btn btn-danger mt-4" type="submit"> confima</button></td>
+                                        <td> <button class="btn btn-danger" type="submit"> confima</button></td>
                                             </form>
-                                         </tr>
-
-
-
-
-
-
-
-
-                                {% endfor %}
+                                    </tr>
+            {% endfor %}
 
 
         </tbody>
@@ -220,7 +108,7 @@ $(function() {
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+{% endblock %}
 <!--            FIM TABELA-->
 
 </body>
