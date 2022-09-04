@@ -47,9 +47,9 @@
                                         <td>{{ area.cpf }}</td>
                                         <td>{{ area.celular }}</td>
                                         {% if area.pagamento %}
-                                        <td><label class="badge badge-success">{{ area.pagamento }}</label></td>
+                                        <td><label class="badge badge-success">PAGO</label></td>
                                         {% else %}
-                                        <td><label class="badge badge-danger">{{ area.pagamento }}</label></td>
+                                        <td><label class="badge badge-danger">NAO PAGO</label></td>
                                         {% endif %}
                                         {% if area.comprovante %}
                                         <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"> comprovante </button>  </a></td>
