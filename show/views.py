@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import Banner, Show, NomeLista
+from .models import Banner, Show, NomeLista, Pix
 from usuario.models import Usuario
 from django.contrib import messages
 
@@ -24,24 +24,34 @@ def listaevento(request):
 
     banner = Banner.objects.filter(publicada=True)
     show = Show.objects.all()
-
+    pix = Pix.objects.all()
     dados = {'banners': banner,
-             'show': show
+             'show': show,
+             'pix': pix
     }
 
     return render(request, 'listaevento.html', dados)
 
-def lista(request, id):
+def lista(request, id=1):
 
+    if request.method == 'POST':
+        id = request.POST['id']
+        show = request.POST['show']
+        cofirmapagamento = NomeLista.objects.filter(id=id)
+        cofirmapagamento.update(
+            pagamento=True)
 
-    banner = Banner.objects.filter(publicada=True)
-    show = Show.objects.filter(id=id)
+        print(show)
+        return redirect('lista/'+show)
+    else:
+        banner = Banner.objects.filter(publicada=True)
+        show = Show.objects.filter(id=id)
 
-    dados = {'banners': banner,
-             'show': show
-    }
+        dados = {'banners': banner,
+                 'show': show
+        }
 
-    return render(request, 'lista.html', dados)
+        return render(request, 'lista.html', dados)
 
 def registronomelista(request, id):
 
@@ -68,6 +78,30 @@ def nomelista(request):
     }
 
     return render(request, 'registrarnomelista.html', dados)
+
+
+def comprovante(request, id):
+
+    banner = Banner.objects.all()
+    show = NomeLista.objects.filter(id=id)
+
+    dados = {'banners': banner,
+             'show': show
+             }
+
+    return render(request, 'comprovante.html', dados)
+
+def pagamento(request):
+
+    if request.method == 'POST':
+
+        id = request.POST['id']
+        cofirmapagamento = NomeLista.objects.filter(id=id)
+        cofirmapagamento.update(
+            pagamento=True)
+
+        cofirmapagamento.save()
+
 
 
 def adicionar_nome_lista(request):
