@@ -4,32 +4,33 @@
 {% block content %}
 <body>
 <div class="container">
-{{ user.username }}
-{{ request.user.usuario.cpf }}<br>
-Lista de shows: <br>
+    <h2> Ola {{ user.username }} ! </h2><br>
+<!--{{ request.user.usuario.cpf }}<br>-->
+    <h4>Lista de shows:</h4> <br>
     </div>
 {% for evento in eventos %}
 
 
 <div class="container">
+    <div class="row">
 {{ evento }}<br>
 {{ evento.data_do_show }}<br>
 {{ evento.horario_do_show }}<br>
-
+</div>
 
 
 
 {% for area in evento.lista_reserva_sr.all %}
 {% if area.cpf == request.user.usuario.cpf %}
-{{ area }}
-{% if area.pagamento %} PAGO {% else %} AGUARDANDO PAGAMENTO {% endif %}
+
+{% if area.pagamento %} <h5 >STATUS: PAGO</h5> {% else %}<h5 > AGUARDANDO PAGAMENTO </h5>{% endif %}
 
 
-<div class="container">
-    <div class="row">
-        <div class="container">
+
+
+        <div class="row-6">
           <!--Simple Form-->
-          <h5 class="my-4">Adicione um comprovante</h5> <br>
+          <h5 >Adicione um comprovante</h5><br>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
                 <input type="hidden" name="id" value="{{ area.id }}">
@@ -37,13 +38,13 @@ Lista de shows: <br>
                 <br>
                 <button class="btn btn-dark my-4" type="submit">Enviar</button>
           </form>
-            </div>
         </div>
 
-        <div class="container">
+
+        <div class="row-6">
           <!--See Image Uploaded-->
           <h2 class="my-4">Comprovante</h2>
-          <div class="row">
+
             {% if area.comprovante %}
             <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
               <img src="{{ area.comprovante.url }}" class="img-fluid">
@@ -53,8 +54,8 @@ Lista de shows: <br>
             <p>Sem comprovante.</p>
             {% endif %}
           </div>
-        </div>
-        </div>
+
+
 
 {% endif %}
 {% endfor %}<br>
