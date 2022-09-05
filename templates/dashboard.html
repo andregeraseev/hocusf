@@ -23,7 +23,6 @@ Lista de shows: <br>
     ID= {{ area.id }}
 
 <div class="container">
-
           <!--Simple Form-->
           <h2 class="my-4">Adicione um comprovante</h2>
           <form method="post" enctype="multipart/form-data">
@@ -31,7 +30,7 @@ Lista de shows: <br>
                 <input type="hidden" name="id" value="{{ area.id }}">
                 <input type="file" name="imagem" accept="image/*">
                 <br>
-                <button class="btn btn-dark my-4" type="submit">Submit</button>
+                <button class="btn btn-dark my-4" type="submit">Enviar</button>
           </form>
 
           <!--See Image Uploaded-->
@@ -41,7 +40,7 @@ Lista de shows: <br>
             <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
               <img src="{{ area.comprovante.url }}" class="img-fluid">
               <br>
-              <a class="btn btn-dark my-4" href="/">Return to Homepage</a>
+              <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
             {% else %}
             <p>Sem comprovante.</p>
             {% endif %}
@@ -67,5 +66,6 @@ Lista de shows: <br>
 <!--{% endfor %}-->
 {% endfor %}
 {% endblock %}
+</div>
 </div>
 </body>
