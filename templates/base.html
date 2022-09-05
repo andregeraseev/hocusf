@@ -36,6 +36,7 @@
         <div class="container align-items-center">
         <li class="align-items-center px-3 right"> Ola {{ user.username }}! Celular {{ request.user.usuario.celular }}</li>
         <li><a class="btn align-items-center btn-dark " href="{% url 'logout' %}">Logout</a></li>
+          <li><a class="btn align-items-center btn-dark " href="{% url 'dashboard' %}">Minha Area</a></li>
         </div>
       <li class="nav-item right">
        {% else %}
