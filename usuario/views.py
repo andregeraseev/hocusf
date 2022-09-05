@@ -4,7 +4,7 @@ from django.contrib import messages, auth
 from .models import Usuario
 from show.models import Show
 from show.models import NomeLista
-
+from django.core.files.storage import FileSystemStorage
 
 
 
@@ -90,19 +90,46 @@ def logout(request):
 
 
 def dashboard(request):
-    if request.user.is_authenticated:
-        usuario = request.user.usuario.usuario
-        cpf = request.user.usuario.cpf
-        nome = NomeLista.objects.filter(cpf=cpf)
-        show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+    if request.method == 'POST' and request.FILES['imagem']:
 
-        dados = {
-            'nome': nome,
-            'eventos': show
-        }
+        id = request.POST['id']
+        imagem = request.FILES['imagem']
+        fss = FileSystemStorage()
+        fss.save(imagem.name, imagem)
+        recibo = NomeLista.objects.filter(id=id)
+        recibo.update(comprovante=imagem)
+
+        if request.user.is_authenticated:
+            usuario = request.user.usuario.usuario
+            cpf = request.user.usuario.cpf
+            nome = NomeLista.objects.filter(cpf=cpf)
+            show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+
+            dados = {
+                'nome': nome,
+                'eventos': show
+            }
+
         return render(request, 'dashboard.html', dados)
+
     else:
-        return redirect('home')
+
+        if request.user.is_authenticated:
+            usuario = request.user.usuario.usuario
+            cpf = request.user.usuario.cpf
+            nome = NomeLista.objects.filter(cpf=cpf)
+            show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+
+            dados = {
+                'nome': nome,
+                'eventos': show
+            }
+            return render(request, 'dashboard.html', dados)
+        else:
+            return redirect('home')
+
+
+
 
 
 def campo_vazio(campo):
