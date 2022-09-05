@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from usuario.views import cadastro, login, logout
+from usuario.views import cadastro, login, logout, dashboard
 from show.views import home, lista, adicionar_nome_lista, listaevento,registronomelista,comprovante
 
 urlpatterns = [
@@ -18,4 +18,7 @@ urlpatterns = [
     path('registronomelista/<int:id>', registronomelista, name='registronomelista'),
     path('comprovante', comprovante, name='comprovante'),
     path('comprovante/<int:id>', comprovante, name='comprovante'),
+    path('dashboard', dashboard, name='dashboard'),
+
+
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

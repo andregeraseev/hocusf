@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from .models import Usuario
+from show.models import Show
 from show.models import NomeLista
 
 
@@ -86,6 +87,22 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        usuario = request.user.usuario.usuario
+        cpf = request.user.usuario.cpf
+        nome = NomeLista.objects.filter(cpf=cpf)
+        show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+
+        dados = {
+            'nome': nome,
+            'eventos': show
+        }
+        return render(request, 'dashboard.html', dados)
+    else:
+        return redirect('home')
 
 
 def campo_vazio(campo):

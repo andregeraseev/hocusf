@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+
+{{ user.username }}
+{{ request.user.usuario.cpf }}<br>
+Lista de shows: <br>
+{% for evento in eventos %}
+<div class="container">
+{{ evento }}<br>
+{{ evento.data_do_show }}<br>
+{{ evento.horario_do_show }}<br>
+
+
+
+
+{% for area in evento.lista_reserva_sr.all %}
+{% if area.cpf == request.user.usuario.cpf %}
+{{ area }}
+{{ area.pagamento }}
+{% if area.comprovante %}
+{{ area.comprovante }} comprovante
+
+    {% else %}
+    sem comprovante
+    {% endif %}<br>
+{% endif %}
+{% endfor %}<br>
+
+<!--{% for pix in nome %}<br>-->
+
+<!--{{ pix }} {{ pix.pagamento}} {{ pix.comprovante }}<br>-->
+
+<!--{% endfor %}-->
+{% endfor %}
+{% endblock %}
+</div>
+</body>
