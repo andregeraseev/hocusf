@@ -3,32 +3,50 @@
 
 {% block content %}
 <body>
-<div class="container">
+
+<div class="container mt-4 text-center"
     <h2> Ola {{ user.username }} ! </h2><br>
 <!--{{ request.user.usuario.cpf }}<br>-->
-    <h4>Lista de shows:</h4> <br>
-    </div>
+    <h4>Lista de shows:</h4>
+
 {% for evento in eventos %}
 
-
-<div class="container">
-    <div class="row">
-{{ evento }}<br>
+<h3>{{ evento }}</h3>
 {{ evento.data_do_show }}<br>
 {{ evento.horario_do_show }}<br>
-</div>
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#{{ evento }}">
+  Comprovante de pagamento
+</button>
+    <br>
 
+{% endfor %}
 
+{% for evento in eventos %}
 {% for area in evento.lista_reserva_sr.all %}
+
 {% if area.cpf == request.user.usuario.cpf %}
+<!-- Modal -->
+<div class="modal fade" id="{{ evento }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento }}Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="{{ evento }}Label">{{ evento }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
 
-{% if area.pagamento %} <h5 >STATUS: PAGO</h5> {% else %}<h5 > AGUARDANDO PAGAMENTO </h5>{% endif %}
 
 
+{% if area.pagamento %} <h6 >STATUS: PAGO</h6> {% else %}<h6> AGUARDANDO CONFIRMAÇÂO </h6>{% endif %}
 
 
-        <div class="row-6">
+<div class="container ">
+
+        <div class="text center">
           <!--Simple Form-->
           <h5 >Adicione um comprovante</h5><br>
           <form method="post" enctype="multipart/form-data">
@@ -36,17 +54,16 @@
                 <input type="hidden" name="id" value="{{ area.id }}">
                 <input type="file" name="imagem" accept="image/*">
                 <br>
+
                 <button class="btn btn-dark my-4" type="submit">Enviar</button>
           </form>
-        </div>
 
 
-        <div class="row-6">
           <!--See Image Uploaded-->
           <h2 class="my-4">Comprovante</h2>
 
             {% if area.comprovante %}
-            <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
+            <div class="col-lg-4 col-md-6 col-sm-12 pb-4 ">
               <img src="{{ area.comprovante.url }}" class="img-fluid">
               <br>
               <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
@@ -54,20 +71,20 @@
             <p>Sem comprovante.</p>
             {% endif %}
           </div>
+            {% endif %}
+        </div>
+     </div>
+    </div>
+  </div>
+</div>
 
 
 
-{% endif %}
-{% endfor %}<br>
 
-<!--{% for pix in nome %}<br>-->
 
-<!--{{ pix }} {{ pix.pagamento}} {{ pix.comprovante }}<br>-->
-
-<!--{% endfor %}-->
+</div>
+    {% endfor %}
 {% endfor %}
+</div>
 {% endblock %}
-</div>
-</div>
-</div>
 </body>

@@ -30,7 +30,7 @@
   <div class="collapse navbar-collapse row" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ">
       <li class="nav-item active ">
-        <a class="nav-link align-items-center px-md-5" href="http://127.0.0.1:8000/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link align-items-center px-md-5" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
       </li>
         {% if user.is_authenticated %}
         <div class="container align-items-center">

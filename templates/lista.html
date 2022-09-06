@@ -20,10 +20,12 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
+
 {% for nome_na_lista in show %}
 <div class="container">
 <div class="row header" style="text-align:center;color:black">
 <div class="col-md-4 text-left"> <button id="export" class="btn btn-primary">Export</button> </div>
+
 
 <h3>{{ nome_na_lista.titulo_show }}</h3>
 
@@ -49,7 +51,7 @@
                                         {% if area.pagamento %}
                                         <td><label class="badge badge-success">PAGO</label></td>
                                         {% else %}
-                                        <td><label class="badge badge-danger">NAO PAGO</label></td>
+                                        <td><label class="badge badge-danger">SEM PAGAMENTO</label></td>
                                         {% endif %}
                                         {% if area.comprovante %}
                                         <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"> comprovante </button>  </a></td>
@@ -80,11 +82,60 @@
     </table>
     </div>
 {% endfor %}
-<script>
-    $(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
+ <script>
+
+      /* Initialization of datatables */
+      $(document).ready(function () {
+
+        // Paging and other information are
+        // disabled if required, set to true
+        var myTable = $("#example").DataTable({
+          paging: true,
+          searching: true,
+          info: false,
+        });
+
+        // 2d array is converted to 1D array
+        // structure the actions are
+        // implemented on EACH column
+        myTable
+          .columns(3)
+          .flatten()
+          .each(function (colID) {
+
+            // Create the select list in the
+            // header column header
+            // On change of the list values,
+            // perform search operation
+            var mySelectList = $("<select />")
+              .appendTo(myTable.column(3).header())
+              .on("change", function () {
+                myTable.column(3).search($(this).val());
+
+                // update the changes using draw() method
+                myTable.column(colID).draw();
+              });
+
+            // Get the search cached data for the
+            // first column add to the select list
+            // usinh append() method
+            // sort the data to display to user
+            // all steps are done for EACH column
+            myTable
+              .column(3)
+              .cache("search")
+              .sort()
+              .each(function (param) {
+                mySelectList.append(
+                  $('<option value="' + param + '">'
+                    + param + "</option>")
+                );
+              });
+          });
+      });
+  </script>
+
+
 <script>
 $(function() {
         $("#export").click(function(e){
@@ -104,12 +155,23 @@ $(function() {
         });
 
       });
+
 </script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 {% endblock %}
 <!--            FIM TABELA-->
+
+
+
+
+
+
+
+
+
+
 
 </body>
 
