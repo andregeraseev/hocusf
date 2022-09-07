@@ -3,6 +3,9 @@ from .models import Banner, Show, NomeLista
 from usuario.models import Usuario
 from django.contrib import messages
 
+
+
+
 def home(request):
 
     pessoas= Usuario.objects.all()
