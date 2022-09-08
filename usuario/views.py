@@ -5,8 +5,14 @@ from .models import Usuario
 from show.models import Show
 from show.models import NomeLista
 from django.core.files.storage import FileSystemStorage
+from validate_docbr import CPF
 
 
+
+
+cpf = CPF()
+
+print(cpf.validate("012.345.678-90"))
 
 def cadastro(request):
 
@@ -21,6 +27,9 @@ def cadastro(request):
 
         if campo_vazio(nome):
             messages.error(request, 'O campo nome não pode ficar em branco')
+            return redirect('cadastro')
+        if not validacpf(cpf):
+            messages.error(request, 'CPF invalido')
             return redirect('cadastro')
         if campo_vazio(email):
             messages.error(request, 'O campo email não pode ficar em branco')
@@ -59,6 +68,12 @@ def cadastro(request):
         user.save()
         perfil.save()
         messages.success(request, 'Cadastro realizado com sucesso')
+        if User.objects.filter(email=email).exists():
+            nome = User.objects.filter(email=email).values_list('username', flat=True).get()
+            user = auth.authenticate(request, username=nome, password=senha)
+            if user is not None:
+                auth.login(request, user)
+
         return redirect('home')
     else:
         return render(request, 'cadastro.html')
@@ -90,6 +105,7 @@ def logout(request):
 
 
 def dashboard(request):
+    # mostrando shows com nome na lista e adiconando comprovante
     if request.method == 'POST' and request.FILES['imagem']:
 
         id = request.POST['id']
@@ -103,7 +119,7 @@ def dashboard(request):
             usuario = request.user.usuario.usuario
             cpf = request.user.usuario.cpf
             nome = NomeLista.objects.filter(cpf=cpf)
-            show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+            show = Show.objects.filter(lista_reserva_sr__cpf=cpf)
 
             dados = {
                 'nome': nome,
@@ -118,7 +134,7 @@ def dashboard(request):
             usuario = request.user.usuario.usuario
             cpf = request.user.usuario.cpf
             nome = NomeLista.objects.filter(cpf=cpf)
-            show = Show.objects.filter(lista_reserva_sr__nome=usuario)
+            show = Show.objects.filter(lista_reserva_sr__cpf=cpf)
 
             dados = {
                 'nome': nome,
@@ -138,3 +154,7 @@ def campo_vazio(campo):
 
 def senhas_nao_sao_iguais(senha, senha2):
     return senha != senha2
+
+def validacpf(cpf):
+    validacao = CPF().validate(cpf)
+    return validacao

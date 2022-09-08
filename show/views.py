@@ -115,6 +115,10 @@ def adicionar_nome_lista(request):
         cpf = request.POST['cpf']
         celular = request.POST['celular']
         show = request.POST['show']
+
+        # if "nome" ja existe neste "show"
+        #     mensagem de erro (vc ja se cadastrou para esse show)
+
         user_sem_registro = NomeLista.objects.create(
             nome=nome,
             cpf=cpf,

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from show.models import Show
 
 class Usuario(models.Model):
     usuario = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
