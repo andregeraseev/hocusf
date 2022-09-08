@@ -24,6 +24,18 @@
         </div>
     </div>
 </div>
+
+
+
+{% for shows in show %}
+Showid: {{ shows.id }}<br>
+Show Nome: {{ shows.titulo_show }}<br>
+   {% for lala in shows.lista_reserva_sr.all %}
+Nome lista id: {{ lala.id }}<br>
+
+cpf lista {{ lala.cpf }}<br>
+{% endfor %}
+{% endfor %}
 {% endblock %}
 </body>
 
