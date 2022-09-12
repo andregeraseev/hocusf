@@ -28,6 +28,7 @@
 
 
 <h3>{{ nome_na_lista.titulo_show }}</h3>
+    {{ nome_na_lista.roqueiro.cpf }}
 
 </div>
 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -43,11 +44,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for area in nome_na_lista.lista_reserva_sr.all %}
+            {% for area in pessoas.all %}
                                     <tr>
-                                        <td>{{ area }}</td>
-                                        <td>{{ area.cpf }}</td>
-                                        <td>{{ area.celular }}</td>
+                                        <td> {% if area.roqueiro == None %} {{ area.sem_registro.usuario_sem_registro }}  {% else %}  {{ area.roqueiro.usuario }} {% endif %}</td>
+                                        <td>{{ area.roqueiro.cpf }}  {{ area.sem_registro.cpf_sem_registro }}</td>
+                                        <td>{{ area.roqueiro.celular }} {{ area.sem_registro.celular_sem_registro }}</td>
                                         {% if area.pagamento %}
                                         <td><label class="badge badge-success">PAGO</label></td>
                                         {% else %}

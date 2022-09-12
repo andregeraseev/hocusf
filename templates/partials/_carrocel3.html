@@ -11,24 +11,20 @@
 
 
           <div class="carousel-inner row w-100 mx-auto">
-          {% for banner in banners %}
+          {% for show in shows %}
           {% if forloop.first %}
 
               <div class="carousel-item active col-12 ">
-                <img  src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
+                <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
 
       {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST" >
                 {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+            <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }} >
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
-
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
-
-            <input type="hidden" name="show" value={{ banner.show_id }} >
+            <input type="hidden" name="show" value={{ show.id }} >
                 <div class="col-12 text-center">
                     <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
                 </div>
@@ -36,7 +32,7 @@
             {% else %}
 
             <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
+            <a href="http://127.0.0.1:8000/registronomelista/{{ show.id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
             </div>
 
         {% endif %}
@@ -44,20 +40,19 @@
 
               {% else %}
               <div class="carousel-item col-12 ">
-                <img  src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
+                <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
 
       {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST" >
                 {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+            <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }} >
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
+
+            <input type="hidden" name="show" value={{ show.id }} >
                 <div class="col-12 text-center">
                     <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
                 </div>
@@ -65,7 +60,7 @@
             {% else %}
 
             <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
+            <a href="http://127.0.0.1:8000/registronomelista/{{ show.id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
             </div>
 
         {% endif %}

@@ -11,12 +11,12 @@
 
 {% for evento in eventos %}
 
-<h3>{{ evento }}</h3>
-{{ evento.data_do_show }}<br>
-{{ evento.horario_do_show }}<br>
+<h3>{{ evento.lista_reserva }}</h3>
+{{ evento.lista_reserva.data_do_show }}<br>
+{{ evento.lista_reserva.horario_do_show }}<br>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#{{ evento }}">
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#{{ evento.lista_reserva }}">
   Comprovante de pagamento
 </button>
     <br>
@@ -24,15 +24,16 @@
 {% endfor %}
 
 {% for evento in eventos %}
-{% for area in evento.lista_reserva_sr.all %}
 
-{% if area.cpf == request.user.usuario.cpf %}
+
+
+
 <!-- Modal -->
-<div class="modal fade" id="{{ evento }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento }}Label" aria-hidden="true">
+<div class="modal fade" id="{{ evento.lista_reserva }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="{{ evento }}Label">{{ evento }}</h5>
+        <h5 class="modal-title" id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -41,7 +42,7 @@
 
 
 
-{% if area.pagamento %} <h6 >STATUS: PAGO</h6> {% else %}<h6> AGUARDANDO CONFIRMAÇÂO </h6>{% endif %}
+{% if evento.pagamento %} <h6 >STATUS: PAGO</h6> {% else %}<h6> AGUARDANDO CONFIRMAÇÂO </h6>{% endif %}
 
 
 <div class="container ">
@@ -51,7 +52,7 @@
           <h5 >Adicione um comprovante</h5><br>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-                <input type="hidden" name="id" value="{{ area.id }}">
+                <input type="hidden" name="id" value="{{ evento.id }}">
                 <input type="file" name="imagem" accept="image/*">
                 <br>
 
@@ -62,16 +63,16 @@
           <!--See Image Uploaded-->
           <h2 class="my-4">Comprovante</h2>
 
-            {% if area.comprovante %}
+            {% if evento.comprovante %}
             <div class="col-lg-4 col-md-6 col-sm-12 pb-4 ">
-              <img src="{{ area.comprovante.url }}" class="img-fluid">
+              <img src="{{ evento.comprovante.url }}" class="img-fluid">
               <br>
               <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
             {% else %}
             <p>Sem comprovante.</p>
             {% endif %}
           </div>
-            {% endif %}
+
         </div>
      </div>
     </div>
@@ -83,7 +84,7 @@
 
 
 </div>
-    {% endfor %}
+
 {% endfor %}
 </div>
 {% endblock %}

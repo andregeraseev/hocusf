@@ -14,9 +14,9 @@
     <div class="row">
         <div class="col-md-12 text-center">
 {% include 'partials/_alertas.html' %}
-{% for banner in banners %}
-<img src="{{ banner.foto_banner.url }}" style="max-width: 100px">
-            <p>{{ banner.titulo }} {{ banner.show_id }}</p>
+{% for shows in show %}
+<img src="{{ shows.banner.url }}" style="max-width: 100px">
+            <p>{{ shows.titulo }} {{ shows.id }}</p>
 
 
          <div class="container">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-12 col-lg-6">
                                 <laber for="show"></laber><b>show</b></label>
-                                <input type="hidden" name="show" value={{ banner.show_id }} >
+                                <input type="hidden" name="show" value={{ shows.id }} >
                             </div>
                             <div class="col-12 text-center">
                                 <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>

@@ -12,7 +12,7 @@ from validate_docbr import CPF
 
 cpf = CPF()
 
-print(cpf.validate("012.345.678-90"))
+
 
 def cadastro(request):
 
@@ -116,13 +116,13 @@ def dashboard(request):
         recibo.update(comprovante=imagem)
 
         if request.user.is_authenticated:
-            usuario = request.user.usuario.usuario
-            cpf = request.user.usuario.cpf
-            nome = NomeLista.objects.filter(cpf=cpf)
-            show = Show.objects.filter(lista_reserva_sr__cpf=cpf)
+            usuario = request.user.usuario.usuario_id
+            # cpf = request.user.usuario.cpf
+            # # nome = NomeLista.objects.filter(cpf=cpf)
+            show = NomeLista.objects.filter(roqueiro_id=usuario)
 
             dados = {
-                'nome': nome,
+
                 'eventos': show
             }
 
@@ -131,13 +131,13 @@ def dashboard(request):
     else:
 
         if request.user.is_authenticated:
-            usuario = request.user.usuario.usuario
-            cpf = request.user.usuario.cpf
-            nome = NomeLista.objects.filter(cpf=cpf)
-            show = Show.objects.filter(lista_reserva_sr__cpf=cpf)
+            usuario = request.user.usuario.usuario_id
+            # cpf = request.user.usuario.cpf
+            # # nome = Usuario.objects.filter(cpf=cpf)
 
+            show = NomeLista.objects.filter(roqueiro_id=usuario)
+            # 'nome': nome,
             dados = {
-                'nome': nome,
                 'eventos': show
             }
             return render(request, 'dashboard.html', dados)

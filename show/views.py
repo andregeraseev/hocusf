@@ -1,35 +1,30 @@
 from django.shortcuts import render, redirect
-from .models import Banner, Show, NomeLista
+from .models import Show, NomeLista
 from usuario.models import Usuario
 from django.contrib import messages
-
-
+from django.db import IntegrityError
+from usuario.models import UsuarioSemRegistro
+from validate_docbr import CPF
 
 
 def home(request):
 
     pessoas= Usuario.objects.all()
-    banner = Banner.objects.filter(publicada=True)
-    show = Show.objects.all()
+    show = Show.objects.filter(publicada=True)
 
-    dados = {'banners': banner,
-             'show': show,
+    dados = {
+             'shows': show,
              'pessoa': pessoas
     }
 
     return render(request, 'home.html', dados)
 
 
-
 def listaevento(request):
 
-
-    banner = Banner.objects.filter(publicada=True)
-    show = Show.objects.all()
-
-    dados = {'banners': banner,
+    show = Show.objects.filter(publicada=True)
+    dados = {
              'show': show,
-
     }
 
     return render(request, 'listaevento.html', dados)
@@ -47,10 +42,10 @@ def lista(request, id=1):
         return redirect('lista/'+show)
     # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
     else:
-        banner = Banner.objects.filter(publicada=True)
+        pessoa = NomeLista.objects.filter(lista_reserva_id=id)
         show = Show.objects.filter(id=id)
 
-        dados = {'banners': banner,
+        dados = {'pessoas': pessoa,
                  'show': show
         }
 
@@ -58,11 +53,8 @@ def lista(request, id=1):
 
 def registronomelista(request, id):
 
-    # render pagina registro nome lista
-    banner = Banner.objects.filter(id=id)
-    show = Show.objects.all()
-
-    dados = {'banners': banner,
+    show = Show.objects.filter(id=id)
+    dados = {
              'show': show
     }
 
@@ -72,10 +64,9 @@ def registronomelista(request, id):
 def nomelista(request):
 
     pessoas= Usuario.objects.all()
-    banner = Banner.objects.filter(publicada=True)
-    show = Show.objects.all()
+    show = Show.objects.all(publicada=True)
 
-    dados = {'banners': banner,
+    dados = {
              'show': show,
              'pessoa': pessoas
     }
@@ -86,59 +77,79 @@ def nomelista(request):
 def comprovante(request, id):
     # metodo render para comprovante
 
-    banner = Banner.objects.all()
     show = NomeLista.objects.filter(id=id)
-
-    dados = {'banners': banner,
+    dados = {
              'show': show
              }
 
     return render(request, 'comprovante.html', dados)
 
-# def pagamento(request):
-#
-#     if request.method == 'POST':
-#
-#         id = request.POST['id']
-#         cofirmapagamento = NomeLista.objects.filter(id=id)
-#         cofirmapagamento.update(
-#             pagamento=True)
-#
-#         cofirmapagamento.save()
-
-
 
 def adicionar_nome_lista(request):
-    # metodo para adicoonar nome na lista sem registro
+    # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
+        # usuarioid = request.POST['usuarioid']
         cpf = request.POST['cpf']
         celular = request.POST['celular']
         show = request.POST['show']
 
-        # id_show = Show.objects.filter(id=show)
-        # print("show a por nome na lista", id_show,)
-        # id_cpf = NomeLista.objects.filter(cpf=cpf)
-        # print("cpf a por no show", id_cpf )
-        # print("CPF JA CADASTRADO")
 
-        user_sem_registro = NomeLista.objects.create(
-            nome=nome,
-            cpf=cpf,
-            celular=celular)
+        if not validacpf(cpf):
+            messages.warning(request, 'CPF invalido')
+            return redirect('registronomelista/' + show)
 
-        user_sem_registro.save()
+        showcompleto = Show.objects.get(id=show)
 
+        user_sem_registro = UsuarioSemRegistro.objects.create(
 
+            usuario_sem_registro = nome,
+            cpf_sem_registro = cpf,
+            celular_sem_registro = celular
+            )
 
-        nome_show = Show.objects.get(id=show)
-
-        nome_show.lista_reserva_sr.add(user_sem_registro)
-
-
+        registrando= NomeLista.objects.create(
+            sem_registro=user_sem_registro,
+            lista_reserva=showcompleto
+        )
+        registrando.save()
         messages.success(request, 'Seu nome foi colocado na lista com sucesso')
         return redirect('home')
 
+        user_sem_registro.save()
+
     else:
-        return render(request, 'registrarnomelista.html')
+        return render(request, 'home')
     # adionarnar mensagens de erro
+
+def adicionar_nome_lista_com_cadastro(request):
+    # metodo para adicoonar nome na lista com cadastro
+    if request.method == 'POST':
+        show = request.POST['show']
+        usuarioid = request.POST['usuarioid']
+
+        showcompleto = Show.objects.get(id=show)
+        usuarioompleto = Usuario.objects.get(id=usuarioid)
+
+        try:
+            user_com_registro = NomeLista.objects.create(
+                roqueiro=usuarioompleto,
+                lista_reserva=showcompleto
+                )
+            user_com_registro.save()
+            messages.success(request, 'Seu nome foi colocado na lista com sucesso')
+            return redirect('home')
+        except IntegrityError:
+            messages.warning(request, 'Seu nome ja esta nesse show')
+            return redirect('home')
+
+
+
+    else:
+        return render(request, 'home.html')
+    # adionarnar mensagens de erro
+
+
+def validacpf(cpf):
+    validacao = CPF().validate(cpf)
+    return validacao
