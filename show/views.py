@@ -21,9 +21,10 @@ def home(request):
 
 
 def listaevento(request):
-
+    roqueiros = NomeLista.objects.all()
     show = Show.objects.filter(publicada=True)
     dados = {
+        'roqueiro': roqueiros,
              'show': show,
     }
 
@@ -53,8 +54,10 @@ def lista(request, id=1):
 
 def registronomelista(request, id):
 
+
     show = Show.objects.filter(id=id)
     dados = {
+
              'show': show
     }
 

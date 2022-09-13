@@ -11,12 +11,12 @@
 
 {% for evento in eventos %}
 
-<h3>{{ evento.lista_reserva }}</h3>
+<h3>{{ evento.lista_reserva.titulo_show }}</h3>
 {{ evento.lista_reserva.data_do_show }}<br>
 {{ evento.lista_reserva.horario_do_show }}<br>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#{{ evento.lista_reserva }}">
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
   Comprovante de pagamento
 </button>
     <br>
@@ -29,7 +29,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="{{ evento.lista_reserva }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true">
+<div class="modal fade" id="botao{{ evento.lista_reserva.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

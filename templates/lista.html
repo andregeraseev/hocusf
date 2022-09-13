@@ -22,12 +22,12 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
 {% for nome_na_lista in show %}
-<div class="container">
+<div class="container mt-4">
 <div class="row header" style="text-align:center;color:black">
 <div class="col-md-4 text-left"> <button id="export" class="btn btn-primary">Export</button> </div>
 
 
-<h3>{{ nome_na_lista.titulo_show }}</h3>
+<h1 class="col-md-4 text-center">{{ nome_na_lista.titulo_show }}</h1>
     {{ nome_na_lista.roqueiro.cpf }}
 
 </div>
