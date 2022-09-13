@@ -1,6 +1,6 @@
-
-<div class="row d-flex justify-content-center mt-3">
-    <div class="col-lg-7">
+<div class="container-fluid">
+<div class="row justify-content-center" >
+    <div class="col-lg-6 mt-4" >
         <div class="top-content">
             <div class="container-fluid">
 
@@ -10,7 +10,7 @@
 
 
 
-          <div class="carousel-inner row w-100 mx-auto">
+          <div class="carousel-inner row w-100 mx-auto mt-3">
           {% for show in shows %}
           {% if forloop.first %}
 
@@ -54,7 +54,7 @@
 
             <input type="hidden" name="show" value={{ show.id }} >
                 <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
+                    <button class="btn btn-danger mt-4 " type="submit"> Nome na lista cr</button>
                 </div>
             </form>
             {% else %}
@@ -80,5 +80,6 @@
          </div>
      </div>
   </div>
+</div>
 </div>
 </div>
