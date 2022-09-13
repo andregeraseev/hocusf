@@ -125,7 +125,7 @@ def dashboard(request):
         recibo.update(comprovante=imagem)
 
         if request.user.is_authenticated:
-            usuario = request.user.usuario.usuario_id
+            usuario = request.user.usuario.id
             # cpf = request.user.usuario.cpf
             # # nome = NomeLista.objects.filter(cpf=cpf)
             show = NomeLista.objects.filter(roqueiro_id=usuario)
@@ -140,10 +140,10 @@ def dashboard(request):
     else:
 
         if request.user.is_authenticated:
-            usuario = request.user.usuario.usuario_id
+            usuario = request.user.usuario.id
             # cpf = request.user.usuario.cpf
             # # nome = Usuario.objects.filter(cpf=cpf)
-
+            print(usuario)
             show = NomeLista.objects.filter(roqueiro_id=usuario)
             # 'nome': nome,
             dados = {
