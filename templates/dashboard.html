@@ -4,23 +4,39 @@
 {% block content %}
 <body>
 
-<div class="container   mt-3 text-center">
-    <h2> Ola {{ user.username }} ! </h2><br>
-<!--{{ request.user.usuario.cpf }}<br>-->
-    <h4>Lista de shows:</h4>
-
+<div class="container  mt-3 ">
+<div class="row">
+    <div class="col-sm "></div>
+    <div class="col-sm text-center ">
+        <h2> Ola {{ user.username }} ! </h2>
+        <h4>Lista de shows:</h4>
+    </div>
+    <div class="col-sm ">
+    </div>
+</div>
+    <div class="container ">
 {% for evento in eventos %}
 
+    <div class="row mb-3 ">
+    <div class="col-sm ">
+    </div>
+        <div class="col-sm text-center border ">
 <h3>{{ evento.lista_reserva.titulo_show }}</h3>
 {{ evento.lista_reserva.data_do_show }}<br>
 {{ evento.lista_reserva.horario_do_show }}<br>
-
+{% if evento.lista_reserva.pix %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
   Comprovante de pagamento
 </button>
+{% else %}
+<div class = "mb-4"> </div>
+{% endif %}
+        </div>
+        <div class="col-sm ">
+    </div>
     <br>
-
+    </div>
 {% endfor %}
 
 {% for evento in eventos %}

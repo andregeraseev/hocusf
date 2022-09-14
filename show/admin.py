@@ -1,25 +1,12 @@
 from django.contrib import admin
-from .models import  Show, NomeLista
+from .models import Show, NomeLista
 
-
-# class ListandoBanners(admin.ModelAdmin):
-#     list_display = ('id', 'titulo', 'descricao', 'foto_banner', 'publicada','banner_preview')
-#     list_display_links = ('id', 'titulo',)
-#     list_editable = ('publicada',)
-#     readonly_fields = ('banner_preview',)
-#
-#     def banner_preview(self, obj):
-#         return obj.banner_preview
-#
-#     banner_preview.short_description = 'banner preview'
-#     banner_preview.allow_tags = True
-
-# admin.site.register(Banner, ListandoBanners)
 
 class ListandoShows(admin.ModelAdmin):
-    list_display = ('id', 'titulo_show', 'descricao_show', 'horario_do_show', 'data_do_show', 'publicada')
-    list_display_links = ('id', 'titulo_show',)
-    list_editable = ('horario_do_show','data_do_show', 'publicada',)
+    list_display = ('id', 'titulo_show', 'descricao_show', 'horario_do_show', 'data_do_show',
+                    'publicada', 'pix', 'carrocel')
+    list_display_links = ('id', 'titulo_show', )
+    list_editable = ('horario_do_show', 'data_do_show', 'publicada', 'pix', 'carrocel',)
 
     def banner_preview(self, obj):
         return obj.banner_preview
@@ -27,7 +14,9 @@ class ListandoShows(admin.ModelAdmin):
     banner_preview.short_description = 'banner_preview'
     banner_preview.allow_tags = True
 
+
 admin.site.register(Show, ListandoShows)
+
 
 class ListandoNomeLista(admin.ModelAdmin):
     list_display = ('id', 'roqueiro', 'sem_registro')
@@ -35,4 +24,3 @@ class ListandoNomeLista(admin.ModelAdmin):
 
 
 admin.site.register(NomeLista, ListandoNomeLista)
-

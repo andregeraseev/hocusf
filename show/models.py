@@ -15,7 +15,8 @@ class Show(models.Model):
     data_do_show = models.DateField(null=True)
     banner = models.ImageField(upload_to='static/banners', blank=True)
     publicada = models.BooleanField(default=False)
-
+    pix = models.BooleanField(default=False)
+    carrocel = models.BooleanField(default=False)
 
     def __str__(self):
         return self.titulo_show

@@ -10,47 +10,55 @@ from validate_docbr import CPF
 def home(request):
 
     pessoas= Usuario.objects.all()
-    show = Show.objects.filter(publicada=True)
-
+    show = Show.objects.filter(publicada=True, carrocel=True)
+    proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
     dados = {
              'shows': show,
-             'pessoa': pessoas
+             'pessoa': pessoas,
+             'proximos': proximos_eventos
     }
 
     return render(request, 'home.html', dados)
 
 
 def listaevento(request):
-    roqueiros = NomeLista.objects.all()
-    show = Show.objects.filter(publicada=True)
-    dados = {
-        'roqueiro': roqueiros,
-             'show': show,
-    }
-
-    return render(request, 'listaevento.html', dados)
-
-def lista(request, id=1):
-    # medodo para confimar pagamento e voltar para pagina atual
-    if request.method == 'POST':
-        id = request.POST['id']
-        show = request.POST['show']
-        cofirmapagamento = NomeLista.objects.filter(id=id)
-        cofirmapagamento.update(
-            pagamento=True)
-
-        print(show)
-        return redirect('lista/'+show)
-    # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
-    else:
-        pessoa = NomeLista.objects.filter(lista_reserva_id=id)
-        show = Show.objects.filter(id=id)
-
-        dados = {'pessoas': pessoa,
-                 'show': show
+    if request.user.is_staff:
+        roqueiros = NomeLista.objects.all()
+        show = Show.objects.filter(publicada=True)
+        dados = {
+            'roqueiro': roqueiros,
+                 'show': show,
         }
 
-        return render(request, 'lista.html', dados)
+        return render(request, 'listaevento.html', dados)
+    else:
+        return redirect('home')
+def lista(request, id=1):
+    # medodo para confimar pagamento e voltar para pagina atual
+    if request.user.is_staff:
+
+        if request.method == 'POST':
+            id = request.POST['id']
+            show = request.POST['show']
+            cofirmapagamento = NomeLista.objects.filter(id=id)
+            cofirmapagamento.update(
+                pagamento=True)
+
+            print(show)
+            return redirect('lista/'+show)
+        # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
+        else:
+            pessoa = NomeLista.objects.filter(lista_reserva_id=id)
+            show = Show.objects.filter(id=id)
+
+            dados = {'pessoas': pessoa,
+                     'show': show
+            }
+
+            return render(request, 'lista.html', dados)
+
+    else:
+        return redirect('home')
 
 def registronomelista(request, id):
 
