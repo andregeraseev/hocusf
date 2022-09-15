@@ -14,6 +14,12 @@ class ListandoShows(admin.ModelAdmin):
     banner_preview.short_description = 'banner_preview'
     banner_preview.allow_tags = True
 
+    def quadrado_preview(self, obj):
+        return obj.quadrado_preview
+
+    quadrado_preview.short_description = 'quadrado_preview'
+    quadrado_preview.allow_tags = True
+
 
 admin.site.register(Show, ListandoShows)
 

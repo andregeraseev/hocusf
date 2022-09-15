@@ -14,6 +14,7 @@ class Show(models.Model):
     horario_do_show = models.CharField(max_length=100, null=True)
     data_do_show = models.DateField(null=True)
     banner = models.ImageField(upload_to='static/banners', blank=True)
+    quadrado = models.ImageField(upload_to='static/banners', blank=True)
     publicada = models.BooleanField(default=False)
     pix = models.BooleanField(default=False)
     carrocel = models.BooleanField(default=False)
@@ -27,6 +28,12 @@ class Show(models.Model):
                 return mark_safe('<img src="{}" width="300" height="300" />'.format(self.foto_banner.url))
             return ""
 
+
+        @property
+        def quadrado_preview(self):
+            if self.quadrado:
+                return mark_safe('<img src="{}" width="300" height="300" />'.format(self.foto_quadrado.url))
+            return ""
 
 class NomeLista(models.Model):
     sem_registro = models.ForeignKey(UsuarioSemRegistro, on_delete=models.CASCADE, blank=True, null= True)
