@@ -19,6 +19,9 @@ from django.utils.encoding import force_bytes
 cpf = CPF()
 
 
+
+
+
 def cadastro(request):
     """Cadastra uma nova pessoa no sistema """
     if request.method == 'POST':

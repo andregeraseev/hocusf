@@ -7,6 +7,19 @@ from usuario.models import UsuarioSemRegistro
 from validate_docbr import CPF
 
 
+def index(request):
+    pessoas = Usuario.objects.all()
+    show = Show.objects.filter(publicada=True, carrocel=True)
+    proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
+    dados = {
+        'shows': show,
+        'pessoa': pessoas,
+        'proximos': proximos_eventos
+    }
+
+
+    return render(request, 'index.html', dados)
+
 def home(request):
 
     pessoas= Usuario.objects.all()
