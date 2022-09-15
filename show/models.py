@@ -22,18 +22,18 @@ class Show(models.Model):
     def __str__(self):
         return self.titulo_show
 
-        @property
-        def banner_preview(self):
-            if self.banner:
-                return mark_safe('<img src="{}" width="300" height="300" />'.format(self.foto_banner.url))
-            return ""
+    @property
+    def banner_preview(self):
+        if self.banner:
+            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.banner.url))
+        return ""
 
 
-        @property
-        def quadrado_preview(self):
-            if self.quadrado:
-                return mark_safe('<img src="{}" width="300" height="300" />'.format(self.foto_quadrado.url))
-            return ""
+        # @property
+        # def quadrado_preview(self):
+        #     if self.quadrado:
+        #         return mark_safe('<img src="{}" width="300" height="300" />'.format(self.foto_quadrado.url))
+        #     return ""
 
 class NomeLista(models.Model):
     sem_registro = models.ForeignKey(UsuarioSemRegistro, on_delete=models.CASCADE, blank=True, null= True)
