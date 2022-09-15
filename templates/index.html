@@ -144,15 +144,17 @@
 <div class="d-flex justify-content-center mt-3 pl-5" id="eventosdomes">
   <div class="card bg-dark float-right mr-5" style="width: 60rem;">
     <div class="card-body bg-dark">
+
       <h2 class="card-title text-center text-white ">Eventos do mes</h2>
-        <div class="d-flex justify-content-center mt-3 pl-5">
-          <div class="card bg-dark float-right mr-5" style="width: 60rem;">
+      {% for show in shows %}
+        <div class="container justify-content-center mt-3 pl-5">
+          <div class="card bg-dark float-right mr-5" style="width: 23rem;">
             <div class="card-body " style="background-color:#696969">
 
-            {% include 'partials/_carrocel4.html' %}
+            <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
             </div>
           </div>
-        </div>
+        </div>{% endfor %}
     </div>
   </div>
 </div>
