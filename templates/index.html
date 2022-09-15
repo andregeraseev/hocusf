@@ -121,7 +121,7 @@
     </div>
   </div>
 </nav>
-
+{% include 'partials/_alertas.html' %}
 
 
 <div class="d-flex justify-content-center mt-3 pl-5" id="eventosdasemana">
@@ -147,12 +147,12 @@
 
       <h2 class="card-title text-center text-white ">Eventos do mes</h2>
       {% for show in shows %}
-        <div class="container justify-content-center mt-3 pl-5">
-          <div class="card bg-dark float-right mr-5" style="width: 23rem;">
+
+          <div class="card bg-dark float-right mr-5" style="width: 23rem; border-radius: 50% ">
             <div class="card-body " style="background-color:#696969">
 
             <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
-            </div>
+
           </div>
         </div>{% endfor %}
     </div>

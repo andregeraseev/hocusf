@@ -31,7 +31,7 @@ def home(request):
              'proximos': proximos_eventos
     }
 
-    return render(request, 'home.html', dados)
+    return render(request, 'index.html', dados)
 
 
 def listaevento(request):
