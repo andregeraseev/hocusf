@@ -1,76 +1,60 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
 
 
-<body>
 
+<div class="container justify-content-center my-4 rounded" style="background-color:#2d2a2a">
+     <div class="row text-center text-white">
+         <div class="col my-3">
+            <h2>Adicione seu nome na lista</h2>
+         </div>
+     </div>
+     <div class="container rounded text-white" style="background-color:#1e1e1d">
 
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {% include 'partials/_alertas.html' %}
+                {% for shows in show %}
+                <img src="{{ shows.banner.url }}" class="my-2" style="max-width: 300px">
+                <h3>{{ shows.titulo_show  }}</h3> <h3>{{ shows.data_do_show }}</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="contact-form-area">
+                                <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12 col-lg-12">
+                                            <label class="my-2"  for="nome"><h2><b>Nome completo</b></h2></label>
+                                            <input type="text" class="form-control" name="nome" placeholder="Ex.:Andre Geraseev" required>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="my-2"  for="cpf"><h2><b>CPF</b></h2></label>
+                                            <input  type="text" class="form-control" name="cpf" placeholder="Digite seu CPF"  required>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="my-2" for="celular"><h2><b>Celular</b></h2></label>
+                                            <input type="text" class="form-control" name="celular" placeholder="Digite seu celular" required>
+                                        </div>
 
+                                            <input type="hidden" name="show" value={{ shows.id }} >
 
+                                        <div class="col-12 text-center">
+                                            <button class="btn btn-danger my-4" type="submit"> Nome na lista</button>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12 text-center">
-{% include 'partials/_alertas.html' %}
-{% for shows in show %}
-<img src="{{ shows.banner.url }}" style="max-width: 100px">
-            <p>{{ shows.titulo }} {{ shows.id }}</p>
-
-
-         <div class="container">
-              <div class="container">
-        <div class="row mx-md-n5">
-            <div class="col-12">
-                <div class="section-heading">
-                    <h2>Lista Show</h2>
-                </div>
-            </div>
-        </div >
-
-        <div class="row mx-md-n5">
-            <div class="col-12">
-                <div class="contact-form-area">
-                    <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-12 col-lg-12">
-                                <label for="nome"><b>Nome completo</b></label>
-                                <input type="text" class="form-control" name="nome" placeholder="Ex.:Andre Geraseev" required>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <label  for="cpf"><b>cpf</b></label>
-                                <input  type="text" class="form-control" name="cpf" placeholder="Digite seu CPF"  required>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <label for="celular"><b>celular</b></label>
-                                <input type="text" class="form-control" name="celular" placeholder="Digite seu celular" required>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <laber for="show"></laber><b>show</b></label>
-                                <input type="hidden" name="show" value={{ shows.id }} >
-                            </div>
-                            <div class="col-12 text-center">
-                                <button class="btn btn-danger mt-4" type="submit"> Nome na lista</button>
-
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+
+
+              </div>
         </div>
-    </div></div>
-
-            {% endfor %}
-
-            <p></p>
-
-
-        </div>
-    </div>
+     </div>
+    <br>
+    {% endfor %}
 </div>
 {% endblock %}
-</body>
-
-</html>

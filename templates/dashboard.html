@@ -1,55 +1,58 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
 <body>
 
-<div class="container  mt-3 ">
-<div class="row">
-    <div class="col-sm "></div>
-    <div class="col-sm text-center ">
-        <h2> Ola {{ user.username }} ! </h2>
-        <h4>Lista de shows:</h4>
-    </div>
-    <div class="col-sm ">
+<div class="container rounded   mt-2 " style="background-color:#2d2a2a">
+<div class="row text-center ">
+    <div class="col my-3">
+        <h3 class="text-white" > Ola {{ user.username }} ! </h3>
+        <h2 class="text-white" style="font-family: 'Chau Philomene One'">Lista de shows:</h2>
     </div>
 </div>
-    <div class="container ">
-{% for evento in eventos %}
 
-    <div class="row mb-3 ">
-    <div class="col-sm ">
-    </div>
-        <div class="col-sm text-center border ">
-<h3>{{ evento.lista_reserva.titulo_show }}</h3>
-{{ evento.lista_reserva.data_do_show }}<br>
-{{ evento.lista_reserva.horario_do_show }}<br>
-{% if evento.lista_reserva.pix %}
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
-  Comprovante de pagamento
-</button>
-{% else %}
-<div class = "mb-4"> </div>
-{% endif %}
+    <div class="container text-center" style="background-color:#1e1e1d">
+        <div class="row m-2" >
+        {% for evento in eventos %}
+
+        <div class="col-5 justify-content-center  m-4" style="background-image: url(static/tickt.png); background-repeat: no-repeat;
+            background-size: 100%;">
+            <div class="container">
+                <br class="d-none d-lg-block"><br>
+                <h3 class="text-dark" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.titulo_show }}</h3>
+                <div class=" mx-1">{{ evento.lista_reserva.data_do_show }}<br>
+                </div>
+                    {{ evento.lista_reserva.horario_do_show }}
+                    <br>
+                    {% if evento.lista_reserva.pix %}
+
+                    <!-- Button trigger modal -->
+                    <button type="button"  class="btn btn-danger m-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
+                        Comprovante de pagamento
+                    </button>
+
+                    {% else %}
+                    <div class = "mb-4"> </div>
+                    {% endif %}
+            </div>
+
+            <br>
         </div>
-        <div class="col-sm ">
+        {% endfor %}
     </div>
-    <br>
-    </div>
-{% endfor %}
 
-{% for evento in eventos %}
+    {% for evento in eventos %}
 
 
 
 
 <!-- Modal -->
-<div class="modal fade" id="botao{{ evento.lista_reserva.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true">
+<div class="modal fade " id="botao{{ evento.lista_reserva.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content text-center">
       <div class="modal-header">
-        <h5 class="modal-title" id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h5>
+        <h5 class="modal-title " id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -61,9 +64,9 @@
 {% if evento.pagamento %} <h6 >STATUS: PAGO</h6> {% else %}<h6> AGUARDANDO CONFIRMAÇÂO </h6>{% endif %}
 
 
-<div class="container ">
+<div class="container justify-content-center  ">
 
-        <div class="text center">
+        <div class="justify-content-center ">
           <!--Simple Form-->
           <h5 >Adicione um comprovante</h5><br>
           <form method="post" enctype="multipart/form-data">
@@ -80,7 +83,7 @@
           <h2 class="my-4">Comprovante</h2>
 
             {% if evento.comprovante %}
-            <div class="col-lg-4 col-md-6 col-sm-12 pb-4 ">
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
               <img src="{{ evento.comprovante.url }}" class="img-fluid">
               <br>
               <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
@@ -98,10 +101,12 @@
 
 
 
-
+</div>
+ <br>
 </div>
 
 {% endfor %}
+
 </div>
 {% endblock %}
 </body>
