@@ -19,26 +19,48 @@
         <div class="col-5 justify-content-center  m-4" style="background-image: url(static/tickt.png); background-repeat: no-repeat;
             background-size: 100%;">
             <div class="container">
-                <br class="d-none d-lg-block"><br>
-                <h3 class="text-dark" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.titulo_show }}</h3>
-                <div class=" mx-1">{{ evento.lista_reserva.data_do_show }}<br>
+                <div class="row">
+                    <div class="col-sm"> </div>
+                        <div class="col-8">
+                            <br class="d-none d-lg-block"><br>
+                            <h3 class="text-dark" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.titulo_show }}</h3>
+                            <div class=" mx-1">{{ evento.lista_reserva.data_do_show }}<br>
+                            </div>
+                                {{ evento.lista_reserva.horario_do_show }}
+                                <br class="d-none d-lg-block"><br class="d-none d-lg-block"><br class="d-none d-lg-block"><br class="d-none d-lg-block"><br>
+                            {% if evento.pagamento %}
+                            <div style='position:absolute; top:20px; left:20px;'>
+                                <img src= "{% static 'aprovado.png' %}" class="img-fluid "  style="float:rigth;width:200px" >
+                            </div>
+                            {% endif %}
+                        </div>
+                    <div class="col-sm"> </div>
                 </div>
-                    {{ evento.lista_reserva.horario_do_show }}
-                    <br>
+
+            </div>
+            <div class="justify-content-center">
+
                     {% if evento.lista_reserva.pix %}
+
+                    {% if evento.comprovante %}
+                    <!-- Button trigger modal -->
+                    <button type="button"  class="btn btn-danger m-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
+                        Confira seu comprovante
+                    </button>
+                    {% else %}
 
                     <!-- Button trigger modal -->
                     <button type="button"  class="btn btn-danger m-4" data-toggle="modal" data-target="#botao{{ evento.lista_reserva.id }}">
-                        Comprovante de pagamento
+                        Pague com Pix
                     </button>
-
-                    {% else %}
-                    <div class = "mb-4"> </div>
+                    {% endif %}
                     {% endif %}
             </div>
 
-            <br>
-        </div>
+       </div>
+
+
+
         {% endfor %}
     </div>
 
