@@ -1,0 +1,21 @@
+
+
+<div class="d-flex justify-content-center mt-3 pl-5" id="eventosdomes">
+  <div class="card float-right mr-5" style="width: 60rem;background-color:#2d2a2a">
+    <div class="card-body " style="background-color:#2d2a2a">
+
+      <h2 class="card-title text-center text-white " style="font-family: 'Chau Philomene One'">Eventos do mes</h2>
+      <div class="row justify-content-center ">
+
+      {% for show in shows %}
+        <div class="col-4>">
+
+            <div class="card-body rounded m-1" style="width: 18rem; background-color:#1e1e1d">
+              <img   src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide">
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
