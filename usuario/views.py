@@ -92,17 +92,27 @@ def login(request):
         email = request.POST['email']
         senha = request.POST['senha']
         if campo_vazio(email) or campo_vazio(senha):
-            messages.error(request, 'Os campos email e senha não podem ficar em branco')
-            return redirect('login')
+            messages.warning(request, 'Os campos email e senha não podem ficar em branco')
+            return redirect('home')
         print(email, senha)
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
+
+
             if user is not None:
                 auth.login(request, user)
                 print('Login realizado com sucesso')
                 return redirect('home')
-    return render(request, 'login.html')
+
+            else:
+                messages.warning(request, 'Verifique sua senha')
+                return redirect('home')
+
+        else:
+            messages.warning(request, 'Seu email ou sua senha estão incorretos')
+            return redirect('home')
+    return redirect('index')
 
 
 def logout(request):
