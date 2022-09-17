@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -13,12 +13,12 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
 {% for nome_na_lista in show %}
-<div class="container mt-4">
+<div class="container bg-white rounded mt-4">
 <div class="row header" style="text-align:center;color:black">
-<div class="col-md-4 text-left"> <button id="export" class="btn btn-primary">Export</button> </div>
+<div class="col-md-4 text-left m-2"> <button id="export" class="btn btn-primary">Excel</button> </div>
 
 
-<h1 class="col-md-4 text-center">{{ nome_na_lista.titulo_show }}</h1>
+<h1 class="col-md-4 text-center " style="font-family: 'Chau Philomene One'">{{ nome_na_lista.titulo_show }}</h1>
     {{ nome_na_lista.roqueiro.cpf }}
 
 </div>
@@ -43,12 +43,12 @@
                                         {% if area.pagamento %}
                                         <td><label class="badge badge-success">PAGO</label></td>
                                         {% else %}
-                                        <td><label class="badge badge-danger">SEM PAGAMENTO</label></td>
+                                        <td><label class="badge badge-danger">PENDENTE</label></td>
                                         {% endif %}
                                         {% if area.comprovante %}
-                                        <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"> comprovante </button>  </a></td>
+                                        <td><a href="{% url 'comprovante' %}/{{ area.id }}"> <button class="btn btn-primary"> Comprovante </button>  </a></td>
                                         {% else %}
-                                        <td> <label class="badge badge-danger"  > sem comprovante </label></td>
+                                        <td> <label class="badge badge-danger"  > S/Comprov. </label></td>
                                         {% endif %}
                                         <form action="{% url 'lista' %}" method="POST" >
                                          {% csrf_token %}
