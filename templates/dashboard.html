@@ -42,9 +42,13 @@
                                 class="d-none d-md-block d-lg-none "><br class="d-none d-md-block d-lg-none "><br
                                 class="d-none d-md-block d-lg-none "><br><br><br>
                             {% if evento.pagamento %}
-                            <div style='position:absolute; top:100px; left:60px;'>
+                            <div class="d-none d-lg-block" style='position:absolute; top:100px; left:60px;'>
                                 <img src="{% static 'ico_pag.png' %}" class="img-fluid "
                                      style="float:rigth;width:100px">
+                            </div>
+                            <div class="d-none d-sm-block d-lg-none" style='position:absolute; top:100px; left:60px;'>
+                                <img src="{% static 'ico_pag.png' %}" class="img-fluid "
+                                     style="float:rigth;width:150px">
                             </div>
                             {% endif %}
                         </div>
@@ -52,7 +56,7 @@
                     </div>
 
                 </div>
-                <div class="justify-content-center">
+                <div class="d-flex justify-content-center">
 
                     {% if evento.lista_reserva.pix %}
 
