@@ -5,13 +5,19 @@ from django.contrib import messages
 from django.db import IntegrityError
 from usuario.models import UsuarioSemRegistro
 from validate_docbr import CPF
-
-
+from datetime import datetime
+from django.utils import timezone
 def index(request):
+
+
+    data_hora = datetime.now()
+    mes = data_hora.strftime('%m')
+    showmes = Show.objects.filter(data_do_show__month=mes, publicada=True, carrocel=True)
     pessoas = Usuario.objects.all()
     show = Show.objects.filter(publicada=True, carrocel=True)
     proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
     dados = {
+        'showdomes' : showmes,
         'shows': show,
         'pessoa': pessoas,
         'proximos': proximos_eventos
@@ -22,10 +28,17 @@ def index(request):
 
 def home(request):
 
+    data_hora = datetime.now()
+    mes = data_hora.strftime('%m')
+    showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
+    semana = data_hora.strftime('%V')
+    showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
     pessoas= Usuario.objects.all()
     show = Show.objects.filter(publicada=True, carrocel=True)
     proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
     dados = {
+             'showdasemana': showsemana,
+             'showdomes': showmes,
              'shows': show,
              'pessoa': pessoas,
              'proximos': proximos_eventos
