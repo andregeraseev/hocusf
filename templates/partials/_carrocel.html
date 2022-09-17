@@ -1,8 +1,12 @@
 <!------ Carousel ---------->
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
 
 <!-- CSS carrocel -->
 <style>
@@ -137,6 +141,7 @@
         visibility: visible;
     }
 }
+
 </style>
 <!--CSS-->
 
@@ -150,60 +155,64 @@
                         {% if forloop.first %}
                         <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
                             <img src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="img1">
-                             <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show.descricao_show }}</p>
-      {% if user.is_authenticated %}
+                            <h5 class="card-title">{{ banner.titulo }}</h5>
+                            <p class="card-text">{{ banner.show.descricao_show }}</p>
+                            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
+                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                                {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+                                <input type="hidden" name="nome" value={{ user.username }}>
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
+                                <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }}>
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+                                <input type="hidden" name="celular" value={{ request.user.usuario.celular }}>
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
+                                <input type="hidden" name="show" value={{ banner.show_id }}>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
+                                </div>
+                            </form>
+                            {% else %}
 
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
-            </div>
+                            <div class="col-12 text-center">
+                                <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} ">
+                                    <button class="btn btn-danger mt-4"> Nome na lista sr</button>
+                                </a>
+                            </div>
 
-        {% endif %}
+                            {% endif %}
                         </div>
                         {% else %}
                         <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="img2">
-                             <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show.descricao_show }}</p>
-      {% if user.is_authenticated %}
+                            <h5 class="card-title">{{ banner.titulo }}</h5>
+                            <p class="card-text">{{ banner.show.descricao_show }}</p>
+                            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
+                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                                {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+                                <input type="hidden" name="nome" value={{ user.username }}>
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
+                                <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }}>
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+                                <input type="hidden" name="celular" value={{ request.user.usuario.celular }}>
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
+                                <input type="hidden" name="show" value={{ banner.show_id }}>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
+                                </div>
+                            </form>
+                            {% else %}
 
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
-            </div>
+                            <div class="col-12 text-center">
+                                <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} ">
+                                    <button class="btn btn-danger mt-4"> Nome na lista sr</button>
+                                </a>
+                            </div>
 
-        {% endif %}
+                            {% endif %}
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -211,31 +220,33 @@
                         {% for banner in banners %}
                         <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="img2">
-                             <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show.descricao_show }}</p>
-      {% if user.is_authenticated %}
+                            <h5 class="card-title">{{ banner.titulo }}</h5>
+                            <p class="card-text">{{ banner.show.descricao_show }}</p>
+                            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
+                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                                {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+                                <input type="hidden" name="nome" value={{ user.username }}>
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
+                                <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }}>
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+                                <input type="hidden" name="celular" value={{ request.user.usuario.celular }}>
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
+                                <input type="hidden" name="show" value={{ banner.show_id }}>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
+                                </div>
+                            </form>
+                            {% else %}
 
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class=" align-self-end btn btn-danger mt-4 "  > Nome na lista sr</button>  </a>
-            </div>
+                            <div class="col-12 text-center">
+                                <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} ">
+                                    <button class=" align-self-end btn btn-danger mt-4 "> Nome na lista sr</button>
+                                </a>
+                            </div>
 
-        {% endif %}
+                            {% endif %}
                         </div>
                         {% endfor %}
                         {% endif %}
@@ -244,31 +255,33 @@
 
                         <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="img2">
-                             <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show.descricao_show }}</p>
-      {% if user.is_authenticated %}
+                            <h5 class="card-title">{{ banner.titulo }}</h5>
+                            <p class="card-text">{{ banner.show.descricao_show }}</p>
+                            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
+                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                                {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+                                <input type="hidden" name="nome" value={{ user.username }}>
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
+                                <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }}>
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+                                <input type="hidden" name="celular" value={{ request.user.usuario.celular }}>
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center ">
-                    <button class="btn btn-danger mt-4 " type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
+                                <input type="hidden" name="show" value={{ banner.show_id }}>
+                                <div class="col-12 text-center ">
+                                    <button class="btn btn-danger mt-4 " type="submit"> Nome na lista cr</button>
+                                </div>
+                            </form>
+                            {% else %}
 
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
-            </div>
+                            <div class="col-12 text-center">
+                                <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} ">
+                                    <button class="btn btn-danger mt-4"> Nome na lista sr</button>
+                                </a>
+                            </div>
 
-        {% endif %}
+                            {% endif %}
                         </div>
                         {% endfor %}
                         {% endif %}
@@ -276,31 +289,33 @@
                         {% for banner in banners %}
                         <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ banner.foto_banner.url }}" class="img-fluid mx-auto d-block" alt="img2">
-                             <h5 class="card-title">{{ banner.titulo }}</h5>
-    <p class="card-text">{{ banner.show.descricao_show }}</p>
-      {% if user.is_authenticated %}
+                            <h5 class="card-title">{{ banner.titulo }}</h5>
+                            <p class="card-text">{{ banner.show.descricao_show }}</p>
+                            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista' %}" method="POST" >
-                {% csrf_token %}
+                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                                {% csrf_token %}
 
-            <input type="hidden" name="nome" value={{ user.username }} >
+                                <input type="hidden" name="nome" value={{ user.username }}>
 
-            <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }} >
+                                <input type="hidden" name="cpf" value={{ request.user.usuario.cpf }}>
 
-            <input type="hidden" name="celular" value={{ request.user.usuario.celular }} >
+                                <input type="hidden" name="celular" value={{ request.user.usuario.celular }}>
 
-            <input type="hidden" name="show" value={{ banner.show_id }} >
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
-                </div>
-            </form>
-            {% else %}
+                                <input type="hidden" name="show" value={{ banner.show_id }}>
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-danger mt-4" type="submit"> Nome na lista cr</button>
+                                </div>
+                            </form>
+                            {% else %}
 
-            <div class="col-12 text-center">
-            <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} "> <button class="btn btn-danger mt-4"  > Nome na lista sr</button>  </a>
-            </div>
+                            <div class="col-12 text-center">
+                                <a href="http://127.0.0.1:8000/registronomelista/{{ banner.show_id }} ">
+                                    <button class="btn btn-danger mt-4"> Nome na lista sr</button>
+                                </a>
+                            </div>
 
-        {% endif %}
+                            {% endif %}
                         </div>
 
                         {% endfor %}
@@ -346,4 +361,5 @@ $('#carousel-mes').on('slide.bs.carousel', function (e) {
         }
     }
 });
+
 </script>

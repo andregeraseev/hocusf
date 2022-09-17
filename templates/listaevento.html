@@ -1,12 +1,7 @@
-
-
-{% extends 'base2.html' %}
+{% extends 'base3.html' %}
 {% load static %}
 
 {% block content %}
-
-
-
 
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
@@ -25,40 +20,40 @@
             <div class="row header" style="text-align:center;color:black">
 
 
-<table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>Show</th>
-                <th>Data</th>
-                <th>Dia da semana</th>
-                <th>Nomes na lista</th>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Show</th>
+                        <th>Data</th>
+                        <th>Dia da semana</th>
+                        <th>Nomes na lista</th>
 
 
-            </tr>
-        </thead>
-        <tbody>
-            {% for shows in show %}
-                                    <tr>
-                                        <td> <a href="{% url 'lista' %}/{{ shows.id }} " > {{ shows.titulo_show }} </a> </td>
-                                        <td>{{ shows.data_do_show|date:"SHORT_DATE_FORMAT" }}</td>
-                                        <td>{{ shows.data_do_show|date:"l" }}</td>
-                                        <td>{{ shows.nomelista_set.all|length }} </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for shows in show %}
+                    <tr>
+                        <td><a href="{% url 'lista' %}/{{ shows.id }} "> {{ shows.titulo_show }} </a></td>
+                        <td>{{ shows.data_do_show|date:"SHORT_DATE_FORMAT" }}</td>
+                        <td>{{ shows.data_do_show|date:"l" }}</td>
+                        <td>{{ shows.nomelista_set.all|length }}</td>
 
-                                    </tr>
-            {% endfor %}
+                    </tr>
+                    {% endfor %}
 
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Show</th>
-                <th>Data</th>
-                <th>Dia da semana</th>
-                <th>Nomes na lista</th>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Show</th>
+                        <th>Data</th>
+                        <th>Dia da semana</th>
+                        <th>Nomes na lista</th>
 
-            </tr>
-        </tfoot>
-    </table>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
 
         </div>
@@ -66,8 +61,6 @@
     </div>
 </div>
 <script src="{% static 'javascript/tabela_listaevento.js' %}"></script>
-
-
 
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base3.html' %}
 {% load static %}
 
 {% block content %}
@@ -7,10 +7,9 @@
 {% for comprovante in show %}
 
 
-
 <div class="container text-center mt-5">
     {% if comprovante.comprovante %}
-    <img src="{{comprovante.comprovante.url}}" width="300"  />
+    <img src="{{comprovante.comprovante.url}}" width="300"/>
     {% else %}
     <h2>Comprovante nao adicionado</h2>
     {% endif %}
@@ -18,7 +17,7 @@
         {{comprovante}}
 
 
-    <label class="badge badge-success">{{ comprovante.pagamento }}</label>
+        <label class="badge badge-success">{{ comprovante.pagamento }}</label>
     </div>
 </div>
 {% endfor %}

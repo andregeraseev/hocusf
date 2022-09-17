@@ -18,16 +18,21 @@
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12 col-lg-12">
-                            <label for="email"><b>Email</b></label>
-                                <input type="text" id="email" class="form-control" name="email" placeholder="Entre com o email cadastrado">
+                                <label for="email"><b>Email</b></label>
+                                <input type="text" id="email" class="form-control" name="email"
+                                       placeholder="Entre com o email cadastrado">
                             </div>
-                                <div class="col-12 col-lg-12">
+                            <div class="col-12 col-lg-12">
                                 <label for="senha"><b>Senha</b></label>
-                                <input id="senha" type="password" class="form-control" name="senha" placeholder="Digite aqui sua senha">
+                                <input id="senha" type="password" class="form-control" name="senha"
+                                       placeholder="Digite aqui sua senha">
                             </div>
                             <div class="col-12 text-center">
                                 <button class="btn btn-success mt-3" type="submit">Acessar sua conta</button>
-                                <button type="button" class="btn btn-primary mt-3" onclick="exibirCriarConta()">Ainda não tem conta? Clique aqui</button><br>
+                                <button type="button" class="btn btn-primary mt-3" onclick="exibirCriarConta()">Ainda
+                                    não tem conta? Clique aqui
+                                </button>
+                                <br>
                                 <a href="{% url 'password_reset' %}"> Esqueceu sua senha? Clique aqui</a>
 
                             </div>
@@ -44,5 +49,6 @@ function exibirCriarConta()
 {
      location.href = "{% url 'cadastro' %}";
 }
+
 </script>
 {% endblock %}

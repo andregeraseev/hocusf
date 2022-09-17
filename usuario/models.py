@@ -10,6 +10,7 @@ class Usuario(models.Model):
     def __str__(self):
         return str(self.usuario)
 
+
 class UsuarioSemRegistro(models.Model):
     usuario_sem_registro = models.CharField(max_length=50)
     cpf_sem_registro = models.CharField(max_length=11)

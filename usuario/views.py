@@ -1,4 +1,3 @@
-
 from django.contrib import messages, auth
 from .models import Usuario
 
@@ -17,9 +16,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 
 cpf = CPF()
-
-
-
 
 
 def cadastro(request):
@@ -78,6 +74,8 @@ def cadastro(request):
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
+
+            # Login pos cadastro
             if user is not None:
                 auth.login(request, user)
 
@@ -99,12 +97,11 @@ def login(request):
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
 
-
             if user is not None:
                 auth.login(request, user)
                 print('Login realizado com sucesso')
                 return redirect('home')
-
+            # erro senha errada
             else:
                 messages.warning(request, 'Verifique sua senha')
                 return redirect('home')
@@ -134,8 +131,6 @@ def dashboard(request):
 
         if request.user.is_authenticated:
             usuario = request.user.usuario.id
-            # cpf = request.user.usuario.cpf
-            # # nome = NomeLista.objects.filter(cpf=cpf)
             show = NomeLista.objects.filter(roqueiro_id=usuario)
 
             dados = {
@@ -149,11 +144,10 @@ def dashboard(request):
 
         if request.user.is_authenticated:
             usuario = request.user.usuario.id
-            # cpf = request.user.usuario.cpf
-            # # nome = Usuario.objects.filter(cpf=cpf)
+
             print(usuario)
             show = NomeLista.objects.filter(roqueiro_id=usuario)
-            # 'nome': nome,
+
             dados = {
                 'eventos': show
             }

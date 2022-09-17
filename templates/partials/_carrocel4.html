@@ -1,27 +1,21 @@
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
+    <div class="carousel-inner row w-100 mx-auto mt-3">
+        {% for show in showdasemana %}
+        {% if forloop.first %}
 
+        <div class="carousel-item active col-12 ">
 
+            <img src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
+            <h1 class=" text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
+            {% if user.is_authenticated %}
 
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-
-
-
-
-          <div class="carousel-inner row w-100 mx-auto mt-3">
-          {% for show in showdasemana %}
-          {% if forloop.first %}
-
-              <div class="carousel-item active col-12 ">
-                <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
-              <h1 class=" text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
-      {% if user.is_authenticated %}
-
-            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST" >
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
                 {% csrf_token %}
 
-            <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }} >
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
 
-            <input type="hidden" name="show" value={{ show.id }} >
+                <input type="hidden" name="show" value={{ show.id }}>
                 <div class="col-12 text-center">
                     <button class="btn btn-danger mt-4" type="submit"> Enviar nome na lista</button>
                 </div>
@@ -29,27 +23,28 @@
             {% else %}
 
             <div class="col-12 text-center">
-            <a href="/registronomelista/{{ show.id }} "> <button class="btn btn-danger mt-4"  > Enviar nome na lista</button>  </a>
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
             </div>
 
-        {% endif %}
-                        </div>
+            {% endif %}
+        </div>
 
-              {% else %}
-              <div class="carousel-item col-12 ">
-                <img  src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
-                <h1 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
-      {% if user.is_authenticated %}
+        {% else %}
+        <div class="carousel-item col-12 ">
+            <img src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
+            <h1 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
+            {% if user.is_authenticated %}
 
-            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST" >
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
                 {% csrf_token %}
 
 
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
 
-            <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }} >
 
-
-            <input type="hidden" name="show" value={{ show.id }} >
+                <input type="hidden" name="show" value={{ show.id }}>
                 <div class="col-12 text-center">
                     <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
                 </div>
@@ -57,22 +52,25 @@
             {% else %}
 
             <div class="col-12 text-center">
-            <a href="/registronomelista/{{ show.id }} "> <button class="btn btn-danger mt-4"  > Enviar nome na lista</button>  </a>
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
             </div>
 
+            {% endif %}
+        </div>
         {% endif %}
-              </div>
-              {% endif %}
-              {% endfor %}
-            </div>
+        {% endfor %}
+    </div>
 
-   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-         </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
 
