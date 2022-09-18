@@ -67,10 +67,13 @@ def lista(request, id=1):
             id = request.POST['id']
             show = request.POST['show']
             cofirmapagamento = NomeLista.objects.filter(id=id)
+
+
+
             cofirmapagamento.update(
                 pagamento=True)
 
-            print(show)
+
             return redirect('lista/'+show)
         # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
         else:

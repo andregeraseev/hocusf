@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.html import mark_safe
 from usuario.models import Usuario, UsuarioSemRegistro
+from datetime import datetime
 
 
 # Model para adicionar usuario na lista de entrada e pagamento, podendo adicionar comprovante
@@ -46,7 +47,7 @@ class NomeLista(models.Model):
     sem_registro = models.ForeignKey(UsuarioSemRegistro, on_delete=models.CASCADE, blank=True, null= True)
     roqueiro = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null= True)
     pagamento = models.BooleanField(default=False)
-    comprovante = models.ImageField(upload_to='static/comprovantes', blank=True)
+    comprovante = models.ImageField(upload_to='comprovantes/%d/%m/%Y', blank=True)
     lista_reserva = models.ForeignKey(Show, on_delete=models.CASCADE, blank=True, null= True,)
 
     class Meta:

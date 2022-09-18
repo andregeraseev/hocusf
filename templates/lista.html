@@ -37,8 +37,8 @@
         <tbody>
         {% for area in pessoas.all %}
         <tr>
-            <td> {% if area.roqueiro == None %} {{ area.sem_registro.usuario_sem_registro }} {% else %} {{
-                area.roqueiro.usuario }} {% endif %}
+            <td> {% if area.roqueiro == None %} {{ area.sem_registro.usuario_sem_registro }} {% else %}
+                {{ area.roqueiro.usuario }} {% endif %}
             </td>
             <td>{{ area.roqueiro.cpf }} {{ area.sem_registro.cpf_sem_registro }}</td>
             <td>{{ area.roqueiro.celular }} {{ area.sem_registro.celular_sem_registro }}</td>
@@ -59,7 +59,11 @@
                 <input type="hidden" name="id" value={{ area.id }}>
                 <input type="hidden" name="show" value={{ nome_na_lista.id }}>
                 <td>
-                    <button class="btn btn-danger" type="submit"> confima</button>
+                    {% if area.pagamento %}
+                    <button class="btn btn-danger" type="submit"> PAGO</button>
+                    {% else %}
+                    <button class="btn btn-success" type="submit"> confima</button>
+                    {% endif %}
                 </td>
             </form>
         </tr>

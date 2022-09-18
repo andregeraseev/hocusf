@@ -1,6 +1,6 @@
 from django.contrib import messages, auth
 from .models import Usuario
-
+from django.core.exceptions import ValidationError
 from show.models import NomeLista
 from django.core.files.storage import FileSystemStorage
 from validate_docbr import CPF
@@ -155,6 +155,14 @@ def dashboard(request):
         else:
             return redirect('home')
 
+
+# def validate_file_size(value):
+#     filesize = value.size
+#
+#     if filesize > 10485760:
+#         raise ValidationError("You cannot upload file more than 10Mb")
+#     else:
+#         return value
 
 def password_reset_request(request):
     #  reset do password por email
