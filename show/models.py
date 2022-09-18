@@ -15,6 +15,8 @@ class Show(models.Model):
     data_do_show = models.DateField(null=True)
     banner = models.ImageField(upload_to='static/banners', blank=True)
     quadrado = models.ImageField(upload_to='static/banners', blank=True)
+    ticket = models.ImageField(upload_to='static/ticket', blank=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null= True )
     publicada = models.BooleanField(default=False)
     pix = models.BooleanField(default=False)
     carrocel = models.BooleanField(default=False)
@@ -32,6 +34,12 @@ class Show(models.Model):
     def quadrado_preview(self):
         if self.quadrado:
             return mark_safe('<img src="{}" width="300" height="300" />'.format(self.quadrado.url))
+        return ""
+
+    @property
+    def ticket_preview(self):
+        if self.ticket:
+            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.ticket.url))
         return ""
 
 class NomeLista(models.Model):

@@ -4,10 +4,10 @@ from .models import Show, NomeLista
 
 class ListandoShows(admin.ModelAdmin):
     list_display = ('id', 'titulo_show', 'descricao_show', 'horario_do_show', 'data_do_show',
-                    'publicada', 'pix', 'carrocel')
+                    'publicada', 'pix', 'carrocel', 'valor')
     list_display_links = ('id', 'titulo_show', )
-    list_editable = ('horario_do_show', 'data_do_show', 'publicada', 'pix', 'carrocel',)
-    readonly_fields = ('banner_preview', 'quadrado_preview')
+    list_editable = ('horario_do_show', 'data_do_show', 'publicada', 'pix', 'carrocel', 'valor',)
+    readonly_fields = ('banner_preview', 'quadrado_preview', 'ticket_preview',)
     def banner_preview(self, obj):
         return obj.banner_preview
 
@@ -19,6 +19,14 @@ class ListandoShows(admin.ModelAdmin):
 
     quadrado_preview.short_description = 'quadrado_preview'
     quadrado_preview.allow_tags = True
+
+    def ticket_preview(self, obj):
+        return obj.ticket_preview
+
+    ticket_preview.short_description = 'ticket_preview'
+    ticket_preview.allow_tags = True
+
+
 
 
 admin.site.register(Show, ListandoShows)
