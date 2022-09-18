@@ -133,7 +133,7 @@
                             <div class="justify-content-center ">
                                 <!--Simple Form-->
                                 <h5>Adicione um comprovante</h5><br>
-                                <form method="post" enctype="multipart/form-data">
+                                <form action="{% url 'upload_comprovante' %}" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <input type="hidden" name="id" value="{{ evento.id }}">
                                     <input type="file" name="imagem" accept="image/*">

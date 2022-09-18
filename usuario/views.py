@@ -109,7 +109,7 @@ def login(request):
         else:
             messages.warning(request, 'Seu email ou sua senha estão incorretos')
             return redirect('home')
-    return redirect('index')
+    return redirect('home')
 
 
 def logout(request):
@@ -117,52 +117,54 @@ def logout(request):
     return redirect('home')
 
 
+def upload_comprovante(request):
+    # """ area para adicionar comprovante"""
+    if request.method == 'POST':
+
+        if not 'imagem' in request.FILES:
+            messages.warning(request, "Você precisa anexar um comprovante")
+            return redirect("dashboard")
+
+        else:
+            imagem = request.FILES['imagem']
+            id = request.POST['id']
+            imagemsize = imagem.size
+
+            if imagemsize > 5485760:
+                messages.warning(request, "Você nao pode enviar uma imagem maior que 5Mb")
+                return redirect("dashboard")
+            else:
+                fss = FileSystemStorage()
+                fss.save(imagem.name, imagem)
+                recibo = NomeLista.objects.filter(id=id)
+                recibo.update(comprovante=imagem)
+                return redirect("dashboard")
+
+
 def dashboard(request):
     # """mostrando shows com nome na lista e adiconando comprovante"""
-    # """abaixo area para adicionar comprovante"""
-    if request.method == 'POST' and request.FILES['imagem']:
 
-        id = request.POST['id']
-        imagem = request.FILES['imagem']
-        fss = FileSystemStorage()
-        fss.save(imagem.name, imagem)
-        recibo = NomeLista.objects.filter(id=id)
-        recibo.update(comprovante=imagem)
+    if request.user.is_authenticated:
+        usuario = request.user.usuario.id
 
-        if request.user.is_authenticated:
-            usuario = request.user.usuario.id
-            show = NomeLista.objects.filter(roqueiro_id=usuario)
+        print(usuario)
+        show = NomeLista.objects.filter(roqueiro_id=usuario)
 
-            dados = {
-
-                'eventos': show
-            }
-
+        dados = {
+            'eventos': show
+        }
         return render(request, 'dashboard.html', dados)
-    # """reder da pagina com filtro de comprovantes por id"""
     else:
-
-        if request.user.is_authenticated:
-            usuario = request.user.usuario.id
-
-            print(usuario)
-            show = NomeLista.objects.filter(roqueiro_id=usuario)
-
-            dados = {
-                'eventos': show
-            }
-            return render(request, 'dashboard.html', dados)
-        else:
-            return redirect('home')
+        return redirect('home')
 
 
-# def validate_file_size(value):
-#     filesize = value.size
-#
-#     if filesize > 10485760:
-#         raise ValidationError("You cannot upload file more than 10Mb")
-#     else:
-#         return value
+def validate_file_size(value):
+    filesize = value.size
+
+    if filesize > 10485760:
+        raise ValidationError("Você nao pode enviar uma imagem maior que 5Mb")
+    else:
+        return value
 
 def password_reset_request(request):
     #  reset do password por email

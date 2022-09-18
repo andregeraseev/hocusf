@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from usuario.views import cadastro, login, logout, dashboard,password_reset_request
+from usuario.views import cadastro, login, logout, dashboard,password_reset_request, upload_comprovante
 from show.views import home, lista, listaevento,registronomelista,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, index
 from django.contrib.auth import views as auth_views
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('comprovante', comprovante, name='comprovante'),
     path('comprovante/<int:id>', comprovante, name='comprovante'),
     path('dashboard', dashboard, name='dashboard'),
+    path('upload_comprovante', upload_comprovante, name='upload_comprovante'),
     path('index', index, name='index'),
     path("password_reset", password_reset_request, name="password_reset"),
     # path('accounts/', include('django.contrib.auth.urls'))
