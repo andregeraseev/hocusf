@@ -32,28 +32,28 @@ def cadastro(request):
             messages.error(request, 'O campo nome não pode ficar em branco')
             return redirect('cadastro')
         if not validacpf(cpf):
-            messages.error(request, 'CPF invalido')
+            messages.error(request, 'CPF invalido', "danger")
             return redirect('cadastro')
         if campo_vazio(email):
-            messages.error(request, 'O campo email não pode ficar em branco')
+            messages.error(request, 'O campo email não pode ficar em branco', "danger")
             return redirect('cadastro')
         if campo_vazio(cpf):
-            messages.error(request, 'O campo CPF não pode ficar em branco')
+            messages.error(request, 'O campo CPF não pode ficar em branco', "danger")
             return redirect('cadastro')
         if campo_vazio(celular):
-            messages.error(request, 'O campo celular não pode ficar em branco')
+            messages.error(request, 'O campo celular não pode ficar em branco', "danger")
             return redirect('cadastro')
         if senhas_nao_sao_iguais(senha, senha2):
-            messages.error(request, 'As senhas não são iguais')
+            messages.error(request, 'As senhas não são iguais', "danger")
             return redirect('cadastro')
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Usuário já cadastrado')
+            messages.error(request, 'Usuário já cadastrado', "danger")
             return redirect('cadastro')
         if Usuario.objects.filter(cpf=cpf).exists():
-            messages.error(request, 'CPF ja cadastrado')
+            messages.error(request, 'CPF ja cadastrado', "danger")
             return redirect('cadastro')
         if User.objects.filter(username=nome).exists():
-            messages.error(request, 'Usuário já cadastrado')
+            messages.error(request, 'Usuário já cadastrado', "danger")
             return redirect('cadastro')
         user = User.objects.create_user(
             username=nome,
@@ -122,7 +122,7 @@ def upload_comprovante(request):
     if request.method == 'POST':
 
         if not 'imagem' in request.FILES:
-            messages.warning(request, "Você precisa anexar um comprovante")
+            messages.error(request, "Você precisa anexar um comprovante", "danger")
             return redirect("dashboard")
 
         else:
@@ -138,6 +138,7 @@ def upload_comprovante(request):
                 fss.save(imagem.name, imagem)
                 recibo = NomeLista.objects.filter(id=id)
                 recibo.update(comprovante=imagem)
+                messages.success(request, "Comprovante Adicionado com sucesso")
                 return redirect("dashboard")
 
 
