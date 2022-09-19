@@ -5,8 +5,9 @@ from django.conf.urls.static import static
 from usuario.views import cadastro, login, logout, dashboard,password_reset_request, upload_comprovante
 from show.views import home, lista, listaevento,registronomelista,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, index
 from django.contrib.auth import views as auth_views
-
-
+admin.site.site_title = 'HOCUS'
+admin.site.site_header = 'HOCUS POCUS ADMIN'
+admin.site.index_title = 'Administração Shows'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
