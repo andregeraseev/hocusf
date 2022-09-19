@@ -14,7 +14,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-
+from show.form import NomeListaForm
 cpf = CPF()
 
 
@@ -134,11 +134,27 @@ def upload_comprovante(request):
                 messages.warning(request, "Você nao pode enviar uma imagem maior que 5Mb")
                 return redirect("dashboard")
             else:
-                fss = FileSystemStorage()
-                fss.save(imagem.name, imagem)
+
+                # form = NomeListaForm(request.POST, request.FILES)
+                # if form.is_valid():
+                #    form.save()
+                #    print("FORMULARIO VALIDO")
+                #    recibo = NomeLista.objects.filter(id=id)
+                #    recibo.update(comprovante=imagem)
+                #    messages.success(request, "Comprovante Adicionado com sucesso")
+                #    return redirect("dashboard")
+
+
+
+
+                fss = FileSystemStorage(location="media/comprovantes",
+                                        base_url="comprovantes")
+                filename = fss.save(imagem.name, imagem)
+                uploaded_file_url = fss.url(filename)
                 recibo = NomeLista.objects.filter(id=id)
-                recibo.update(comprovante=imagem)
+                recibo.update(comprovante=uploaded_file_url)
                 messages.success(request, "Comprovante Adicionado com sucesso")
+                print(uploaded_file_url)
                 return redirect("dashboard")
 
 

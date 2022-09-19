@@ -17,18 +17,19 @@
             {% for evento in eventos %}
 <!--            IMAGEM DO INGRESSO-->
             <div class="col-lg-5 col-sm-11  w-100 m-4 " style="background-image:
-             url(static/tickt.png); background-repeat: no-repeat;background-size: 100%;">
+             url(static/ticket.png); background-repeat: no-repeat;background-size: 100%;">
 <!--      FIM IMAGEM DO INGRESSO-->
                 <div class="container ">
-                    <br class="d-none d-md-block d-lg-none">
+                    <br class="d-none d-md-block d-lg-none ">
                     <div class="row">
 
-                        <div class=" col-sm-2 d-none d-md-block d-lg-none "></div>
+                        <div class=" col-sm-2 d-none d-md-block d-lg-none"></div>
 <!--                        IMAGEM QUADRADA-->
+                        <div class="col-lg-6 col-sm-4 "></div>
                          {% if evento.lista_reserva.ticket %}
-                        <div class="col-lg-5 col-sm-3"></div>
 
-                        <div class="d-none d-md-block d-lg-none " style='position:absolute; top:80px; left:140px;'>
+
+                        <div class="d-none d-md-block d-lg-none" style='position:absolute; top:80px; left:140px;'>
                             <img src="{{ evento.lista_reserva.ticket.url }}" class="img-fluid " style="float:rigth;width:150px">
                         </div>
 
@@ -36,42 +37,59 @@
                             <img src="{{ evento.lista_reserva.ticket.url }}" class="img-fluid " style="float:rigth;width:120px">
                         </div>
                         {% else %}
-                            <div class="col-lg-5 col-sm-3"></div>
-                        <div class="d-none d-md-block d-lg-none " style='position:absolute; top:80px; left:140px;'>
+<!--                                CELULAR-->
+                        <div class="d-none d-md-block d-lg-none " style='position:absolute; top:100px; left:140px;'>
                             <img src="{% static 'hocusticket.png' %}" class="img-fluid " style="float:rigth;width:150px">
                         </div>
 
-                        <div class="d-none d-lg-block" style='position:absolute; top:60px; left:100px;'>
-                            <img src="{% static 'ticket1.png' %}" class="img-fluid " style="float:rigth;width:120px">
+                        <div class="d-none d-lg-block" style='position:absolute; top:65px; left:100px;'>
+                            <img src="{% static 'hocusticket.png' %}" class="img-fluid " style="float:rigth;width:120px">
                         </div>
                         {% endif %}
 <!--                     FIM IMAGEM QUADRADA-->
-                        <div class="col-lg-6 col-sm-5 text-center">
+                        <div class="col-lg-6 col-sm-5 my-1 text-center ">
                             <br><br>
 <!--                            DADOS DO SHO TITULO, DATA, HORARIO, VALOR -->
-                            <h4 class="text-dark" style="font-family: 'Chau Philomene One'">
-                                {{ evento.lista_reserva.titulo_show }}</h4>
-                            <div class=" mx-1">{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }}
-                            </div>
-                            {{ evento.lista_reserva.horario_do_show }}
-                            {% if evento.lista_reserva.valor %}
 
-                            <div class="text-danger h4 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
-                            {% else %}
-                            <div style="margin-bottom: 60px"></div>
-                            {% endif %}
+<!--                            tela PC-->
+                            <div class="d-none d-lg-block">
+                                <h3 class="text-danger" style="font-family: 'Chau Philomene One'">
+                                {{ evento.lista_reserva.titulo_show }}</h3>
+                                <h5 class=" mx-1" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} | {{ evento.lista_reserva.horario_do_show }} <br> {{ evento.lista_reserva.data_do_show|date:"l" }}
+                                </h5>{% if evento.lista_reserva.valor %}
+
+                                <div class="text-danger h5 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
+                                {% else %}
+                                <div style="margin-bottom: 60px"></div>
+                                {% endif %}
+                            </div>
+<!--                            CELULAR-->
+
+                            <div class="d-none d-md-block d-lg-none">
+                                <h2 class="text-danger" style="font-family: 'Chau Philomene One'">
+                                {{ evento.lista_reserva.titulo_show }}</h2>
+                                <h4 class=" mx-1" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} | {{ evento.lista_reserva.horario_do_show }} <br> {{ evento.lista_reserva.data_do_show|date:"l" }}
+                                </h4>{% if evento.lista_reserva.valor %}
+
+                                <div class="text-danger h4 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
+                                {% else %}
+                                <div style="margin-bottom: 60px"></div>
+                                {% endif %}
+                            </div>
+
 <!--                            FIM, DATA, HORARIO, VALOR -->
                             <br><br class="d-none d-md-block d-lg-none "><br
                                 class="d-none d-md-block d-lg-none "><br class="d-none d-md-block d-lg-none ">
 <!--                            Carimbo PAGO-->
                             {% if evento.pagamento %}
-                            <div class="d-none d-lg-block" style='position:absolute; top:100px; left:60px;'>
+<!--                           tela grande -->
+                            <div class="d-none d-lg-block" style='position:absolute; top:150px; left:130px;'>
+                                <img src="{% static 'ico_pag.png' %}" class="img-fluid "
+                                     style="float:rigth;width:60px">
+                            </div>
+                            <div class="d-none d-sm-block d-lg-none" style='position:absolute; top:150px; left:130px;'>
                                 <img src="{% static 'ico_pag.png' %}" class="img-fluid "
                                      style="float:rigth;width:100px">
-                            </div>
-                            <div class="d-none d-sm-block d-lg-none" style='position:absolute; top:100px; left:60px;'>
-                                <img src="{% static 'ico_pag.png' %}" class="img-fluid "
-                                     style="float:rigth;width:150px">
                             </div>
                             {% endif %}
 <!--                         FIM Carimbo PAGO-->
@@ -116,7 +134,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content text-center">
                     <div class="modal-header">
-                        <h5 class="modal-title " id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h5>
+                        <h4 class="modal-title text-center" id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -130,13 +148,15 @@
 
                         <div class="container justify-content-center  ">
 
-                            <div class="justify-content-center ">
+                            <div class="justify-content-center">
                                 <!--Simple Form-->
                                 <h5>Adicione um comprovante</h5><br>
                                 <form action="{% url 'upload_comprovante' %}" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
+
                                     <input type="hidden" name="id" value="{{ evento.id }}">
-                                    <input type="file" name="imagem" accept="image/*">
+
+                                    <input type="file" name="imagem" accept="image/*" required>
                                     <br>
 
                                     <button class="btn btn-dark my-4" type="submit">Enviar</button>
@@ -147,7 +167,7 @@
                                 <h2 class="my-4">Comprovante</h2>
 
                                     {% if evento.comprovante %}
-                                <div class="col-lg-4 col-md-6 col-sm-12 ">
+                                <div class=" container">
                                     <img src="{{ evento.comprovante.url }}" class="img-fluid">
                                     <br>
                                     <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
