@@ -1,0 +1,12 @@
+{% autoescape off %}
+{{ usuario }}
+
+Nos recebemos um pedido para colocar seu nome na lista do Evento:
+
+{{ show }}
+O evento vai acontecer do dia {{ show.data_do_show }} as {{ show.horario_do_show }}
+
+Obrigado,
+Time da Hocus Pocos
+
+{% endautoescape %}
