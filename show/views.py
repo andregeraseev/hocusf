@@ -189,51 +189,51 @@ def adicionar_nome_lista_com_cadastro(request):
                 lista_reserva=showcompleto
                 )
             user_com_registro.save()
-
-            # futura implementação para email
-            id_nomelista = user_com_registro.id
-            print(id_nomelista, "Numero do nome lista")
-            nomelista_atual = NomeLista.objects.get(pk=id_nomelista)
-            print(nomelista_atual.lista_reserva, "nome do show")
-            show = nomelista_atual.lista_reserva
-            emailusuario = nomelista_atual.roqueiro.usuario.email
-            usuario = nomelista_atual.roqueiro.usuario
-            associated_users = nomelista_atual.roqueiro.usuario
-
-            subject = "Confirmação do Show"
-            email_template_name = "email/confimacao_nome_lista.txt"
-            c = {
-                "email": emailusuario,
-                'domain': '127.0.0.1:8000',
-                "show": show,
-                "usuario" : usuario,
-                'site_name': 'Website',
-                "user": nomelista_atual.roqueiro,
-                'protocol': 'http',
-            }
-            email = render_to_string(email_template_name, c)
-            try:
-                send_mail(subject, email, 'admin@example.com', [emailusuario], fail_silently=False)
-                messages.success(request, 'Seu nome foi colocado na lista com sucesso')
-                return redirect('home')
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return redirect("home")
-
-
-
-
             # messages.success(request, 'Seu nome foi colocado na lista com sucesso')
             # return redirect('home')
+
+            # EMAIL
+            id_nomelista = user_com_registro.id
+            email_nomelista(id_nomelista)
+            messages.success(request, 'Seu nome foi colocado na lista com sucesso')
+            return redirect('home')
+
+
         except IntegrityError:
             messages.warning(request, 'Seu nome ja esta nesse show')
             return redirect('home')
 
-
-
     else:
         return render(request, 'home.html')
-    # adionarnar mensagens de erro
+
+
+def email_nomelista(id_nomelista):
+    # print(id_nomelista, "Numero do nome lista")
+    nomelista_atual = NomeLista.objects.get(pk=id_nomelista)
+    # print(nomelista_atual.lista_reserva, "nome do show")
+    show = nomelista_atual.lista_reserva
+    emailusuario = nomelista_atual.roqueiro.usuario.email
+    usuario = nomelista_atual.roqueiro.usuario
+    associated_users = nomelista_atual.roqueiro.usuario
+
+    subject = "Confirmação do Show"
+    email_template_name = "email/confimacao_nome_lista.txt"
+    c = {
+        "email": emailusuario,
+        'domain': '127.0.0.1:8000',
+        "show": show,
+        "usuario": usuario,
+        'site_name': 'Website',
+        "user": nomelista_atual.roqueiro,
+        'protocol': 'http',
+    }
+    email = render_to_string(email_template_name, c)
+    try:
+        send_mail(subject, email, 'admin@example.com', [emailusuario], fail_silently=False)
+
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
+    return redirect("home")
 
 
 def validacpf(cpf):
