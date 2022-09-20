@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-fd6(8pt&72=%^^x&!6_+0o(a$fkbqx2*b23zp0u%w2x2a0aeeq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hocus.pythonanywhere.com']
+ALLOWED_HOSTS = ['hocuspocus.pythonanywhere.com']
 
 
 # Application definition
@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'usuario',
     'show',
-    'nomelista',
     'widget_tweaks',
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +60,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'setup.urls'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 TEMPLATES = [
     {
@@ -109,9 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -120,7 +128,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
