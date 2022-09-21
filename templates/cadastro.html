@@ -21,6 +21,8 @@
                         <div class="row mx-md-n5">
                             <div class="col-11">
                                 <div class="contact-form-area">
+
+
                                     <form action="{% url 'cadastro' %}" method="POST">
                                         {% csrf_token %}
                                         <div class="row">
@@ -28,28 +30,71 @@
                                                 <label for="nome"><b>Nome completo</b></label>
                                                 <input type="text" class="form-control" name="nome"
                                                        placeholder="Ex.:Andre Geraseev"
-                                                       required maxlength="40">
+                                                       required maxlength="40" value="{{ form.nome }}" >
+                                                 <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "nome error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
+
                                             </div>
                                             <div class="col-11 col-lg-11">
                                                 <label for="email"><b>Email</b></label>
                                                 <input type="email" class="form-control" name="email"
-                                                       placeholder="Ex.: ageraseev@gmail.com"
+                                                       placeholder="Ex.: ageraseev@gmail.com" value="{{ form.email }}"
                                                        required>
+                                                        <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "email error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
                                             </div>
                                             <div class="col-11 col-lg-6">
                                                 <label for="cpf"><b>cpf</b></label>
                                                 <input minlength="14"
+                                                       id="id_cpf"
                                                        oninvalid="this.setCustomValidity('Seu CPF precisa ter 11 numeros')"
                                                        oninput="this.setCustomValidity('')" type="text"
                                                        data-mask="000.000.000-00"
                                                        class="form-control" name="cpf" placeholder="Digite seu CPF"
+                                                       value="{{ form.cpf }}"
                                                        required>
+                                                        <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "cpf error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
                                             </div>
+
+
+
                                             <div class="col-11 col-lg-6">
                                                 <label for="celular"><b>celular</b></label>
                                                 <input type="text" data-mask="(00)0000-00000" class="form-control"
                                                        name="celular"
+                                                       value="{{ form.celular }}"
                                                        placeholder="Digite seu celular" required>
+                                                 <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "celular error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
                                             </div>
                                             <div class="col-11 col-lg-6">
                                                 <label for="password"><b>Senha</b></label>
@@ -61,6 +106,15 @@
                                                 <label for="password2"><b>Confirmação de senha</b></label>
                                                 <input type="password" class="form-control" name="password2"
                                                        placeholder="Digite sua senha mais uma vez" required>
+                                                 <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "senha2 error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
                                             </div>
                                             <div class="col-11 text-center">
                                                 <button class="btn btn-danger mt-4" type="submit">Criar sua conta

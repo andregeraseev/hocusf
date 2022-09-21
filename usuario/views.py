@@ -14,7 +14,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from show.form import NomeListaForm
+
 cpf = CPF()
 
 
@@ -28,35 +28,38 @@ def cadastro(request):
         cpf = request.POST['cpf']
         celular = request.POST['celular']
 
+        form= {
+            "form": request.POST, }
+
 
 
         if campo_vazio(nome):
             messages.error(request, 'O campo nome não pode ficar em branco')
-            return redirect('cadastro')
+            return render(request, 'cadastro.html', form)
         if not validacpf(cpf):
-            messages.error(request, 'CPF invalido', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'CPF invalido', "cpf")
+            return render(request, 'cadastro.html', form)
         if campo_vazio(email):
-            messages.error(request, 'O campo email não pode ficar em branco', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'O campo email não pode ficar em branco', "email")
+            return render(request, 'cadastro.html', form)
         if campo_vazio(cpf):
-            messages.error(request, 'O campo CPF não pode ficar em branco', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'O campo CPF não pode ficar em branco', "cpf")
+            return render(request, 'cadastro.html', form)
         if campo_vazio(celular):
-            messages.error(request, 'O campo celular não pode ficar em branco', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'O campo celular não pode ficar em branco', "celular")
+            return render(request, 'cadastro.html', form)
         if senhas_nao_sao_iguais(senha, senha2):
-            messages.error(request, 'As senhas não são iguais', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'As senhas não são iguais', "senha2")
+            return render(request, 'cadastro.html', form)
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Usuário já cadastrado', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'Email já cadastrado', "email")
+            return render(request, 'cadastro.html', form)
         if Usuario.objects.filter(cpf=cpf).exists():
-            messages.error(request, 'CPF ja cadastrado', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'CPF ja cadastrado', "cpf")
+            return render(request, 'cadastro.html', form)
         if User.objects.filter(username=nome).exists():
-            messages.error(request, 'Usuário já cadastrado', "danger")
-            return redirect('cadastro')
+            messages.error(request, 'Usuário já cadastrado', "nome")
+            return render(request, 'cadastro.html', form)
         user = User.objects.create_user(
             username=nome,
             email=email,
@@ -86,6 +89,8 @@ def cadastro(request):
 
     else:
         return render(request, 'cadastro.html')
+
+
 
 
 def login(request):
