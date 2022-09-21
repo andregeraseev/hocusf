@@ -101,29 +101,27 @@ def lista(request, id=1):
     else:
         return redirect('home')
 
+
 def registronomelista(request, id):
-
-
     show = Show.objects.filter(id=id)
     dados = {
 
-             'show': show
+        'show': show
     }
-
     return render(request, 'registrarnomelista.html', dados)
 
 
-def nomelista(request):
-
-    pessoas= Usuario.objects.all()
-    show = Show.objects.all(publicada=True)
-
-    dados = {
-             'show': show,
-             'pessoa': pessoas
-    }
-
-    return render(request, 'registrarnomelista.html', dados)
+# def nomelista(request):
+#
+#     pessoas= Usuario.objects.all()
+#     show = Show.objects.all(publicada=True)
+#
+#     dados = {
+#              'show': show,
+#              'pessoa': pessoas
+#     }
+#
+#     return render(request, 'registrarnomelista.html', dados)
 
 
 def comprovante(request, id):
@@ -148,7 +146,7 @@ def adicionar_nome_lista(request):
 
 
         if not validacpf(cpf):
-            messages.warning(request, 'CPF invalido')
+            messages.warning(request, 'CPF invalido', "danger")
             return redirect('registronomelista/' + show)
 
         showcompleto = Show.objects.get(id=show)

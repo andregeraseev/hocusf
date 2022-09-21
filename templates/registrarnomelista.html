@@ -14,7 +14,7 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                {% include 'partials/_alertas.html' %}
+
                 {% for shows in show %}
                 <img src="{{ shows.banner.url }}" class="my-2" style="max-width: 300px">
                 <h3 style="font-family: 'Chau Philomene One'">{{ shows.titulo_show }}</h3>
@@ -28,7 +28,7 @@
                                     <div class="col-12 col-lg-12">
                                         <label class="my-2" for="nome"><h2><b>Nome completo</b></h2></label>
                                         <input type="text" class="form-control" name="nome"
-                                               placeholder="Ex.:Andre Geraseev" required>
+                                               placeholder="Ex.:Andre Geraseev" value="{{ form.nome }}"  required>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label class="my-2"  for="cpf"><h2><b>CPF</b></h2></label>

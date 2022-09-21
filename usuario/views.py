@@ -34,7 +34,7 @@ def cadastro(request):
 
 
         if campo_vazio(nome):
-            messages.error(request, 'O campo nome não pode ficar em branco')
+            messages.error(request, 'O campo nome não pode ficar em branco', "nome")
             return render(request, 'cadastro.html', form)
         if not validacpf(cpf):
             messages.error(request, 'CPF invalido', "cpf")
