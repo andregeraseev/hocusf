@@ -28,6 +28,8 @@ def cadastro(request):
         cpf = request.POST['cpf']
         celular = request.POST['celular']
 
+
+
         if campo_vazio(nome):
             messages.error(request, 'O campo nome não pode ficar em branco')
             return redirect('cadastro')
@@ -80,6 +82,8 @@ def cadastro(request):
                 auth.login(request, user)
 
         return redirect('home')
+
+
     else:
         return render(request, 'cadastro.html')
 
