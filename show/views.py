@@ -58,6 +58,8 @@ def home(request):
 
     return render(request, 'index.html', dados)
 
+def hocus(request):
+    return render(request, 'hocus.html')
 
 def listaevento(request):
     if request.user.is_staff:
@@ -108,6 +110,7 @@ def registronomelista(request, id):
 
         'show': show
     }
+    print(request)
     return render(request, 'registrarnomelista.html', dados)
 
 
@@ -135,7 +138,16 @@ def comprovante(request, id):
     return render(request, 'comprovante.html', dados)
 
 
-def adicionar_nome_lista(request):
+def evento(request, id):
+    show = Show.objects.filter(id=id)
+    dados = {
+
+        'show': show
+    }
+    print(request)
+    return render(request, 'evento.html', dados)
+
+def adicionar_nome_lista(request, id):
     # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -144,10 +156,11 @@ def adicionar_nome_lista(request):
         celular = request.POST['celular']
         show = request.POST['show']
 
+        form = { "forme"}
 
         if not validacpf(cpf):
             messages.warning(request, 'CPF invalido', "danger")
-            return redirect('registronomelista/' + show)
+            return redirect('registronomelista/' + show, )
 
         showcompleto = Show.objects.get(id=show)
 
@@ -169,7 +182,13 @@ def adicionar_nome_lista(request):
         user_sem_registro.save()
 
     else:
-        return render(request, 'home')
+        show = Show.objects.filter(id=id)
+        dados = {
+
+            'show': show
+        }
+        print(request)
+        return render(request, 'registrarnomelista.html', dados)
     # adionarnar mensagens de erro
 
 def adicionar_nome_lista_com_cadastro(request):

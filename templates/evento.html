@@ -1,0 +1,33 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="d-flex justify-content-center m-3 pl-5" id="eventos">
+    <div class="card bg-dark float-right mr-5" style="width: 60rem;">
+        <div class="card-body " style="background-color:#2d2a2a">
+            <div class="d-flex justify-content-center mt-3 ">
+                <div class="card-body text-center" style="background-color:#1e1e1d">
+
+
+
+
+                                   {% for shows in show %}
+                    <H1 CLASS="text-white" style="font-family: 'Chau Philomene One'">{{ shows.titulo_show }}</H1>
+                    <img src="{{ shows.banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
+                    <H3 CLASS="text-warning" style="font-family: 'Chau Philomene One'">{{ shows.data_do_show }}</H3>
+                    <div class="container col-12 my-2" style="background-color:#545454">
+                    <H6 CLASS="text-white p-4">  {{ shows.descricao_show|linebreaks }} </H6>
+                    </div>
+                                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+{% endblock %}

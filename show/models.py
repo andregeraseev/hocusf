@@ -11,7 +11,7 @@ from datetime import datetime
 class Show(models.Model):
 
     titulo_show = models.CharField(max_length=100, )
-    descricao_show = models.CharField(max_length=300)
+    descricao_show = models.TextField(max_length=2000)
     horario_do_show = models.CharField(max_length=100, null=True)
     data_do_show = models.DateField(null=True)
     banner = models.ImageField(upload_to='static/banners', blank=True)
@@ -28,7 +28,7 @@ class Show(models.Model):
     @property
     def banner_preview(self):
         if self.banner:
-            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.banner.url))
+            return mark_safe('<img src="{}" width="450" height="300" />'.format(self.banner.url))
         return ""
 
     @property
