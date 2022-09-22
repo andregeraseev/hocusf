@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  max-height: 30%;
+  min-height: 15%;
+  margin-bottom: 100px;
+}
+
+.footer,
+.push {
+  height: 0px;
+
+}
