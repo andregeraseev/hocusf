@@ -21,7 +21,7 @@
 
                     <a class="nav-link btn  btn-danger mt-2" href="{% url 'logout' %}">Logout</a>
                     <a class="nav-link btn  btn-danger mt-2"
-                       href="{% url 'dashboard' %}">Minha Area</a>
+                       href="{% url 'dashboard' %}">Meus Eventos</a>
 
                     {% if request.user.is_staff %}
 
@@ -85,7 +85,7 @@
             <a class="btn  btn-danger align-self-center m-2 " href="{% url 'logout' %}">Logout</a>
 
 
-            <a class="btn  btn-danger align-self-center m-2" href="{% url 'dashboard' %}">Minha Area</a>
+            <a class="btn  btn-danger align-self-center m-2" href="{% url 'dashboard' %}">Meus eventos</a>
             {% if request.user.is_staff %}
             <a class=" btn btn-danger align-self-center m-2" href="{% url 'listaevento' %}">ListaEventos</a>
 

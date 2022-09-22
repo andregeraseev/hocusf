@@ -147,7 +147,7 @@ def evento(request, id):
     print(request)
     return render(request, 'evento.html', dados)
 
-def adicionar_nome_lista(request, id):
+def adicionar_nome_lista(request):
     # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -217,7 +217,7 @@ def adicionar_nome_lista_com_cadastro(request):
 
 
         except IntegrityError:
-            messages.warning(request, 'Seu nome ja esta nesse show')
+            messages.warning(request, 'Seu nome já está nesse show. Acesse "Meus Eventos" no menu superior para ver mais informações.')
             return redirect('home')
 
     else:

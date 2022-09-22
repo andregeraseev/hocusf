@@ -21,7 +21,7 @@
 
                     <a class="nav-link btn  btn-danger mt-2" href="{% url 'logout' %}">Logout</a>
                     <a class="nav-link btn  btn-danger mt-2"
-                       href="{% url 'dashboard' %}">Minha Area</a>
+                       href="{% url 'dashboard' %}">Meus eventos</a>
 
                     {% if request.user.is_staff %}
 
@@ -84,7 +84,7 @@
             <a class="btn  btn-danger align-self-center m-2 " href="{% url 'logout' %}">Logout</a>
 
 
-            <a class="btn  btn-danger align-self-center m-2" href="{% url 'dashboard' %}">Minha Area</a>
+            <a class="btn  btn-danger align-self-center m-2" href="{% url 'dashboard' %}">Meus eventos</a>
             {% if request.user.is_staff %}
             <a class=" btn btn-danger align-self-center m-2" href="{% url 'listaevento' %}">ListaEventos</a>
 
@@ -146,12 +146,12 @@
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                 <ul class="navbar-nav ">
-                    <li class="nav-item  ">
-                        <a class="nav-link" style="font-family: 'Chau Philomene One'" href="{% url 'hocus' %}"><h4><u>Conheça a
-                            Hocus Pocus </u></h4><span class="sr-only">(current)</span></a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" style="font-family: 'Chau Philomene One'" href="/"><h4><u>Home</u></h4></a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a class="nav-link" style="font-family: 'Chau Philomene One'" href="{% url 'home' %}#eventosdomes"><h4><u>Eventos do mes </u></h4><span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
