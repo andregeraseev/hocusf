@@ -1,0 +1,17 @@
+{% autoescape off %}
+{{ usuario }}
+
+Bem vindo a Hocus pocus
+Nosso site esta na fase beta, ficamos muito felizes por você estar ajudando a testar.
+Por gentileza nos passe um feedback respondendo esse mesmo email, nos contando do que achou da sua experiencia.
+
+Ao fazer o castro você pode colocar o nome na lista dos eventos com apenas um clique.
+Temos o campo Minha area, onde você pode verificar os show que esta cadastrado com os horarios do show.
+Na Minha area se  no show estiver diponivel a modalidade pix voce pode inserir um comprovante que sera analizado manualmente.
+caso seu pix for aprovado sera adicionado uma imagem paga ao seu ticket.
+logicamente nao precisa realmente enviar um pix pra gente,  experimente anexar uma imagem.
+
+Obrigado,
+Time da Hocus Pocos
+
+{% endautoescape %}
