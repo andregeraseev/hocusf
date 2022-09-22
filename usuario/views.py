@@ -76,11 +76,18 @@ def cadastro(request):
         user.save()
         perfil.save()
         messages.success(request, 'Cadastro realizado com sucesso')
+        # email
+        pegando_id_usuario = perfil.id
+        print(pegando_id_usuario, "pegando id")
+        email_hocus_beta(pegando_id_usuario)
+
+        # fim email
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
 
             # Login pos cadastro
+
             if user is not None:
                 auth.login(request, user)
 
@@ -101,7 +108,7 @@ def login(request):
         if campo_vazio(email) or campo_vazio(senha):
             messages.warning(request, 'Os campos email e senha não podem ficar em branco')
             return redirect('home')
-        print(email, senha)
+
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
@@ -221,6 +228,41 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="senhas/password_reset.html",
                   context={"password_reset_form": password_reset_form})
+
+
+
+
+
+def email_hocus_beta(pegando_id_usuario):
+    id_usuario = Usuario.objects.get(id=pegando_id_usuario)
+    print(id_usuario)
+    # print(id_nomelista, "Numero do nome lista")
+    usuario = Usuario.objects.get(id=pegando_id_usuario)
+    print(usuario)
+    # print(nomelista_atual.lista_reserva, "nome do show")
+
+    emailusuario = usuario.usuario.email
+    print(emailusuario)
+    usuario = usuario
+    associated_users = usuario
+
+    subject = "Obrigado por participar da hocus beta"
+    email_template_name = "email/projetobeta.txt"
+    c = {
+        "email": emailusuario,
+        'domain': '127.0.0.1:8000',
+
+        "usuario": usuario,
+        'site_name': 'Website',
+        "user": usuario,
+        'protocol': 'http',
+    }
+    email = render_to_string(email_template_name, c)
+    try:
+        send_mail(subject, email, 'admin@example.com', [emailusuario], fail_silently=False)
+
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
 
 
 def campo_vazio(campo):
