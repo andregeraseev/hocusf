@@ -22,7 +22,7 @@
             // header column header
             // On change of the list values,
             // perform search operation
-            var mySelectList = $("<select />")
+            var mySelectList = $('<select><option value=""></option></select>')
               .appendTo(myTable.column(3).header())
               .on("change", function () {
                 myTable.column(3).search($(this).val());
@@ -39,8 +39,9 @@
             myTable
               .column(3)
               .cache("search")
+              .unique()
               .sort()
-              .each(function (param) {
+              .each(function (param, nada) {
                 mySelectList.append(
                   $('<option value="' + param + '">'
                     + param + "</option>")
