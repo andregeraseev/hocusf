@@ -24,10 +24,10 @@ def index(request):
 
     data_hora = datetime.now()
     mes = data_hora.strftime('%m')
-    showmes = Show.objects.filter(data_do_show__month=mes, publicada=True, carrocel=True)
+    showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
     pessoas = Usuario.objects.all()
-    show = Show.objects.filter(publicada=True, carrocel=True)
-    proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
+    show = Show.objects.filter(publicada=True)
+    proximos_eventos = Show.objects.filter(publicada=True)
     dados = {
         'showdomes' : showmes,
         'shows': show,
@@ -46,8 +46,8 @@ def home(request):
     semana = data_hora.strftime('%V')
     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
     pessoas= Usuario.objects.all()
-    show = Show.objects.filter(publicada=True, carrocel=True)
-    proximos_eventos = Show.objects.filter(publicada=True, carrocel=False)
+    show = Show.objects.filter(publicada=True)
+    proximos_eventos = Show.objects.filter(publicada=True)
     dados = {
              'showdasemana': showsemana,
              'showdomes': showmes,
