@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<body>
+
 {% include 'partials/_alertas.html' %}
-<div class="container rounded   mt-2 " style="background-color:#2d2a2a">
+<div class="container rounded  py-3 mt-2 " style="background-color:#2d2a2a">
     <div class="row  text-center ">
         <div class="col my-3">
             <h3 class="text-white"> Ola {{ user.username }} ! </h3>
@@ -12,12 +12,31 @@
         </div>
     </div>
 
-    <div class="container  " style="background-color:#1e1e1d">
+    <div class="container text-center " style="background-color:#1e1e1d">
         <div class="row w-100 my-2 ">
+
+            {% if not eventos  %}
+
+            <div class="container col-6 p-5">
+            <h2 class="text-white  text-center">VOCE AINDA NAO ESTA CADASTRADO EM NENHUM EVENTO</h2>
+
+
+            </div>
+
+        </div>
+
+            {% endif  %}
+
             {% for evento in eventos %}
+
+
+
+
+
+
 <!--            IMAGEM DO INGRESSO-->
-            <div class="col-lg-5 col-sm-11  w-100 m-4 " style="background-image:
-             url(static/ticket.png); background-repeat: no-repeat;background-size: 100%;">
+            <div class="col-lg-5 col-sm-11  w-100  m-4 " style="background-image:
+                url(static/ticket.png); background-repeat: no-repeat;background-size: 100%;">
 <!--      FIM IMAGEM DO INGRESSO-->
                 <div class="container ">
                     <br class="d-none d-md-block d-lg-none ">
@@ -145,5 +164,6 @@
     {% endfor %}
 
 </div>
+
 {% endblock %}
-</body>
+
