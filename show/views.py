@@ -73,27 +73,36 @@ def listaevento(request):
         return render(request, 'listaevento.html', dados)
     else:
         return redirect('home')
-def lista(request, id=1):
+def lista(request, id):
     # medodo para confimar pagamento e voltar para pagina atual
     if request.user.is_staff:
 
         if request.method == 'POST':
-            id = request.POST['id']
+            print("lista POST")
+            id_nome_lista = request.POST['id']
             show = request.POST['show']
-            cofirmapagamento = NomeLista.objects.filter(id=id)
+            cofirmapagamento = NomeLista.objects.filter(id=id_nome_lista)
 
 
 
             cofirmapagamento.update(
                 pagamento=True)
+            print(cofirmapagamento, "confima pagamento")
 
 
-            return redirect('lista/'+show)
-        # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
-        else:
             pessoa = NomeLista.objects.filter(lista_reserva_id=id)
             show = Show.objects.filter(id=id)
+            dados = {'pessoas': pessoa,
+                     'show': show
+                     }
 
+            return render(request, 'lista.html', dados)
+        # metodo para rendelizar pagina com lista de pessoas com nome na lista e pix
+        else:
+            print("lista GET")
+            pessoa = NomeLista.objects.filter(lista_reserva_id=id)
+            show = Show.objects.filter(id=id)
+            print(pessoa, "Pessoa")
             dados = {'pessoas': pessoa,
                      'show': show
             }
@@ -104,14 +113,14 @@ def lista(request, id=1):
         return redirect('home')
 
 
-def registronomelista(request, id):
-    show = Show.objects.filter(id=id)
-    dados = {
-
-        'show': show
-    }
-    print(request)
-    return render(request, 'registrarnomelista.html', dados)
+# def registronomelista(request, id):
+#     show = Show.objects.filter(id=id)
+#     dados = {
+#
+#         'show': show
+#     }
+#     print(request)
+#     return render(request, 'registrarnomelista.html', dados)
 
 
 # def nomelista(request):
@@ -147,22 +156,26 @@ def evento(request, id):
     print(request)
     return render(request, 'evento.html', dados)
 
-def adicionar_nome_lista(request):
+def adicionar_nome_lista(request, id):
     # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
-        # usuarioid = request.POST['usuarioid']
+
         cpf = request.POST['cpf']
         celular = request.POST['celular']
-        show = request.POST['show']
+        shows = request.POST['show']
 
-        form = { "forme"}
+        show = Show.objects.filter(id=id)
 
+        context = {
+            'show': show,
+            'form' : request.POST}
+        print(request,"<<<<request" "Metodo POST adionando nome na lista")
         if not validacpf(cpf):
             messages.warning(request, 'CPF invalido', "danger")
-            return redirect('registronomelista/' + show, )
+            return render(request, 'registrarnomelista.html', context)
 
-        showcompleto = Show.objects.get(id=show)
+        showcompleto = Show.objects.get(id=shows)
 
         user_sem_registro = UsuarioSemRegistro.objects.create(
 
@@ -182,12 +195,13 @@ def adicionar_nome_lista(request):
         user_sem_registro.save()
 
     else:
+        print(request,"<<<<request" "Metodo Get adionando nome na lista")
         show = Show.objects.filter(id=id)
         dados = {
 
             'show': show
         }
-        print(request)
+
         return render(request, 'registrarnomelista.html', dados)
     # adionarnar mensagens de erro
 

@@ -98,14 +98,26 @@
                                             </div>
                                             <div class="col-11 col-lg-6">
                                                 <label for="password"><b>Senha</b></label>
-                                                <input type="password" class="form-control" name="password"
-                                                       placeholder="Digite sua senha"
+                                                <input type="password"  class="form-control" name="password"
+                                                       placeholder="Digite sua senha" minlength="8"
                                                        required>
+                                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                                         *Sua senha precisa ter no minimo 8 digitos, com pelo menos uma
+                                                            letra minuscula, uma maiuscula e um numero</small>
+                                                <br>
+                                                        {% if messages %}
+                                                        {% for message in messages %}
+                                                        {% if message.tags == "senha error" %}
+                                                        <div class=" alert alert-danger " role="alert">{{ message }} </div>
+
+                                                       {% endif %}
+                                                        {% endfor %}
+                                                        {% endif %}
                                             </div>
                                             <div class="col-11 col-lg-6">
                                                 <label for="password2"><b>Confirmação de senha</b></label>
                                                 <input type="password" class="form-control" name="password2"
-                                                       placeholder="Digite sua senha mais uma vez" required>
+                                                       placeholder="Digite sua senha mais uma vez" minlength="8" required>
                                                  <br>
                                                         {% if messages %}
                                                         {% for message in messages %}

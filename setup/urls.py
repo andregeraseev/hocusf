@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from usuario.views import cadastro, login, logout, dashboard,password_reset_request, upload_comprovante
-from show.views import home, lista, listaevento,registronomelista,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, index, evento, hocus
+from show.views import home, lista, listaevento,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, index, evento, hocus
 from django.contrib.auth import views as auth_views
 admin.site.site_title = 'HOCUS'
 admin.site.site_header = 'HOCUS POCUS ADMIN'
@@ -18,12 +18,12 @@ urlpatterns = [
     path('lista', lista, name='lista'),
     path('listaevento', listaevento, name='listaevento'),
     path('lista/<int:id>', lista, name='lista'),
-    path('registronomelista', adicionar_nome_lista, name='adicionar_nome_lista'),
+    # path('registronomelista', adicionar_nome_lista, name='adicionar_nome_lista'),
     path('adicionar_nome_lista_com_cadastro', adicionar_nome_lista_com_cadastro, name='adicionar_nome_lista_com_cadastro'),
     path('evento/<int:id>', evento, name='evento'),
 
 
-    path('registronomelista/<int:id>', registronomelista, name='registronomelista'),
+    path('registronomelista/<int:id>', adicionar_nome_lista, name='adicionar_nome_lista'),
     path('comprovante', comprovante, name='comprovante'),
     path('comprovante/<int:id>', comprovante, name='comprovante'),
     path('dashboard', dashboard, name='dashboard'),

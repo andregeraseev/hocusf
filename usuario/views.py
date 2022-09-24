@@ -14,7 +14,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-
+import re
 cpf = CPF()
 
 
@@ -57,9 +57,42 @@ def cadastro(request):
         if Usuario.objects.filter(cpf=cpf).exists():
             messages.error(request, 'CPF ja cadastrado', "cpf")
             return render(request, 'cadastro.html', form)
+        minimal_number = 1
+        minimal_upper_char = 1
+        minimal_lower_char = 1
+        minimal_special_char = 1
+        minimal_len_char = 8
+        print("teste password")
+        if len(senha or ()) < minimal_len_char:
+            print("falhou digitos")
+            messages.error(request, 'A senha precisa ter no minimo ' + str(minimal_len_char) + ' caracteres',
+                           "senha")
+            return render(request, 'cadastro.html', form)
+        if len(re.findall(r"[A-Z]", senha)) < minimal_upper_char:
+            print("falhou maiuscula")
+            messages.error(request, 'Senha tem que ter no mínimo ' + str(minimal_upper_char) + ' caracteres maiusculo', "senha")
+            return render(request, 'cadastro.html', form)
+        if len(re.findall(r"[a-z]", senha)) < minimal_lower_char:
+            print("falhou minuscula")
+            messages.error(request, 'Senha tem que ter no mínimo ' + str(minimal_lower_char) + ' letras minusculas',
+                           "senha")
+            return render(request, 'cadastro.html', form)
+
+        if len(re.findall(r"[0-9]", senha)) < minimal_number:
+            print("falhou numero")
+            messages.error(request, 'Senha tem que ter no mínimo ' + str(minimal_number) + ' numeros', "senha")
+            return render(request, 'cadastro.html', form)
+        if len(re.findall(r"[~`!@#$%^&*()_+=-{};:'><]", senha)) < minimal_special_char:
+            print("falhou carctere especial")
+            messages.error(request,
+                           'Senha tem que ter no mínimo ' + str(minimal_special_char) + ' caracteres especiais', "senha")
+            return render(request, 'cadastro.html', form)
+
         if User.objects.filter(username=nome).exists():
             messages.error(request, 'Usuário já cadastrado', "nome")
             return render(request, 'cadastro.html', form)
+
+
         user = User.objects.create_user(
             username=nome,
             email=email,
@@ -276,3 +309,36 @@ def senhas_nao_sao_iguais(senha, senha2):
 def validacpf(cpf):
     validacao = CPF().validate(cpf)
     return validacao
+
+def test_password(senha, request, form):
+    minimal_number = 1
+    minimal_upper_char = 1
+    minimal_lower_char = 1
+    minimal_special_char = 1
+    minimal_len_char = 8
+    print("teste password")
+    if len(senha or ()) < minimal_len_char:
+        print("falhou digitos")
+        messages.error(request, 'A senha precisa ter no minimo 8 digitos' +str(minimal_len_char)+' caracteres', "nome")
+        return render(request, 'cadastro.html', form)
+    if len(re.findall(r"[A-Z]", senha)) < minimal_upper_char:
+        print("falhou maiuscula")
+        messages.error(request, 'Senha tem que ter no mínimo '+str(minimal_upper_char)+ ' caracteres', "nome")
+        return render(request, 'cadastro.html', form)
+    if len(re.findall(r"[a-z]", senha)) < minimal_lower_char:
+        print("falhou minuscula")
+        messages.error(request,'Senha tem que ter no mínimo '+str(minimal_lower_char)+' letras minusculas', "nome")
+        return render(request, 'cadastro.html', form)
+
+    if len(re.findall(r"[0-9]", senha)) < minimal_number:
+        print("falhou numero")
+        messages.error(request, 'Senha tem que ter no mínimo '+str(minimal_number)+' numeros', "nome")
+        return render(request, 'cadastro.html', form)
+    if len(re.findall(r"[~`!@#$%^&*()_+=-{};:'><]", senha)) < minimal_special_char:
+        print("falhou carctere especial")
+        messages.error(request, 'Senha tem que ter no mínimo '+str(minimal_special_char)+' caracteres especiais', "nome")
+        return render(request, 'cadastro.html', form)
+    else:
+        pass
+
+

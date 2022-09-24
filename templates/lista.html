@@ -54,7 +54,7 @@
             {% else %}
             <td><label class="badge badge-danger"> S/Comprov. </label></td>
             {% endif %}
-            <form action="{% url 'lista' %}" method="POST">
+            <form action="{{ area.lista_reserva.id }}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="id" value={{ area.id }}>
                 <input type="hidden" name="show" value={{ nome_na_lista.id }}>

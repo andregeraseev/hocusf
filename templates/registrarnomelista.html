@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-form-area">
-                            <form action="{% url 'adicionar_nome_lista' %}" method="POST">
+                            <form action="{{ show.id }}" method="POST">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col-12 col-lg-12">
@@ -32,13 +32,14 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label class="my-2"  for="cpf"><h2><b>CPF</b></h2></label>
-                                        <input type="text" data-mask="000.000.000-00" class="form-control" name="cpf" placeholder="Digite seu CPF"
+                                        <input type="text" data-mask="000.000.000-00" class="form-control" name="cpf"
+                                               placeholder="Digite seu CPF" value="{{ form.cpf }}"
                                                required>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <label class="my-2"  for="celular"><h2><b>Celular</b></h2></label>
                                         <input type="text" data-mask="(00)0000-00000" class="form-control" name="celular"
-                                               placeholder="Digite seu celular" required>
+                                               placeholder="Digite seu celular"  value="{{ form.celular }}" helptext="teste" required>
                                     </div>
 
                                     <input type="hidden" name="show" value={{ shows.id }}>
