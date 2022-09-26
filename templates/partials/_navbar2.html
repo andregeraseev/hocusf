@@ -74,12 +74,13 @@
 <!--        CELULAR          -->
 
 {% if user.is_authenticated %}
-<nav class=" navbar-expand-lg navbar-dark   " style="background-color:#000000">
+<nav class="nav navbar-expand-lg navbar-dark   " style="background-color:#000000">
     <div class="container d-lg-none ">
         <div class="row align-self-center">
 
             <h6 class="text-white align-self-center m-2"> Ola {{ user.username }}! </h6>
 
+            <a class="btn  btn-danger align-self-center m-2" href="{% url 'index' %}">Home</a>
 
             <a class="btn  btn-danger align-self-center m-2 " href="{% url 'logout' %}">Logout</a>
 

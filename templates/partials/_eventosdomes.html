@@ -1,14 +1,22 @@
-<div class="d-flex justify-content-center mt-3 pl-5" id="eventosdomes">
-    <div class="card float-right mr-5" style="width: 60rem;background-color:#2d2a2a">
+<div class="container-sm-fluid container-lg justify-content-center mt-3" id="eventosdomes">
+<!--    <div class="container-sm-fluid container-lg" style="background-color:#2d2a2a">-->
         <div class="card-body " style="background-color:#2d2a2a">
 
             <h2 class="card-title text-center text-white " style="font-family: 'Chau Philomene One'">Eventos do mes</h2>
             <div class="row justify-content-center ">
 
                 {% for show in showdomes %}
-                <div class="col-4>">
+<!--                <div class="col-12 d-md-block d-lg-none">-->
 
-                    <div class="card-body rounded m-1" style="width: 18rem; background-color:#1e1e1d">
+<!--                    <div class="card-body rounded m-1 d-none d-md-block d-lg-none" style="width: 35rem; background-color:#1e1e1d">-->
+<!--                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-lg-4  col-sm-11  ">
+                    <div class="  p-4 rounded m-2 d-sm-block d-md-block d-lg-none justify-content-center" style=" background-color:#1e1e1d">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                    </div>
+                    <div class=" p-4 rounded m-2  d-none d-lg-block justify-content-lg-center" style=" background-color:#1e1e1d">
                       <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
                     </div>
                 </div>
@@ -16,4 +24,4 @@
             </div>
         </div>
     </div>
-</div>
+

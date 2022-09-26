@@ -19,17 +19,17 @@ from django.utils.http import urlsafe_base64_encode
 
 
 def index(request):
-
-
-
     data_hora = datetime.now()
     mes = data_hora.strftime('%m')
     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
+    semana = data_hora.strftime('%V')
+    showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
     pessoas = Usuario.objects.all()
     show = Show.objects.filter(publicada=True)
     proximos_eventos = Show.objects.filter(publicada=True)
     dados = {
-        'showdomes' : showmes,
+        'showdasemana': showsemana,
+        'showdomes': showmes,
         'shows': show,
         'pessoa': pessoas,
         'proximos': proximos_eventos

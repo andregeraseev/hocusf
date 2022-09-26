@@ -59,10 +59,12 @@
                 <input type="hidden" name="id" value={{ area.id }}>
                 <input type="hidden" name="show" value={{ nome_na_lista.id }}>
                 <td>
+                    {% if area.comprovante %}
                     {% if area.pagamento %}
                     <button class="btn btn-danger" type="submit"> PAGO </button>
                     {% else %}
                     <button class="btn btn-success" type="submit"> confima </button>
+                    {% endif %}
                     {% endif %}
                 </td>
             </form>
