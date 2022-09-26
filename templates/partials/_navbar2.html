@@ -76,24 +76,26 @@
 {% if user.is_authenticated %}
 <nav class="nav navbar-expand-lg navbar-dark   " style="background-color:#000000">
     <div class="container d-lg-none ">
-        <div class="row align-self-center">
+        <div class="row align-self-center text-center justify-content-center">
 
-            <h6 class="text-white align-self-center m-2"> Ola {{ user.username }}! </h6>
+            <h5 class="text-white align-self-center  col-12 m-2"> Ola {{ user.username }}! </h5>
+            <div class="row align-self-center  text-center justify-content-center">
+                <div class="col-12 text-right align-self-center m-2">
 
-            <a class="btn  btn-danger align-self-center m-2" href="{% url 'index' %}">Home</a>
+            <a class="btn  btn-danger btn-lg align-self-center m-2" href="{% url 'index' %}">Home</a>
 
-            <a class="btn  btn-danger align-self-center m-2 " href="{% url 'logout' %}">Logout</a>
+            <a class="btn  btn-danger btn-lg align-self-center m-2 " href="{% url 'logout' %}">Logout</a>
 
+            <a class="btn  btn-danger btn-lg align-self-center m-2" href="{% url 'dashboard' %}">Meus eventos</a>
 
-            <a class="btn  btn-danger align-self-center m-2" href="{% url 'dashboard' %}">Meus eventos</a>
             {% if request.user.is_staff %}
-            <a class=" btn btn-danger align-self-center m-2" href="{% url 'listaevento' %}">ListaEventos</a>
+            <a class=" btn btn-danger btn-lg align-self-center m-2" href="{% url 'listaevento' %}">Lista</a>
 
 
             {% endif %}
 
-            <div class="col text-right align-self-center m-2">
-                <button class="  navbar-toggler text-right" type="button" data-toggle="collapse"
+
+                 <button class="  navbar-toggler " type="button" data-toggle="collapse"
                         data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                         aria-label="Toggle navigation">
                     <span class=" navbar-toggler-icon"></span>
@@ -101,6 +103,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
     {% else %}
