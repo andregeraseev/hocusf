@@ -10,7 +10,7 @@
         <div class="carousel-item active col-12 ">
 
             <img src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="First slide">
-            <h1 class=" text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
+            <h3 class=" text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3>
             {% if user.is_authenticated %}
 
             <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
@@ -37,7 +37,7 @@
         {% else %}
         <div class="carousel-item col-12 ">
             <img src="{{ show.banner.url }}" class="img-fluid mx-auto d-block" alt="Second slide">
-            <h1 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h1>
+            <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3>
             {% if user.is_authenticated %}
 
             <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">

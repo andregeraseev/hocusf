@@ -107,25 +107,24 @@
 </div>
 
     {% else %}
-    <nav class="navbar navbar-expand-lg navbar-dark   " style="background-color:#000000">
+   <nav class="navbar navbar-expand-lg navbar-dark   " style="background-color:#000000">
         <div class="container-flex d-lg-none pl-5">
             <form action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
-                <div class="form-group row mt-3 ">
+                <div class="form-group row mt-3">
 
-
-                    <label for="email" class=" text-white fa fa-user fa-2x  " aria-hidden="true"></label>
-                    <div class="col-3 input-group input-group-lg">
-                        <input type="text" id="email" class="form-control  " aria-label="Large" name="email" placeholder="Email">
+                    <label for="email" class=" text-white fa fa-user fa-2x " aria-hidden="true"></label>
+                    <div class="col-3">
+                        <input type="text" id="email" class="form-control  " name="email" placeholder="Email">
                     </div>
 
                     <label for="senha" class=" text-white fa fa-unlock-alt fa-2x" aria-hidden="true"></label>
-                    <div class="col-3 input-group input-group-lg ">
-                        <input id="senha" type="password" class="form-control" aria-label="Large" name="senha" placeholder="Senha">
+                    <div class="col-3">
+                        <input id="senha" type="password" class="form-control" name="senha" placeholder="Senha">
                     </div>
 
                     <div class="col-1 align-items-center   ">
-                        <button class=" btn btn-danger" type="submit">Login</button>
+                        <button class="  btn btn-danger" type="submit">Login</button>
                         <br>
                     </div>
                     <div class="col-3 align-items-center text-center ">
@@ -133,7 +132,7 @@
                         <br>
 
 
-                        <a class=" text-warning " href="{% url 'password_reset' %}"> Esqueceu sua senha?</a>
+                        <a class="text-warning" href="{% url 'password_reset' %}"> Esqueceu sua senha?</a>
                     </div>
 
                     <div class="col-1 align-items-center  ">
