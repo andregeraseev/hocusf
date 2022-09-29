@@ -1,9 +1,8 @@
 {% load static %}
 <!-- Modal -->
-        <div class="modal fade bd-example-modal-lg  " id="botao{{ evento.lista_reserva.id }}" tabindex="-1" role="dialog"
-             aria-labelledby="{{ evento.lista_reserva }}Label" aria-hidden="true" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg " role="document">
-                <div class="modal-content text-center">
+        <div class="modal" role="dialog" id="botao{{ evento.lista_reserva.id }}" >
+            <div class=" modal-dialog" style="min-width: 900px;"  >
+                <div class="modal-content text-center" >
                     <div class="modal-header">
 
 <!--                        <h4 class="modal-title text-center " id="{{ evento.lista_reserva }}Label">{{ evento.lista_reserva }}</h4>-->
@@ -101,10 +100,19 @@
                                         <p>Sem comprovante.</p>
                                         {% endif %}
                                     </div>
+
+
+                                    </div>
+
                                 </div>
+<div class=" d-block modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+<style>
+    .modal .modal-dialog { width: 5000px; }
+</style>
