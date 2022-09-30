@@ -6,19 +6,50 @@
 
 {% for comprovante in show %}
 
+<div class="text-center mt-5">
 
-<div class="container text-center mt-5">
-    {% if comprovante.comprovante %}
-    <img src="{{comprovante.comprovante.url}}" width="300"/>
-    {% else %}
-    <h2>Comprovante nao adicionado</h2>
-    {% endif %}
-    <div class="mt-4">
-        {{comprovante}}
-
-
-        <label class="badge badge-success">{{ comprovante.pagamento }}</label>
     </div>
+<div class="d-flex justify-content-center  mt-1">
+
+    <div class=" p-3 bg-white mt-4">
+        <div class=" p-3 bg-light mt-4">
+            <h4>{{comprovante}}</h4>
+            <h6>CPF: {{comprovante.roqueiro.cpf}}</h6>
+            <h6>Celular: {{comprovante.roqueiro.celular}}</h6>
+            <h6>Email: {{comprovante.roqueiro.usuario.email}}</h6>
+            <h5 class="b">Status:</h5>
+            {% if comprovante.pagamento == True %}
+
+                <h6 class="text-success">Pagamento confirmado</h6>
+                {% else %}
+                <h6 class="text-danger">Pagamento não confirmado</h6>
+                <form action="{{ comprovante.id }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value={{ comprovante.id }}>
+                    <input type="hidden" name="show" value={{ comprovante.id }}>
+                    <td>
+                        {% if comprovante.comprovante %}
+                        {% if comprovante.pagamento %}
+                        <button class="btn btn-danger" type="submit"> PAGO</button>
+                        {% else %}
+                        <button class="btn btn-success" type="submit"> confimar pagamento</button>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </form>
+
+            {% endif %}
+        <a class="btn btn-danger my-2" href="{% url 'lista' %}/{{ comprovante.lista_reserva.id }}">Voltar</a>
+        </div>
+
+        {% if comprovante.comprovante %}
+        <img src="{{comprovante.comprovante.url}}" width="300"/>
+        {% else %}
+        <h4>Comprovante nao adicionado</h4>
+        {% endif %}
+
+    </div>
+</div>
 </div>
 {% endfor %}
 

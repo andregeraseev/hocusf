@@ -139,12 +139,33 @@ def lista(request, id):
 def comprovante(request, id):
     # metodo render para comprovante
 
-    show = NomeLista.objects.filter(id=id)
-    dados = {
-             'show': show
-             }
+    if request.method == 'POST':
 
-    return render(request, 'comprovante.html', dados)
+        show = NomeLista.objects.filter(id=id)
+        print(show)
+        dados = {
+            'show': show
+        }
+
+
+        id_nome_lista = request.POST['id']
+        print(id_nome_lista)
+        show = request.POST['show']
+        cofirmapagamento = NomeLista.objects.filter(id=id_nome_lista)
+        print(cofirmapagamento)
+        cofirmapagamento.update(
+            pagamento=True)
+        print(cofirmapagamento, "confima pagamento")
+
+        return render(request, 'comprovante.html', dados)
+    else:
+
+        show = NomeLista.objects.filter(id=id)
+        dados = {
+                 'show': show
+                 }
+
+        return render(request, 'comprovante.html', dados)
 
 
 def evento(request, id):
