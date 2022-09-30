@@ -6,6 +6,7 @@
 
 <body>
 
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
@@ -29,8 +30,10 @@
             <th>Cpf</th>
             <th>Celular</th>
             <th>Pagamento</th>
+            {% if not request.user.groups.all %}
             <th>Comprovante</th>
             <th>Confirmar</th>
+            {% endif %}
 
         </tr>
         </thead>
@@ -47,6 +50,8 @@
             {% else %}
             <td><label class="badge badge-danger">PENDENTE</label></td>
             {% endif %}
+<!--            PORTARIA-->
+            {% if not request.user.groups.all %}
             {% if area.comprovante %}
             <td><a href="{% url 'comprovante' %}/{{ area.id }}">
                 <button class="btn btn-primary"> Comprovante</button>
@@ -67,6 +72,7 @@
                     {% endif %}
                     {% endif %}
                 </td>
+            {% endif %}
             </form>
         </tr>
         {% endfor %}
@@ -79,8 +85,10 @@
             <th>Cpf</th>
             <th>Celular</th>
             <th>Pagamento</th>
+            {% if not request.user.groups.all %}
             <th>Comprovante</th>
             <th>Confirmar</th>
+            {% endif %}
         </tr>
         </tfoot>
     </table>
