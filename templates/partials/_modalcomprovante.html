@@ -22,10 +22,27 @@
                             <div class="container bg-light mt-5 p-2" >
                                 <h5 class="b">Para comprar seu ingresso, <br> faça um Hocus Pix:</h5>
                                 <br>
-                                <h5 class="d-none d-lg-block col-12 text-break " >{{ evento.lista_reserva.chave_pix }}</h5>
+                                <textArea  readonly class=" text d-none d-lg-block col-12 text-break " >{{ evento.lista_reserva.chave_pix }}</textArea>
 <!--                                <h1 class="d-none d-lg-block">000.000.000-00</h1>-->
-                        <h6 class="d-none d-md-block d-lg-none text-break">{{ evento.lista_reserva.chave_pix }}</h6>
+                                <textArea readonly class="text d-none  d-md-block d-lg-none text-break">{{ evento.lista_reserva.chave_pix }}</textArea>
 <!--                                <h5 class="d-none d-md-block d-lg-none">000.000.000-00</h5>-->
+                                <button id="copy">Copiar</button>
+
+                                <script>
+
+                                    let btn = document.querySelector('#copy');
+
+btn.addEventListener('click', function(e) {
+
+  let textArea = document.querySelector('.text');
+  textArea.select();
+  document.execCommand('copy');
+
+  alert("Pix Copiado!");
+
+});
+
+                                </script>
                             </div>
                         </div>
 
