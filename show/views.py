@@ -93,7 +93,14 @@ def lista(request, id):
                 confirma_pagamento_entrada.update(
                     entrou=False)
 
-        if request.method == 'POST':
+            pessoa = NomeLista.objects.filter(lista_reserva_id=id)
+            show = Show.objects.filter(id=id)
+            dados = {'pessoas': pessoa,
+                     'show': show
+                     }
+            return render(request, 'lista.html', dados)
+
+        elif request.method == 'POST':
             print("lista POST")
             id_nome_lista = request.POST['id']
             show = request.POST['show']
