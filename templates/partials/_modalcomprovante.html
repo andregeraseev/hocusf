@@ -51,7 +51,9 @@
                                 <br>
                                 {% endif %}
                             </div>
+                                {% if evento.pagamento == True %}
 
+                                {% else %}
                                 <!--Simple Form-->
                                 <div class="border mt-3 p-2">
                                     <h5 class="b"> Envie seu comprovante: </h5>
@@ -102,7 +104,7 @@
 
                                         <button class="btn btn-dark mb-4" type="submit">Enviar</button>
                                     </form>
-
+                                    {% endif %}
 
                                     <!--Imagem Uploaded-->
                                     <h2 class="my-4">Comprovante</h2>
