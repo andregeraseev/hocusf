@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
 {% for nome_na_lista in show %}
+{% if not request.user.groups.all %}
 <div class="container-lg bg-white rounded mt-4">
     <div class="row header" style="text-align:center;color:black">
         <div class="col-md-4 text-left m-2">
@@ -30,10 +31,92 @@
             <th>Cpf</th>
             <th>Celular</th>
             <th>Pagamento</th>
-            {% if not request.user.groups.all %}
             <th>Comprovante</th>
             <th>Confirmar</th>
-            {% endif %}
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for area in pessoas.all %}
+            <tr>
+                <td> {% if area.roqueiro == None %} {{ area.sem_registro.usuario_sem_registro }} {% else %}
+                    {{ area.roqueiro.usuario }} {% endif %}
+                </td>
+                <td>{{ area.roqueiro.cpf }} {{ area.sem_registro.cpf_sem_registro }}</td>
+                <td>{{ area.roqueiro.celular }} {{ area.sem_registro.celular_sem_registro }}</td>
+                {% if area.pagamento %}
+                    <td><label class="badge badge-success">PAGO</label></td>
+                {% else %}
+                    <td><label class="badge badge-danger">PENDENTE</label></td>
+                {% endif %}
+                {% if area.comprovante %}
+                    <td><a href="{% url 'comprovante' %}/{{ area.id }}">
+                        <button class="btn btn-primary"> Comprovante</button></a></td>
+
+                {% else %}
+                    <td><label class="badge badge-danger"> S/Comprov. </label></td>
+                {% endif %}
+                <form action="{{ area.lista_reserva.id }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value={{ area.id }}>
+                    <input type="hidden" name="show" value={{ nome_na_lista.id }}>
+                    <td>
+                        {% if area.comprovante %}
+                        {% if area.pagamento %}
+                        <button class="btn btn-danger" type="submit"> PAGO  </button>
+                        {% else %}
+                        <button class="btn btn-success" type="submit"> confima  </button>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </form>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nome</th>
+                <th>Cpf</th>
+                <th>Celular</th>
+                <th>Pagamento</th>
+                {% if not request.user.groups.all %}
+                <th>Comprovante</th>
+                <th>Confirmar</th>
+                {% endif %}
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endif %}
+
+
+
+<!--PORTARIA-->
+{% if request.user.groups.all %}
+<div class="container-lg bg-white rounded mt-4">
+    <div class="row header" style="text-align:center;color:black">
+        <div class="col-md-4 text-left m-2">
+            <button id="export" class="btn btn-primary">Excel</button>
+        </div>
+
+
+        <h1 class="col-md-4 text-center " style="font-family: 'Chau Philomene One'">{{ nome_na_lista.titulo_show }}</h1>
+        {{ nome_na_lista.roqueiro.cpf }}
+
+    </div>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cpf</th>
+            <th>Celular</th>
+            <th>Pagamento</th>
+            <th>Entrou</th>
+
+
 
         </tr>
         </thead>
@@ -46,48 +129,21 @@
             <td>{{ area.roqueiro.cpf }} {{ area.sem_registro.cpf_sem_registro }}</td>
             <td>{{ area.roqueiro.celular }} {{ area.sem_registro.celular_sem_registro }}</td>
             {% if area.pagamento %}
-            <td><label class="badge badge-success">PAGO</label></td>
+                <td><label class="badge badge-success">PAGO</label></td>
             {% else %}
-            <td><label class="badge badge-danger">PENDENTE</label></td>
+                <td><label class="badge badge-danger">PENDENTE</label></td>
             {% endif %}
-            <!-- filtro para nao aparecer na PORTARIA-->
-            {% if not request.user.groups.all %}
-            {% if area.comprovante %}
-            <td><a href="{% url 'comprovante' %}/{{ area.id }}">
-                <button class="btn btn-primary"> Comprovante</button>
-            </a></td>
-            {% else %}
-            <td><label class="badge badge-danger"> S/Comprov. </label></td>
-            {% endif %}
-            <form action="{{ area.lista_reserva.id }}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="id" value={{ area.id }}>
-                <input type="hidden" name="show" value={{ nome_na_lista.id }}>
-                <td>
-                    {% if area.comprovante %}
-                    {% if area.pagamento %}
-                    <button class="btn btn-danger" type="submit"> PAGO  </button>
-                    {% else %}
-                    <button class="btn btn-success" type="submit"> confima  </button>
-                    {% endif %}
-                    {% endif %}
-                </td>
-                <!-- filtro para PORTARIA-->
-            {% else %}
-                {% if area.entrou == False %}
                 <form action="{{ area.lista_reserva.id }}" method="POST">
                  {% csrf_token %}
-                <input type="hidden" name="id" value={{ area.id }}>
-                <input type="hidden" name="show" value={{ nome_na_lista.id }}>
-                <td><button class="btn btn-success" name="entrou" type="submit"> Confirmar Entrada </button></td>
+                 <input type="hidden" name="id" value={{ area.id }}>
+                 <input type="hidden" name="show" value={{ nome_na_lista.id }}>
+                {% if area.entrou == False %}
+
+                    <td><button class="btn btn-success" name="entrou" type="submit"> Confirmar Entrada </button></td>
                 {% else %}
-                    <form action="{{ area.lista_reserva.id }}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="id" value={{ area.id }}>
-                    <input type="hidden" name="show" value={{ nome_na_lista.id }}>
+
                     <td><button class="btn btn-danger" name="entrou" type="submit"> Entrada Confirmada </button></td>
                 {% endif %}
-            {% endif %}
             </form>
         </tr>
         {% endfor %}
@@ -100,14 +156,18 @@
             <th>Cpf</th>
             <th>Celular</th>
             <th>Pagamento</th>
-            {% if not request.user.groups.all %}
-            <th>Comprovante</th>
-            <th>Confirmar</th>
-            {% endif %}
+            <th>Entrou</th>
+
+
         </tr>
         </tfoot>
     </table>
 </div>
+{% endif %}
+
+
+
+
 {% endfor %}
 <script src="{% static 'javascript/tabela_lista_funcao_pago_nao_pago.js' %}"></script>
 <script src="{% static 'javascript/tabela_listaevento_datatable.js' %}"></script>
