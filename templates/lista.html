@@ -50,7 +50,7 @@
             {% else %}
             <td><label class="badge badge-danger">PENDENTE</label></td>
             {% endif %}
-<!--            PORTARIA-->
+            <!-- filtro para nao aparecer na PORTARIA-->
             {% if not request.user.groups.all %}
             {% if area.comprovante %}
             <td><a href="{% url 'comprovante' %}/{{ area.id }}">
@@ -72,6 +72,21 @@
                     {% endif %}
                     {% endif %}
                 </td>
+                <!-- filtro para PORTARIA-->
+            {% else %}
+                {% if area.entrou == False %}
+                <form action="{{ area.lista_reserva.id }}" method="POST">
+                 {% csrf_token %}
+                <input type="hidden" name="id" value={{ area.id }}>
+                <input type="hidden" name="show" value={{ nome_na_lista.id }}>
+                <td><button class="btn btn-success" name="entrou" type="submit"> Confirmar Entrada </button></td>
+                {% else %}
+                    <form action="{{ area.lista_reserva.id }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value={{ area.id }}>
+                    <input type="hidden" name="show" value={{ nome_na_lista.id }}>
+                    <td><button class="btn btn-danger" name="entrou" type="submit"> Entrada Confirmada </button></td>
+                {% endif %}
             {% endif %}
             </form>
         </tr>

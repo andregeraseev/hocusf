@@ -16,7 +16,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 import re
 cpf = CPF()
-
+dominio = '127.0.0.1:8000'
 
 def cadastro(request):
     """Cadastra uma nova pessoa no sistema """
@@ -198,7 +198,7 @@ def upload_comprovante(request):
 
                 fss = FileSystemStorage(location="media/comprovantes",
                                         base_url="comprovantes")
-                filename = fss.save(imagem.name, imagem)
+                filename = fss.save(imagem.name.replace(" ", "_"), imagem)
                 uploaded_file_url = fss.url(filename)
                 recibo = NomeLista.objects.filter(id=id)
                 recibo.update(comprovante=uploaded_file_url)
@@ -245,7 +245,7 @@ def password_reset_request(request):
                     email_template_name = "senhas/password_reset_email.txt"
                     c = {
                         "email": user.email,
-                        'domain': '127.0.0.1:8000',
+                        'domain': dominio,
                         'site_name': 'Website',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
@@ -283,7 +283,7 @@ def email_hocus_beta(pegando_id_usuario):
     email_template_name = "email/projetobeta.txt"
     c = {
         "email": emailusuario,
-        'domain': '127.0.0.1:8000',
+        'domain': dominio,
 
         "usuario": usuario,
         'site_name': 'Website',

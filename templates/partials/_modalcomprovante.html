@@ -70,7 +70,7 @@
     border-radius: 8px !important;
     color: #F5F5F5 !important;
     font-size: 18px !important;
-    padding: 15px 20px !important;
+    padding: 10px 15px !important;
     width: 100% !important;
     margin: 5px 0px 0px !important;
 }
@@ -80,7 +80,7 @@
 }
 
 .elementor-field{{ evento.id }}-type-upload::after {
-    content: "Nós aceitamos as extensões: .pdf, .doc, .docx, .txt.";
+    content: "Envie uma imagem do seu comprovante";
     margin-left: 10px;
     margin-top: 5px;
 }
@@ -139,5 +139,7 @@ let labelInputFile{{ evento.id }} = document.querySelector('.elementor-field{{ e
 inputFile{{ evento.id }}.addEventListener("change", () => {
     let inputImage{{ evento.id }} = inputFile{{ evento.id }}.files[0];
     labelInputFile{{ evento.id }}.innerText = inputImage{{ evento.id }}.name;
+
+
 })
                                         </script>

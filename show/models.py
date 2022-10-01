@@ -45,6 +45,7 @@ class NomeLista(models.Model):
     pagamento = models.BooleanField(default=False)
     comprovante = models.ImageField(upload_to='comprovantes', blank=True)
     lista_reserva = models.ForeignKey(Show, on_delete=models.CASCADE, blank=True, null= True,)
+    entrou = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('roqueiro', 'lista_reserva')

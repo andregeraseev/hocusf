@@ -7,7 +7,7 @@ from usuario.models import UsuarioSemRegistro
 from validate_docbr import CPF
 from datetime import datetime
 from django.utils import timezone
-
+from django.urls import reverse
 # email
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
-
+dominio = '127.0.0.1:8000'
 
 def index(request):
     data_hora = datetime.now()
@@ -35,31 +35,32 @@ def index(request):
         'proximos': proximos_eventos
     }
 
-
     return render(request, 'index.html', dados)
 
-def home(request):
 
+def home(request):
     data_hora = datetime.now()
     mes = data_hora.strftime('%m')
     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
     semana = data_hora.strftime('%V')
     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
-    pessoas= Usuario.objects.all()
+    pessoas = Usuario.objects.all()
     show = Show.objects.filter(publicada=True)
     proximos_eventos = Show.objects.filter(publicada=True)
     dados = {
-             'showdasemana': showsemana,
-             'showdomes': showmes,
-             'shows': show,
-             'pessoa': pessoas,
-             'proximos': proximos_eventos
+        'showdasemana': showsemana,
+        'showdomes': showmes,
+        'shows': show,
+        'pessoa': pessoas,
+        'proximos': proximos_eventos
     }
 
     return render(request, 'index.html', dados)
 
+
 def hocus(request):
     return render(request, 'hocus.html')
+
 
 def listaevento(request):
     if request.user.is_staff:
@@ -67,15 +68,30 @@ def listaevento(request):
         show = Show.objects.filter(publicada=True)
         dados = {
             'roqueiro': roqueiros,
-                 'show': show,
+            'show': show,
         }
 
         return render(request, 'listaevento.html', dados)
     else:
         return redirect('home')
+
+
 def lista(request, id):
     # medodo para confimar pagamento e voltar para pagina atual
     if request.user.is_staff:
+
+        if request.method == 'POST' and 'entrou' in request.POST:
+            print(request.POST)
+            id_nome_lista = request.POST['id']
+
+            confirma_pagamento_entrada = NomeLista.objects.filter(id=id_nome_lista)
+            if confirma_pagamento_entrada.filter(entrou='False'):
+
+                confirma_pagamento_entrada.update(
+                    entrou=True)
+            else:
+                confirma_pagamento_entrada.update(
+                    entrou=False)
 
         if request.method == 'POST':
             print("lista POST")
@@ -83,12 +99,9 @@ def lista(request, id):
             show = request.POST['show']
             cofirmapagamento = NomeLista.objects.filter(id=id_nome_lista)
 
-
-
             cofirmapagamento.update(
                 pagamento=True)
             print(cofirmapagamento, "confima pagamento")
-
 
             pessoa = NomeLista.objects.filter(lista_reserva_id=id)
             show = Show.objects.filter(id=id)
@@ -105,7 +118,7 @@ def lista(request, id):
             print(pessoa, "Pessoa")
             dados = {'pessoas': pessoa,
                      'show': show
-            }
+                     }
 
             return render(request, 'lista.html', dados)
 
@@ -147,7 +160,6 @@ def comprovante(request, id):
             'show': show
         }
 
-
         id_nome_lista = request.POST['id']
         print(id_nome_lista)
         show = request.POST['show']
@@ -162,8 +174,8 @@ def comprovante(request, id):
 
         show = NomeLista.objects.filter(id=id)
         dados = {
-                 'show': show
-                 }
+            'show': show
+        }
 
         return render(request, 'comprovante.html', dados)
 
@@ -176,6 +188,7 @@ def evento(request, id):
     }
     print(request)
     return render(request, 'evento.html', dados)
+
 
 def adicionar_nome_lista(request, id):
     # metodo para adicoonar nome na lista sem cadastro
@@ -190,8 +203,8 @@ def adicionar_nome_lista(request, id):
 
         context = {
             'show': show,
-            'form' : request.POST}
-        print(request,"<<<<request" "Metodo POST adionando nome na lista")
+            'form': request.POST}
+        print(request, "<<<<request" "Metodo POST adionando nome na lista")
         if not validacpf(cpf):
             messages.warning(request, 'CPF invalido', "danger")
             return render(request, 'registrarnomelista.html', context)
@@ -200,12 +213,12 @@ def adicionar_nome_lista(request, id):
 
         user_sem_registro = UsuarioSemRegistro.objects.create(
 
-            usuario_sem_registro = nome,
-            cpf_sem_registro = cpf,
-            celular_sem_registro = celular
-            )
+            usuario_sem_registro=nome,
+            cpf_sem_registro=cpf,
+            celular_sem_registro=celular
+        )
 
-        registrando= NomeLista.objects.create(
+        registrando = NomeLista.objects.create(
             sem_registro=user_sem_registro,
             lista_reserva=showcompleto
         )
@@ -216,7 +229,7 @@ def adicionar_nome_lista(request, id):
         user_sem_registro.save()
 
     else:
-        print(request,"<<<<request" "Metodo Get adionando nome na lista")
+        print(request, "<<<<request" "Metodo Get adionando nome na lista")
         show = Show.objects.filter(id=id)
         dados = {
 
@@ -225,6 +238,7 @@ def adicionar_nome_lista(request, id):
 
         return render(request, 'registrarnomelista.html', dados)
     # adionarnar mensagens de erro
+
 
 def adicionar_nome_lista_com_cadastro(request):
     # metodo para adicoonar nome na lista com cadastro
@@ -239,7 +253,7 @@ def adicionar_nome_lista_com_cadastro(request):
             user_com_registro = NomeLista.objects.create(
                 roqueiro=usuarioompleto,
                 lista_reserva=showcompleto
-                )
+            )
             user_com_registro.save()
             # messages.success(request, 'Seu nome foi colocado na lista com sucesso')
             # return redirect('home')
@@ -252,7 +266,8 @@ def adicionar_nome_lista_com_cadastro(request):
 
 
         except IntegrityError:
-            messages.warning(request, 'Seu nome já está nesse show. Acesse "Meus Eventos" no menu superior para ver mais informações.')
+            messages.warning(request,
+                             'Seu nome já está nesse show. Acesse "Meus Eventos" no menu superior para ver mais informações.')
             return redirect('home')
 
     else:
@@ -272,13 +287,15 @@ def email_nomelista(id_nomelista):
     email_template_name = "email/confimacao_nome_lista.txt"
     c = {
         "email": emailusuario,
-        'domain': '127.0.0.1:8000',
+        # precisa mudar na producao
+        'domain': dominio,
         "show": show,
         "usuario": usuario,
         'site_name': 'Website',
         "user": nomelista_atual.roqueiro,
         'protocol': 'http',
     }
+
     email = render_to_string(email_template_name, c)
     try:
         send_mail(subject, email, 'admin@example.com', [emailusuario], fail_silently=False)
