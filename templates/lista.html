@@ -1,4 +1,4 @@
-{% extends 'base4.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 
 {% for nome_na_lista in show %}
 {% if not request.user.groups.all %}
-<div class="container-lg bg-white rounded mt-4">
+<div class="container bg-white rounded mt-4">
     <div class="row header" style="text-align:center;color:black">
         <div class="col-md-4 text-left m-2">
             <button id="export" class="btn btn-primary">Excel</button>
@@ -24,7 +24,7 @@
         {{ nome_na_lista.roqueiro.cpf }}
 
     </div>
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table-sm table-striped table-bordered" >
         <thead>
         <tr>
             <th>Nome</th>
@@ -96,7 +96,7 @@
 
 <!--PORTARIA-->
 {% if request.user.groups.all %}
-<div class="container-lg bg-white rounded mt-4">
+<div class="container bg-white rounded mt-4">
     <div class="row header" style="text-align:center;color:black">
         <div class="col-md-4 text-left m-2">
             <button id="export" class="btn btn-primary">Excel</button>
@@ -107,7 +107,7 @@
         {{ nome_na_lista.roqueiro.cpf }}
 
     </div>
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table-sm table-striped table-bordered" >
         <thead>
         <tr>
             <th>Nome</th>

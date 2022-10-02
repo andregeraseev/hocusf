@@ -1,4 +1,4 @@
-{% extends 'base3.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,18 +12,18 @@
 {% include 'partials/_alertas.html' %}
 <div class="container-fluid rounded  py-3 mt-2 " style="background-color:#2d2a2a">
     <div class="row  text-center ">
-        <div class="col my-3">
+        <div class="col  my-3">
             <h3 class="text-white"> Ola {{ user.username }} ! </h3>
             <h2 class="text-white" style="font-family: 'Chau Philomene One'">Lista de shows:</h2>
         </div>
     </div>
 
-    <div class="container text-center " style="background-color:#1e1e1d">
-        <div class="row w-100 my-2 ">
+    <div class="container justify-content-center text-center " style="background-color:#1e1e1d">
+        <div class="ml-1 row  my-2 ">
 
             {% if not eventos  %}
 
-            <div class="container col-6 p-5">
+            <div class="container  col-6 p-5">
             <h2 class="text-white  text-center">VOCE AINDA NAO ESTA CADASTRADO EM NENHUM EVENTO</h2>
 
 
@@ -41,28 +41,28 @@
 
 
 <!--            IMAGEM DO INGRESSO-->
-            <div class="col-lg-5 col-sm-11  w-100  m-4 " style="background-image:
+            <div class="col-lg-5 ml-lg-5  col-sm-5  col-md-5 ml-1" style="background-image:
                 url(static/ticket.png); background-repeat: no-repeat;background-size: 100%;">
 <!--      FIM IMAGEM DO INGRESSO-->
-                <div class="container ">
-                    <br class="d-none d-md-block d-lg-none ">
+                <div class="container  ">
+
                     <div class="row">
 
-                        <div class=" col-sm-2 d-none d-md-block d-lg-none"></div>
 <!--                        IMAGEM QUADRADA-->
-                        <div class="col-lg-6 col-sm-4 "></div>
+                        <div class="col-6  "></div>
                          {% if evento.lista_reserva.quadrado %}
 
+<!--                        CELULAR-->
+                        <div class=" d-sm-block  d-lg-none" style='position:absolute; top:50px; left:60px;'>
 
-                        <div class="d-none d-md-block d-lg-none" style='position:absolute; top:100px; left:140px;'>
                             <img src="{{ evento.lista_reserva.quadrado.url }}" class="img-fluid "
-                                  style="float:rigth;width:150px;
+                                  style="float:rigth;width:80px;
                                  opacity: 0.6;
                                   -webkit-filter: grayscale(100%);
                                    filter: grayscale(100%);
                                      filter: gray; /* IE */; ">
                         </div>
-
+<!--                        PC-->
                         <div class="d-none d-lg-block" style='position:absolute; top:70px; left:100px;'>
                             <img src="{{ evento.lista_reserva.quadrado.url }}" class="img-fluid "
                                  style="float:rigth;width:120px;
@@ -73,58 +73,61 @@
                         </div>
                         {% else %}
 <!--                                CELULAR-->
-                        <div class="d-none d-md-block d-lg-none " style='position:absolute; top:110px; left:140px; '>
+                        <div class=" d-sm-block d-lg-none " style='position:absolute; top:50px; left:60px; '>
                             <img src="{% static 'hocusticket.png' %}" class="img-fluid ">
                         </div>
-
+<!--                                    PC-->
                         <div class="d-none d-lg-block" style='position:absolute; top:65px; left:100px;'>
                             <img src="{% static 'hocusticket.png' %}" class="img-fluid " style="float:rigth;width:120px">
                         </div>
                         {% endif %}
 <!--                     FIM IMAGEM QUADRADA-->
-                        <div class="col-lg-6 col-sm-5 my-1 text-center ">
-                            <br><br>
+                        <div class="col-lg-6 col-sm-6 col-md-12  text-center ">
+                            <br class="d-none d-lg-block "><br><br>
 <!--                            DADOS DO SHO TITULO, DATA, HORARIO, VALOR -->
 
 <!--                            tela PC-->
-                            <div class="d-none d-lg-block">
+                            <div class="d-none d-lg-block ">
                                 <h3 class="text-danger" style="font-family: 'Chau Philomene One'">
                                 {{ evento.lista_reserva.titulo_show }}</h3>
                                 <h5 class=" mx-1" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} | {{ evento.lista_reserva.horario_do_show }} <br> {{ evento.lista_reserva.data_do_show|date:"l" }}
                                 </h5>{% if evento.lista_reserva.valor %}
 
-                                <div class="text-danger h5 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
+                                <div class="text-danger  h5 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
                                 {% else %}
                                 <div style="margin-bottom: 60px"></div>
                                 {% endif %}
                             </div>
 <!--                            CELULAR-->
+                            <div class="row">
+                            <div class="col-5   "></div>
+                            <div class="  col-7  d-sm-block  d-lg-none">
+                                <h6 class="text-danger" style="font-family: 'Chau Philomene One'">
+                                {{ evento.lista_reserva.titulo_show }}</h6>
+                                <h6 class=" " style="font-family: 'Chau Philomene One'"><small>{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} | {{ evento.lista_reserva.horario_do_show }} <br> {{ evento.lista_reserva.data_do_show|date:"l" }}
+                                </small></h6>{% if evento.lista_reserva.valor %}
 
-                            <div class="d-none d-md-block d-lg-none">
-                                <h2 class="text-danger" style="font-family: 'Chau Philomene One'">
-                                {{ evento.lista_reserva.titulo_show }}</h2>
-                                <h4 class=" mx-1" style="font-family: 'Chau Philomene One'">{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} | {{ evento.lista_reserva.horario_do_show }} <br> {{ evento.lista_reserva.data_do_show|date:"l" }}
-                                </h4>{% if evento.lista_reserva.valor %}
-
-                                <div class="text-danger h4 my-3" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
+                                <div class="text-danger h6 my-1" style="font-family: 'Chau Philomene One'"> R${{ evento.lista_reserva.valor }}</div>
                                 {% else %}
-                                <div style="margin-bottom: 60px"></div>
+                                <div style="margin-bottom: 2px"></div>
                                 {% endif %}
-                            </div>
+                            </div></div>
 
 <!--                            FIM, DATA, HORARIO, VALOR -->
-                            <br><br class="d-none d-md-block d-lg-none "><br
-                                class="d-none d-md-block d-lg-none "><br class="d-none d-md-block d-lg-none ">
+                            <br><br class="   d-sm-block d-lg-none  "><br
+                                class="d-none d-sm-block d-lg-none "><br class="d-none d-sm-block d-lg-none ">
 <!--                            Carimbo PAGO-->
                             {% if evento.pagamento %}
 <!--                           tela grande -->
-                            <div class="d-none d-lg-block" style='position:absolute; top:150px; left:130px;'>
+                            <div class="  d-none d-lg-block" style='position:absolute; top:150px; left:130px;'>
                                 <img src="{% static 'ico_pag.png' %}" class="img-fluid "
                                      style="float:rigth;width:60px">
                             </div>
-                            <div class="d-none d-sm-block d-lg-none" style='position:absolute; top:150px; left:130px;'>
-                                <img src="{% static 'ico_pag.png' %}" class="img-fluid "
-                                     style="float:rigth;width:100px">
+
+
+                            <div class="  d-sm-block  d-lg-none" style='position:absolute; top:90px; left:210px;'>
+                                <img src="{% static 'ico_pag.png' %}" class=" img-fluid "
+                                     style="float:rigth; width:3rem">
                             </div>
                             {% endif %}
 <!--                         FIM Carimbo PAGO-->
