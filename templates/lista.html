@@ -11,9 +11,13 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
+
+
+
+
 {% for nome_na_lista in show %}
 {% if not request.user.groups.all %}
-<div class="container bg-white rounded mt-4">
+<div class="container bg-white  rounded mt-4">
     <div class="row header" style="text-align:center;color:black">
         <div class="col-md-4 text-left m-2">
             <button id="export" class="btn btn-primary">Excel</button>
@@ -24,15 +28,16 @@
         {{ nome_na_lista.roqueiro.cpf }}
 
     </div>
-    <table id="example" class="table-sm table-striped table-bordered" >
+
+    <table id="example" class="table-responsive justify-content-center  table-striped table-bordered" width="100%" >
         <thead>
         <tr>
-            <th>Nome</th>
-            <th>Cpf</th>
-            <th>Celular</th>
-            <th>Pagamento</th>
-            <th>Comprovante</th>
-            <th>Confirmar</th>
+            <th width="20%">Nome</th>
+            <th width="20%">Cpf</th>
+            <th width="20%">Celular</th>
+            <th width="15%">Pagamento</th>
+            <th width="5%">Comprovante</th>
+            <th width="5%">Confirmar</th>
 
 
         </tr>
@@ -90,14 +95,26 @@
         </tfoot>
     </table>
 </div>
+
 {% endif %}
 
+<style>
 
+    html {
+ font-size: 10px;
+}
+tr {
+ font-size: 1.1rem;
+}
+td {
+ font-size: 1rem;
+}
+</style>
 
 <!--PORTARIA-->
 {% if request.user.groups.all %}
-<div class="container bg-white rounded mt-4">
-    <div class="row header" style="text-align:center;color:black">
+<div class="container bg-white rounded mt-4" >
+    <div class="header" style="text-align:center;color:black">
         <div class="col-md-4 text-left m-2">
             <button id="export" class="btn btn-primary">Excel</button>
         </div>
@@ -107,15 +124,15 @@
         {{ nome_na_lista.roqueiro.cpf }}
 
     </div>
-    <table id="example" class="table-sm table-striped table-bordered" >
+    <table id="example" class="table-sm table-striped table-bordered" width="100%">
         <thead>
         <tr>
-            <th>Nome</th>
+            <th width="10%">Nome</th>
             <th>Cpf</th>
-            <th>Celular</th>
-            <th>Pagamento</th>
-            <th>Entrou</th>
+<!--            <th>Celular</th>-->
 
+            <th>Entrou</th>
+            <th width="5%">Pagamento</th>
 
 
         </tr>
@@ -127,23 +144,24 @@
                 {{ area.roqueiro.usuario }} {% endif %}
             </td>
             <td>{{ area.roqueiro.cpf }} {{ area.sem_registro.cpf_sem_registro }}</td>
-            <td>{{ area.roqueiro.celular }} {{ area.sem_registro.celular_sem_registro }}</td>
-            {% if area.pagamento %}
-                <td><label class="badge badge-success">PAGO</label></td>
-            {% else %}
-                <td><label class="badge badge-danger">PENDENTE</label></td>
-            {% endif %}
+
                 <form action="{{ area.lista_reserva.id }}" method="POST">
                  {% csrf_token %}
                  <input type="hidden" name="id" value={{ area.id }}>
                  <input type="hidden" name="show" value={{ nome_na_lista.id }}>
                 {% if area.entrou == False %}
 
-                    <td><button class="btn btn-success" name="entrou" type="submit"> Confirmar Entrada </button></td>
+                    <td><button class="btn-sm btn-success" name="entrou" type="submit"> Confirmar </button></td>
                 {% else %}
 
-                    <td><button class="btn btn-danger" name="entrou" type="submit"> Entrada Confirmada </button></td>
+                    <td><button class="btn-sm btn-danger" name="entrou" type="submit"> Entrou </button></td>
                 {% endif %}
+
+                {% if area.pagamento %}
+                <td><label class="badge badge-success">Pago</label></td>
+            {% else %}
+                <td><label class="badge badge-danger">Pendente</label></td>
+            {% endif %}
             </form>
         </tr>
         {% endfor %}
@@ -154,10 +172,10 @@
         <tr>
             <th>Nome</th>
             <th>Cpf</th>
-            <th>Celular</th>
-            <th>Pagamento</th>
-            <th>Entrou</th>
+<!--            <th>Celular</th>-->
 
+            <th>Entrou</th>
+            <th>Pagamento</th>
 
         </tr>
         </tfoot>
