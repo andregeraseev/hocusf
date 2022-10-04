@@ -1,5 +1,9 @@
 {% load static %}
 <!-- Modal -->
+
+
+
+
         <div class="modal" role="dialog" id="botao{{ evento.lista_reserva.id }}" >
             <div class=" modal-dialog modal-lg"   >
                 <div class="modal-content text-center" >
@@ -11,21 +15,20 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        <div class="row ml-4">
-                        <div class=" col-5 text-left border p-1">
-                            <h2>HOCUS PIX</h2>
+                        <div class="row ml-auto">
+                        <div class=" col-6 text-left border ">
+                            <h4>HOCUS PIX</h4>
                             <h5 class="b"> Show selecionado: </h5>
                             <h5 >{{ evento.lista_reserva }} </h5>
                             <h5 class="b"> Data: </h5>
                             <h6>{{ evento.lista_reserva.data_do_show|date:"SHORT_DATE_FORMAT" }} </h6>
 
-                            <div class="container bg-light mt-5 p-2" >
-                                <h5 class="b">Para comprar seu ingresso, <br> faça um Hocus Pix:</h5>
+                            <div class="container bg-light mt-auto " >
+                                <p class="b" style="font-size: 1.2em">Para comprar seu ingresso, faça um Hocus Pix:</p>
                                 <br>
-                                <textArea  readonly class=" text d-none d-lg-block col-12 text-break " >{{ evento.lista_reserva.chave_pix }}</textArea>
+                                <textArea  readonly class=" text  col-12 text-break " style="font-size: 0.8em">{{ evento.lista_reserva.chave_pix }}</textArea>
 <!--                                <h1 class="d-none d-lg-block">000.000.000-00</h1>-->
-                                <textArea readonly class="text d-none  d-md-block d-lg-none text-break">{{ evento.lista_reserva.chave_pix }}</textArea>
-<!--                                <h5 class="d-none d-md-block d-lg-none">000.000.000-00</h5>-->
+
                                 <button id="copy">Copiar</button>
 
                                 <script>
@@ -47,14 +50,14 @@ btn.addEventListener('click', function(e) {
                         </div>
 
 
-                        <div class="col-6 text-left  ml-2">
-                            <div class="border p-2">
+                        <div class="col-6 text-left  ml-auto">
+                            <div class="border ">
                                 <h5 class="b"> Status Pagamento: </h5><br>
                                 {% if evento.comprovante %}
                                 {% if evento.pagamento %}
-                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i>Aguardando comprovante </h6>
-                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i>Aguardando confirmação </h6>
-                                <h6 class="text-success"><i class="fa fa-circle" aria-hidden="true"></i>Pagamento confirmado</h6>
+                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i> Aguardando comprovante </h6>
+                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i> Aguardando confirmação </h6>
+                                <h6 class="text-success"><i class="fa fa-circle" aria-hidden="true"></i> Pagamento confirmado</h6>
                                 {% else %}
                                 <h6 class="text-muted">  <i class="fa fa-circle-o" aria-hidden="true"></i> Aguardando comprovante</h6>
                                 <h6 class="text-warning">  <i class="fa fa-circle" aria-hidden="true"></i> Aguardando confirmação</h6>
@@ -62,9 +65,9 @@ btn.addEventListener('click', function(e) {
                                 <br>
                                 {% endif %}
                                 {% else %}
-                                <h6 class="text-danger"> <i class="fa fa-circle" aria-hidden="true"></i>Aguardando comprovante </h6>
-                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i>Aguardando confirmação </h6>
-                                <h6 class="text-muted"><i class="fa fa-circle-o" aria-hidden="true"></i>Pagamento confirmado</h6>
+                                <h6 class="text-danger"> <i class="fa fa-circle" aria-hidden="true"></i> Aguardando comprovante </h6>
+                                <h6 class="text-muted"> <i class="fa fa-circle-o" aria-hidden="true"></i> Aguardando confirmação </h6>
+                                <h6 class="text-muted"><i class="fa fa-circle-o" aria-hidden="true"></i> Pagamento confirmado</h6>
                                 <br>
                                 {% endif %}
                             </div>
@@ -72,7 +75,7 @@ btn.addEventListener('click', function(e) {
 
                                 {% else %}
                                 <!--Simple Form-->
-                                <div class="border mt-3 p-2">
+                                <div class="border mt-3 ">
                                     <h5 class="b"> Envie seu comprovante: </h5>
                                     <form action="{% url 'upload_comprovante' %}" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
@@ -119,12 +122,12 @@ btn.addEventListener('click', function(e) {
                                         <br>
 
 
-                                        <button class="btn btn-dark mb-4" type="submit">Enviar</button>
+                                        <button class="btn btn-dark mb-auto" type="submit">Enviar</button>
                                     </form>
                                     {% endif %}
 
                                     <!--Imagem Uploaded-->
-                                    <h2 class="my-4">Comprovante</h2>
+                                    <h4 class="my-auto">Comprovante:</h4>
 
                                         {% if evento.comprovante %}
                                     <div class=" container">
