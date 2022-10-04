@@ -110,7 +110,7 @@
 
     {% else %}
    <nav class="navbar navbar-expand-lg navbar-dark   " style="background-color:#000000">
-        <div class="container-flex d-lg-none">
+        <div class="container justify-content-center d-lg-none ">
 
 
                 <form action="{% url 'login' %}" method="POST">
@@ -122,7 +122,7 @@
                                 <input type="text" id="email" class="form-control  " name="email" placeholder="Email">
                             </div>
 
-                            <label for="senha" class=" text-white fa fa-unlock-alt fa-2x" aria-hidden="true"></label>
+                            <label for="senha" class=" ml-auto text-white fa fa-unlock-alt fa-2x" aria-hidden="true"></label>
                             <div class="col-5">
                                 <input id="senha" type="password" class="form-control" name="senha" placeholder="Senha">
                             </div>
@@ -145,10 +145,10 @@
                         </div>
                     </div>
                 </form>
-                            <div class=" container col-12 align-items-center  ">
+                            <div class="  container col-12 align-items-center  ">
                             <button class="navbar-toggler col-12 " type="button" data-toggle="collapse"
                                     data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                                    aria-label="Toggle navigation">
+                                    aria-label="Toggle navigation" style="background-color: #1e1e1d">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                         </div>
