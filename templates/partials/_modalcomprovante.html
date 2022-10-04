@@ -15,8 +15,8 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        <div class="row ml-auto">
-                        <div class=" col-6 text-left border ">
+                        <div class="row ml-lg-auto">
+                        <div class=" col-lg-6  col-sm-12 text-lg-left border ">
                             <h4>HOCUS PIX</h4>
                             <h5 class="b"> Show selecionado: </h5>
                             <h5 >{{ evento.lista_reserva }} </h5>
@@ -50,8 +50,8 @@ btn.addEventListener('click', function(e) {
                         </div>
 
 
-                        <div class="col-6 text-left  ml-auto">
-                            <div class="border ">
+                        <div class="col-lg-6 col-sm-12   ml-lg-auto">
+                            <div class="border text-left p-3">
                                 <h5 class="b"> Status Pagamento: </h5><br>
                                 {% if evento.comprovante %}
                                 {% if evento.pagamento %}
@@ -75,7 +75,7 @@ btn.addEventListener('click', function(e) {
 
                                 {% else %}
                                 <!--Simple Form-->
-                                <div class="border mt-3 ">
+                                <div class="border col-sm-12 mt-3 ">
                                     <h5 class="b"> Envie seu comprovante: </h5>
                                     <form action="{% url 'upload_comprovante' %}" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
@@ -122,15 +122,17 @@ btn.addEventListener('click', function(e) {
                                         <br>
 
 
-                                        <button class="btn btn-dark mb-auto" type="submit">Enviar</button>
+                                        <button class="btn btn-dark mb-auto " type="submit">Enviar</button>
                                     </form>
                                     {% endif %}
 
                                     <!--Imagem Uploaded-->
-                                    <h4 class="my-auto">Comprovante:</h4>
+
 
                                         {% if evento.comprovante %}
-                                    <div class=" container">
+
+                                    <div class=" my-2 container border">
+                                        <h4 class="my-auto">Comprovante:</h4>
                                         <img src="{{ evento.comprovante.url }}" class="img-fluid">
                                         <br>
                                         <a class="btn btn-dark my-4" href="/">Pagina Inicial</a>
@@ -143,11 +145,14 @@ btn.addEventListener('click', function(e) {
                                     </div>
 
                                 </div>
-<div class=" d-block modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
                             </div>
+                        <div class=" d-block modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
