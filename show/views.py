@@ -39,15 +39,35 @@ def index(request):
 
 
 def home(request):
-    data_hora = datetime.now()
+    testdate = datetime.today()
+    mes_atual = testdate.month
+    ano_atual = testdate.year
+    dia_atual = testdate.day
+    weekofmonth = (testdate.day + 7 - 1) / 7
+    data_hora = datetime(ano_atual, mes_atual, 1)
+    print("weekofmonth", dia_atual, mes_atual, ano_atual, data_hora)
     mes = data_hora.strftime('%m')
     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
     semana = data_hora.strftime('%V')
+    print(semana)
+    semana_2 = int(data_hora.strftime('%V')) + 1
+    semana_3 = int(data_hora.strftime('%V')) + 2
+    semana_4 = int(data_hora.strftime('%V')) + 3
+    semana_5 = int(data_hora.strftime('%V')) + 4
     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
+    showsemana2 = Show.objects.filter(data_do_show__week=semana_2, publicada=True)
+    showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True)
+    showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True)
+    showsemana5 = Show.objects.filter(data_do_show__week=semana_5, publicada=True)
     pessoas = Usuario.objects.all()
     show = Show.objects.filter(publicada=True)
     proximos_eventos = Show.objects.filter(publicada=True)
+
     dados = {
+        'showdasemana5': showsemana5,
+        'showdasemana4': showsemana4,
+        'showdasemana3': showsemana3,
+        'showdasemana2': showsemana2,
         'showdasemana': showsemana,
         'showdomes': showmes,
         'shows': show,
