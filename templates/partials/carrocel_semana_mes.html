@@ -1,0 +1,231 @@
+<div id="carouselId" class="carousel slide" data-ride="carousel">
+
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            {% if showdasemana %}
+            <div class="container ">
+            <div class="row justify-content-center ">
+                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Primeira semana do mes</h3>
+                {% for show in showdasemana %}
+                <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
+                    <div class="  container my-2 p-4 rounded justify-content-center text-center " style=" background-color:#2d2a2a">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                        <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3> <h5 class="text-center" style="color: #FFDE59 ">( {{ show.data_do_show|date:"d" }} / {{ show.data_do_show|date:"m" }} )</h5>
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
+                {% csrf_token %}
+
+
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
+
+
+                <input type="hidden" name="show" value={{ show.id }}>
+                <div class="col-12 text-center">
+                    <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="col-12 text-center">
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
+            </div>
+
+            {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+                 </div>
+
+            </div>
+        </div>
+        {% endif %}
+            {% if showdasemana2 %}
+        <div class="carousel-item">
+
+            <div class="container " >
+            <div class="row justify-content-center ">
+
+                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Segunda semana do mes</h3>
+                {% for show in showdasemana2 %}
+                <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
+                    <div class="  container p-4 my-2 rounded justify-content-center text-center " style=" background-color:#2d2a2a">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                        <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3> <h5 class="text-center" style="color: #FFDE59 ">( {{ show.data_do_show|date:"d" }} / {{ show.data_do_show|date:"m" }} )</h5>
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
+                {% csrf_token %}
+
+
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
+
+
+                <input type="hidden" name="show" value={{ show.id }}>
+                <div class="col-12 text-center">
+                    <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="col-12 text-center">
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
+            </div>
+
+            {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+                 </div>
+            </div>
+
+        </div>
+            {% endif %}
+        {% if showdasemana3 %}
+        <div class="carousel-item">
+
+            <div class="container">
+            <div class="row justify-content-center ">
+
+                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Terceira semana do mes</h3>
+                {% for show in showdasemana3 %}
+                <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
+                    <div class="  container p-4 my-2 rounded   justify-content-center text-center " style=" background-color:#2d2a2a">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                        <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3> <h5 class="text-center" style="color: #FFDE59 ">( {{ show.data_do_show|date:"d" }} / {{ show.data_do_show|date:"m" }} )</h5>
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
+                {% csrf_token %}
+
+
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
+
+
+                <input type="hidden" name="show" value={{ show.id }}>
+                <div class="col-12 text-center">
+                    <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="col-12 text-center">
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
+            </div>
+
+            {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+                 </div>
+            </div>
+        </div>
+       {% endif %}
+
+        {% if showdasemana4 %}
+        <div class="carousel-item">
+
+            <div class="container">
+            <div class="row justify-content-center ">
+
+                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Quarta semana do mes</h3>
+                {% for show in showdasemana4 %}
+                <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
+                    <div class="  container p-4 my-2 rounded  justify-content-center text-center " style=" background-color:#2d2a2a">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                        <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3> <h5 class="text-center" style="color: #FFDE59 ">( {{ show.data_do_show|date:"d" }} / {{ show.data_do_show|date:"m" }} )</h5>
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
+                {% csrf_token %}
+
+
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
+
+
+                <input type="hidden" name="show" value={{ show.id }}>
+                <div class="col-12 text-center">
+                    <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="col-12 text-center">
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
+            </div>
+
+            {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+                 </div>
+            </div>
+        </div>
+       {% endif %}
+
+        {% if showdasemana5 %}
+        <div class="carousel-item">
+
+            <div class="container">
+            <div class="row justify-content-center ">
+
+                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Quinta semana do mes</h3>
+                {% for show in showdasemana5 %}
+                <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
+                    <div class="  container p-4 my-2 rounded   justify-content-center text-center " style=" background-color:#2d2a2a">
+                      <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
+                        <h3 class="text-center" style="color: #FFDE59 ">{{ show.data_do_show|date:"l" }}</h3> <h5 class="text-center" style="color: #FFDE59 ">( {{ show.data_do_show|date:"d" }} / {{ show.data_do_show|date:"m" }} )</h5>
+            {% if user.is_authenticated %}
+
+            <form action="{% url 'adicionar_nome_lista_com_cadastro' %}" method="POST">
+                {% csrf_token %}
+
+
+                <input type="hidden" name="usuarioid" value={{ request.user.usuario.id }}>
+
+
+                <input type="hidden" name="show" value={{ show.id }}>
+                <div class="col-12 text-center">
+                    <button class="btn btn-danger mt-4 " type="submit"> Enviar nome na lista</button>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="col-12 text-center">
+                <a href="/registronomelista/{{ show.id }} ">
+                    <button class="btn btn-danger mt-4"> Enviar nome na lista</button>
+                </a>
+            </div>
+
+            {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}
+                 </div>
+            </div>
+        </div>
+       {% endif %}
+    </div>
+
+        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev" style="color: red;">
+        <span class=" carousel-control-prev-icon" aria-hidden="true" style="color: red;" ></span>
+        <span class="sr-only" style="color: red;">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
