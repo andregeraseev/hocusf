@@ -39,7 +39,7 @@ def index(request):
 
 
 def home(request):
-    testdate = datetime.today()
+    testdate = datetime.now()
     mes_atual = testdate.month
     ano_atual = testdate.year
     dia_atual = testdate.day
@@ -48,13 +48,15 @@ def home(request):
     print("weekofmonth", dia_atual, mes_atual, ano_atual, data_hora)
     mes = data_hora.strftime('%m')
     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
-    semana = data_hora.strftime('%V')
-    print(semana)
+    semana = testdate.strftime('%V')
+    semana_1 = data_hora.strftime('%V')
     semana_2 = int(data_hora.strftime('%V')) + 1
     semana_3 = int(data_hora.strftime('%V')) + 2
     semana_4 = int(data_hora.strftime('%V')) + 3
     semana_5 = int(data_hora.strftime('%V')) + 4
+
     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
+    showsemana1 = Show.objects.filter(data_do_show__week=semana_1, publicada=True)
     showsemana2 = Show.objects.filter(data_do_show__week=semana_2, publicada=True)
     showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True)
     showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True)
@@ -68,6 +70,7 @@ def home(request):
         'showdasemana4': showsemana4,
         'showdasemana3': showsemana3,
         'showdasemana2': showsemana2,
+        'showdasemana1': showsemana1,
         'showdasemana': showsemana,
         'showdomes': showmes,
         'shows': show,

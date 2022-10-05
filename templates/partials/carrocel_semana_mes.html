@@ -2,11 +2,11 @@
 
     <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-            {% if showdasemana %}
+            {% if showdasemana1 %}
             <div class="container ">
             <div class="row justify-content-center ">
                 <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Primeira semana do mes</h3>
-                {% for show in showdasemana %}
+                {% for show in showdasemana1 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container my-2 p-4 rounded justify-content-center text-center " style=" background-color:#2d2a2a">
                       <a href="/evento/{{ show.id }} " >  <img src="{{ show.quadrado.url }}" class="img-fluid " alt="Second slide"></a>
