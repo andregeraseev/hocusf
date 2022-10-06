@@ -1,9 +1,10 @@
 <div id="carouselId" class="carousel slide" data-ride="carousel">
 
     <div class="carousel-inner" role="listbox">
+        {% if showdasemana1 %}
         <div class="carousel-item active">
 
-            {% if showdasemana1 %}
+
             <div class="container ">
             <div class="row justify-content-center ">
                 <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 01</h5>
@@ -45,8 +46,9 @@
         </div>
         {% endif %}
             {% if showdasemana2 %}
-        <div class="carousel-item">
 
+        {% if  showdasemana1 %} <div class="carousel-item" > {% endif %}
+        {% if not showdasemana1 %} <div class="carousel-item active" > {% endif %}
             <div class="container " >
             <div class="row justify-content-center ">
 
@@ -89,7 +91,8 @@
         </div>
             {% endif %}
         {% if showdasemana3 %}
-        <div class="carousel-item">
+        {% if showdasemana1 or showdasemana2 %} <div class="carousel-item" >  {% endif %}
+        {% if not showdasemana1 and not showdasemana2 %} <div class="carousel-item active" > {% endif %}
 
             <div class="container">
             <div class="row justify-content-center ">
@@ -133,7 +136,9 @@
        {% endif %}
 
         {% if showdasemana4 %}
-        <div class="carousel-item">
+
+        {% if  showdasemana1 or showdasemana2 or showdasemana3 %} <div class="carousel-item" >  {% endif %}
+        {% if not showdasemana3 and not showdasemana2 and not showdasemana1 %} <div class="carousel-item active" > {% endif %}
 
             <div class="container">
             <div class="row justify-content-center ">
@@ -177,7 +182,9 @@
        {% endif %}
 
         {% if showdasemana5 %}
-        <div class="carousel-item">
+        {% if  showdasemana1 or showdasemana2 or showdasemana3 or showdasemana4 %} <div class="carousel-item" >  {% endif %}
+        {% if not showdasemana3 and not showdasemana2 and not showdasemana1  and not showdasemana4 %} <div class="carousel-item active" > {% endif %}
+
 
             <div class="container">
             <div class="row justify-content-center ">
