@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
+from show.form import ContactForm
 dominio = '127.0.0.1:8000'
 
 def index(request):
@@ -78,7 +79,37 @@ def home(request):
         'proximos': proximos_eventos
     }
 
-    return render(request, 'index.html', dados)
+    if request.method == 'POST' and 'email_s' in request.POST:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data["assunto"]
+            from_email = form.cleaned_data["email"]
+            message = form.cleaned_data['mensagem']
+            nome = form.cleaned_data['nome']
+            telefone = form.cleaned_data['telefone']
+            mensagem = "nome: " + nome + '\n' + "email: " + from_email + '\n' + "telefone :" + telefone + '\n' + message
+            try:
+                send_mail(subject, mensagem, from_email, ["xflavors@gmail.com"])
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
+            return render(request, 'index.html',
+                          {'showdasemana5': showsemana5,
+                            'showdasemana4': showsemana4,
+                            'showdasemana3': showsemana3,
+                            'showdasemana2': showsemana2,
+                            'showdasemana1': showsemana1,
+                            'showdasemana': showsemana,
+                            'showdomes': showmes,
+                            'shows': show,
+                            'pessoa': pessoas,
+                            'proximos': proximos_eventos,
+                            'nome': nome,
+                            'action': 'recebemos seu email',
+                            'form': ContactForm(request.POST)})
+
+    else:
+
+        return render(request, 'index.html', dados)
 
 
 def hocus(request):

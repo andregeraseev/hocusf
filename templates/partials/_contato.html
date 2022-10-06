@@ -37,7 +37,78 @@
 
                             <a href="https://web.facebook.com/hocuspocusstudiocafe/?_rdc=1&_rdr"><i class=" mx-1 text-warning fa fa-facebook" aria-hidden="true"></i></a> </h2>
                 </div>
+
+
+
+
+
+            <div class="col-12 text-white">
+                <h4 class="text-center mt-5" style="font-family: 'Chau Philomene One'">Nos envie um email:</h4><br>
+                {% load widget_tweaks %}
+                <form class="" method="post">
+                    {% csrf_token %}
+
+                    {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                    {% endfor %}
+                    {% if nome %}
+                    <p>
+                    <div class="alert alert-secondary" role="alert">{{ nome }} {{ action }}.</div>
+                    </p>
+                    {% endif %}
+                    <div class="row">
+
+
+                        <div class="form-group col-lg-6 col-sm-12 ">
+                            <label for="id_nome">Nome:</label>
+                            <input type="text" name="nome" class="form-control" id="id_nome" required>
+
+                        </div>
+
+
+                        <div class="form-group col-lg-6 col-sm-12 ">
+                            <label for="id_email">Email:</label>
+                            <input type="email" name="email" class="form-control" id="id_email" required>
+
+                        </div>
+
+
+                        <div class="form-group col-lg-6 col-sm-12 ">
+                            <label for="id_telefone">Telefone:</label>
+                            <input type="text" data-mask="(00)0000-00000" name="telefone" class="form-control"
+                                   id="id_telefone" required>
+
+                        </div>
+
+
+                        <div class="form-group col-lg-6 col-sm-12 ">
+                            <label for="id_assunto">Assunto:</label>
+                            <input type="text" name="assunto" class="form-control" id="id_assunto" required>
+
+                        </div>
+
+
+                        <div class="form-group col-12 ">
+                            <label for="id_mensagem">Mensagem:</label>
+                            <textarea name="mensagem" cols="40" rows="8" class="form-control" id="id_mensagem"
+                                      required></textarea>
+
+                        </div>
+                        <input type="submit" name="email_s" class="btn btn-danger ml-3 mb-2">
+
+                    </div>
+
+
+                </form>
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
             </div>
+
+            </div>
+        </div>
+
+
+
         </div>
     </div>
 </div>
