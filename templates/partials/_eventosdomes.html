@@ -32,7 +32,10 @@
 <!--    <div class="container-sm-fluid container-lg" style="background-color:#2d2a2a">-->
         <div class="card-body " style="background-color:#1e1e1d">
 
-            <h2 class="card-title text-center text-white justify-content-center " style="font-family: 'Chau Philomene One'">Eventos do mes</h2>
+            <h2 class="card-title text-center text-white justify-content-center "
+                style="font-family: 'Chau Philomene One'">Eventos do mês {% now "F" %}</h2>
+            <h4 class="card-title text-center text-warning justify-content-center "
+                style="font-family: 'Chau Philomene One'">{% now "F Y" %}</h4>
              {% include 'partials/carrocel_semana_mes.html' %}
             </div>
         </div>

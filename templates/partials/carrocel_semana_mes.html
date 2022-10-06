@@ -2,10 +2,11 @@
 
     <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
+
             {% if showdasemana1 %}
             <div class="container ">
             <div class="row justify-content-center ">
-                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Primeira semana do mes</h3>
+                <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 01</h5>
                 {% for show in showdasemana1 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container my-2 p-4 rounded justify-content-center text-center " style=" background-color:#2d2a2a">
@@ -49,7 +50,7 @@
             <div class="container " >
             <div class="row justify-content-center ">
 
-                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Segunda semana do mes</h3>
+                <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 02</h5>
                 {% for show in showdasemana2 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container p-4 my-2 rounded justify-content-center text-center " style=" background-color:#2d2a2a">
@@ -93,7 +94,7 @@
             <div class="container">
             <div class="row justify-content-center ">
 
-                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Terceira semana do mes</h3>
+                <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 03</h5>
                 {% for show in showdasemana3 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container p-4 my-2 rounded   justify-content-center text-center " style=" background-color:#2d2a2a">
@@ -137,7 +138,7 @@
             <div class="container">
             <div class="row justify-content-center ">
 
-                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Quarta semana do mes</h3>
+                <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 04</h5>
                 {% for show in showdasemana4 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container p-4 my-2 rounded  justify-content-center text-center " style=" background-color:#2d2a2a">
@@ -181,7 +182,7 @@
             <div class="container">
             <div class="row justify-content-center ">
 
-                <h3 class="col-12 text-center text-warning" style="font-family: 'Chau Philomene One'">Quinta semana do mes</h3>
+                <h5 class="col-12 text-center text-secondary" style="font-family: 'Chau Philomene One'">Semana 05</h5>
                 {% for show in showdasemana5 %}
                 <div class="col-lg-4  col-sm-6 text-center justify-content-center ">
                     <div class="  container p-4 my-2 rounded   justify-content-center text-center " style=" background-color:#2d2a2a">
@@ -220,11 +221,12 @@
        {% endif %}
     </div>
 
-        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev" style="color: red;">
+        <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev" style="bottom: 99%; left: 20%; margin-top: 15px">
         <span class=" carousel-control-prev-icon" aria-hidden="true" style="color: red;" ></span>
-        <span class="sr-only" style="color: red;">Previous</span>
+        <span class="sr-only" style=" color: red;">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next" style=" right: 20%;
+    bottom: 99%; margin-top: 15px">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
