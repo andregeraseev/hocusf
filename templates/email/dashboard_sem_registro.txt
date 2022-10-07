@@ -6,13 +6,9 @@ Nos recebemos um pedido para colocar seu nome na lista do Evento:
 {{ show }}
 O evento vai acontecer do dia {{ show.data_do_show }} as {{ show.horario_do_show }}
 
-Acompanhe seus eventos:
-<a href="{{ protocol }}://{{ domain }}{% url 'dashboard'  %}" target="_blank">Confirmar</a>
-
 Obrigado,
 Time da Hocus Pocos
-
-
-
-
+{% if show.pix %}
+<a href="{{ protocol }}://{{ domain }}{% url 'dashboard_sem_cadastro'  %}?id={{ id }}&senha_unica={{ chave }}" target="_blank">Confirmar</a>
+{% endif %}
 {% endautoescape %}

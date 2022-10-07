@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from show.form import ContactForm
+import random
 dominio = '127.0.0.1:8000'
 
 def index(request):
@@ -255,11 +256,12 @@ def adicionar_nome_lista(request, id):
     # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
-
+        # TODO validacao cpf
         cpf = request.POST['cpf']
         celular = request.POST['celular']
         shows = request.POST['show']
-
+        email_sem_registro = request.POST["email_sem_registro"]
+        senha_unica = random_digits()
         show = Show.objects.filter(id=id)
 
         context = {
@@ -269,25 +271,39 @@ def adicionar_nome_lista(request, id):
         if not validacpf(cpf):
             messages.warning(request, 'CPF invalido', "danger")
             return render(request, 'registrarnomelista.html', context)
+        else:
+            showcompleto = Show.objects.get(id=shows)
+            try:
+                user_sem_registro = UsuarioSemRegistro.objects.create(
 
-        showcompleto = Show.objects.get(id=shows)
+                    usuario_sem_registro=nome,
+                    cpf_sem_registro=cpf,
+                    celular_sem_registro=celular,
+                    email_sem_registro = email_sem_registro,
+                    senha_unica = senha_unica
+                )
 
-        user_sem_registro = UsuarioSemRegistro.objects.create(
+                registrando = NomeLista.objects.create(
+                    sem_registro=user_sem_registro,
+                    lista_reserva=showcompleto
+                )
+                registrando.save()
+                messages.success(request, 'Verefique seu email para confimar seu nome na lista')
 
-            usuario_sem_registro=nome,
-            cpf_sem_registro=cpf,
-            celular_sem_registro=celular
-        )
+                # return redirect('home')
 
-        registrando = NomeLista.objects.create(
-            sem_registro=user_sem_registro,
-            lista_reserva=showcompleto
-        )
-        registrando.save()
-        messages.success(request, 'Seu nome foi colocado na lista com sucesso')
-        return redirect('home')
+                user_sem_registro.save()
 
-        user_sem_registro.save()
+                # EMAIL
+                registro = registrando.id
+                email_sem_nome_lista(registro)
+
+                return redirect('home')
+
+            except IntegrityError:
+                messages.warning(request,
+                                 'Tivemos algum probleme para por seu nome na lista, por gentileza entre em contato')
+                return redirect('home')
 
     else:
         print(request, "<<<<request" "Metodo Get adionando nome na lista")
@@ -300,6 +316,22 @@ def adicionar_nome_lista(request, id):
         return render(request, 'registrarnomelista.html', dados)
     # adionarnar mensagens de erro
 
+def dashboard_sem_cadastro(request):
+    sub = NomeLista.objects.get(id=request.GET['id'])
+    if sub.sem_registro.senha_unica == request.GET['senha_unica']:
+
+        usuario = sub.sem_registro.id
+
+        print(usuario)
+        show = NomeLista.objects.filter(sem_registro=usuario)
+
+        dados = {
+            'eventos': show
+        }
+
+        return render(request, 'comprovante_sem_cadastro.html', dados)
+    else:
+        return redirect('home')
 
 def adicionar_nome_lista_com_cadastro(request):
     # metodo para adicoonar nome na lista com cadastro
@@ -345,6 +377,7 @@ def email_nomelista(id_nomelista):
     associated_users = nomelista_atual.roqueiro.usuario
 
     subject = "Confirmação do Show"
+    email_html = "email/confimacao_nome_lista.html"
     email_template_name = "email/confimacao_nome_lista.txt"
     c = {
         "email": emailusuario,
@@ -356,14 +389,53 @@ def email_nomelista(id_nomelista):
         "user": nomelista_atual.roqueiro,
         'protocol': 'http',
     }
-
+    html_message = render_to_string(email_html, c)
     email = render_to_string(email_template_name, c)
     try:
-        send_mail(subject, email, 'admin@example.com', [emailusuario], fail_silently=False)
+        send_mail(subject, email, 'admin@example.com', [emailusuario], html_message=html_message, fail_silently=False)
 
     except BadHeaderError:
         return HttpResponse('Invalid header found.')
     return redirect("home")
+
+
+
+def random_digits():
+    return "%0.12d" % random.randint(0, 999999999999)
+
+def email_sem_nome_lista(registro):
+    print(registro, "Numero do nome lista")
+    nomelista_atual = NomeLista.objects.get(pk=registro)
+    print(nomelista_atual.lista_reserva, "nome do show")
+    show = nomelista_atual.lista_reserva
+    emailusuario = nomelista_atual.sem_registro.email_sem_registro
+    usuario = nomelista_atual.sem_registro.usuario_sem_registro
+    # associated_users = nomelista_atual.roqueiro.usuario
+
+    subject = "Confirmação do evento " + str(show)
+    email_template_name = "email/dashboard_sem_registro.txt"
+    email_html = "email/dashboard_sem_registro.html"
+    c = {
+        "id": registro,
+        "chave": nomelista_atual.sem_registro.senha_unica,
+        "email": emailusuario,
+        # precisa mudar na producao
+        'domain': dominio,
+        "show": show,
+        "usuario": usuario,
+        'site_name': 'Website',
+        "user": nomelista_atual.roqueiro,
+        'protocol': 'http',
+    }
+    html_message = render_to_string(email_html, c)
+    email = render_to_string(email_template_name, c)
+    try:
+        send_mail(subject, email, 'admin@example.com', [emailusuario], html_message=html_message, fail_silently=False)
+
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
+    return redirect("home")
+
 
 
 def validacpf(cpf):

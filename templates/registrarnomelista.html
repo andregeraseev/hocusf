@@ -1,4 +1,4 @@
-{% extends 'base3.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -40,6 +40,12 @@
                                         <label class="my-2"  for="celular"><h2><b>Celular</b></h2></label>
                                         <input type="text" data-mask="(00)0000-00000" class="form-control" name="celular"
                                                placeholder="Digite seu celular"  value="{{ form.celular }}" helptext="teste" required>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <label class="my-2"  for="email_sem_registro"><h2><b>Email</b></h2></label>
+                                        <input type="email"  class="form-control" name="email_sem_registro"
+                                               placeholder="Digite seu email"  value="{{ form.email_sem_registro }}" helptext="digite seu email" required>
                                     </div>
 
                                     <input type="hidden" name="show" value={{ shows.id }}>
