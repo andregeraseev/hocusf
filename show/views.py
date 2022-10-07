@@ -57,12 +57,12 @@ def home(request):
     semana_4 = int(data_hora.strftime('%V')) + 3
     semana_5 = int(data_hora.strftime('%V')) + 4
 
-    showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
-    showsemana1 = Show.objects.filter(data_do_show__week=semana_1, publicada=True)
-    showsemana2 = Show.objects.filter(data_do_show__week=semana_2, publicada=True)
-    showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True)
-    showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True)
-    showsemana5 = Show.objects.filter(data_do_show__week=semana_5, publicada=True)
+    showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True).order_by('data_do_show')
+    showsemana1 = Show.objects.filter(data_do_show__week=semana_1, publicada=True).order_by('data_do_show')
+    showsemana2 = Show.objects.filter(data_do_show__week=semana_2, publicada=True).order_by('data_do_show')
+    showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True).order_by('data_do_show')
+    showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True).order_by('data_do_show')
+    showsemana5 = Show.objects.filter(data_do_show__week=semana_5, publicada=True).order_by('data_do_show')
     pessoas = Usuario.objects.all()
     show = Show.objects.filter(publicada=True)
     proximos_eventos = Show.objects.filter(publicada=True)
