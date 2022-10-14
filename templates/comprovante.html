@@ -13,10 +13,10 @@
 
     <div class=" p-3 bg-white mt-4">
         <div class=" p-3 bg-light mt-4">
-            <h4>{{comprovante}}</h4>
-            <h6>CPF: {{comprovante.roqueiro.cpf}}</h6>
-            <h6>Celular: {{comprovante.roqueiro.celular}}</h6>
-            <h6>Email: {{comprovante.roqueiro.usuario.email}}</h6>
+            <h4>{% if comprovante.roqueiro %} {{comprovante.roqueiro}} {% else %} {{comprovante.sem_registro}} {% endif %} </h4>
+            <h6>CPF: {% if comprovante.roqueiro %} {{comprovante.roqueiro.cpf}} {% else %} {{comprovante.sem_registro.cpf_sem_registro}} {% endif %}</h6>
+            <h6>Celular: {% if comprovante.roqueiro %} {{comprovante.roqueiro.celular}} {% else %} {{comprovante.sem_registro.celular_sem_registro}} {% endif %}</h6>
+            <h6>Email: {% if comprovante.roqueiro %} {{comprovante.roqueiro.usuario.email}} {% else %} {{comprovante.sem_registro.email_sem_registro}} {% endif %}</h6>
             <h5 class="b">Status:</h5>
             {% if comprovante.pagamento == True %}
 

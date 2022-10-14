@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from usuario.views import cadastro, login, logout, dashboard,password_reset_request, upload_comprovante
-from show.views import home, lista, listaevento,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, index, evento, hocus, dashboard_sem_cadastro
+from show.views import home, lista, listaevento,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, evento, hocus, dashboard_sem_cadastro
 from django.contrib.auth import views as auth_views
 admin.site.site_title = 'HOCUS'
 admin.site.site_header = 'HOCUS POCUS ADMIN'
@@ -30,7 +30,7 @@ urlpatterns = [
     path('comprovante/<int:id>', comprovante, name='comprovante'),
     path('dashboard', dashboard, name='dashboard'),
     path('upload_comprovante', upload_comprovante, name='upload_comprovante'),
-    path('index', index, name='index'),
+    # path('index', index, name='index'),
     path("password_reset", password_reset_request, name="password_reset"),
     # path('accounts/', include('django.contrib.auth.urls'))
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='senhas/password_reset_done.html'), name='password_reset_done'),

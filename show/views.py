@@ -20,27 +20,28 @@ from show.form import ContactForm
 import random
 dominio = '127.0.0.1:8000'
 
-def index(request):
-    data_hora = datetime.now()
-    mes = data_hora.strftime('%m')
-    showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
-    semana = data_hora.strftime('%V')
-    showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
-    pessoas = Usuario.objects.all()
-    show = Show.objects.filter(publicada=True)
-    proximos_eventos = Show.objects.filter(publicada=True)
-    dados = {
-        'showdasemana': showsemana,
-        'showdomes': showmes,
-        'shows': show,
-        'pessoa': pessoas,
-        'proximos': proximos_eventos
-    }
-
-    return render(request, 'index.html', dados)
+# def index(request):
+#     data_hora = datetime.now()
+#     mes = data_hora.strftime('%m')
+#     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
+#     semana = data_hora.strftime('%V')
+#     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True)
+#     pessoas = Usuario.objects.all()
+#     show = Show.objects.filter(publicada=True)
+#     proximos_eventos = Show.objects.filter(publicada=True)
+#     dados = {
+#         'showdasemana': showsemana,
+#         'showdomes': showmes,
+#         'shows': show,
+#         'pessoa': pessoas,
+#         'proximos': proximos_eventos
+#     }
+#
+#     return render(request, 'index.html', dados)
 
 
 def home(request):
+    # contesto
     testdate = datetime.now()
     mes_atual = testdate.month
     ano_atual = testdate.year
@@ -80,6 +81,7 @@ def home(request):
         'proximos': proximos_eventos
     }
 
+    # para contatos via email
     if request.method == 'POST' and 'email_s' in request.POST:
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -109,7 +111,7 @@ def home(request):
                             'form': ContactForm(request.POST)})
 
     else:
-
+        # HOME
         return render(request, 'index.html', dados)
 
 
@@ -118,6 +120,7 @@ def hocus(request):
 
 
 def listaevento(request):
+    # lista de shows cadastrados publicados apenas para autorizados
     if request.user.is_staff:
         roqueiros = NomeLista.objects.all()
         show = Show.objects.filter(publicada=True)
@@ -164,6 +167,10 @@ def lista(request, id):
             cofirmapagamento.update(
                 pagamento=True)
             print(cofirmapagamento, "confima pagamento")
+
+            pagando = id_nome_lista
+            # print(cofirmapagamento, "confima pagamento id")
+            email_confirma_pagamento(pagando)
 
             pessoa = NomeLista.objects.filter(lista_reserva_id=id)
             show = Show.objects.filter(id=id)
@@ -215,21 +222,28 @@ def comprovante(request, id):
     # metodo render para comprovante
 
     if request.method == 'POST':
-
+        # print('AQUIIIIII')
         show = NomeLista.objects.filter(id=id)
-        print(show)
+        # print(show, "SHOWWWW")
         dados = {
             'show': show
         }
 
         id_nome_lista = request.POST['id']
-        print(id_nome_lista)
-        show = request.POST['show']
+        # print(id_nome_lista, "ID_NOME_LISTA")
+        # show = request.POST['show']
         cofirmapagamento = NomeLista.objects.filter(id=id_nome_lista)
-        print(cofirmapagamento)
+        # print(cofirmapagamento," CONFIRMA PAGAMENTO")
         cofirmapagamento.update(
             pagamento=True)
-        print(cofirmapagamento, "confima pagamento")
+
+
+        pagando = id_nome_lista
+        # print(cofirmapagamento, "confima pagamento id")
+        email_confirma_pagamento(pagando)
+
+
+
 
         return render(request, 'comprovante.html', dados)
     else:
@@ -240,6 +254,46 @@ def comprovante(request, id):
         }
 
         return render(request, 'comprovante.html', dados)
+
+
+
+
+def email_confirma_pagamento(pagando):
+    # print(pagando, "Numero do nome lista")
+    nomelista_atual = NomeLista.objects.get(pk=pagando)
+    # print(nomelista_atual.lista_reserva, "nome do show")
+    show = nomelista_atual.lista_reserva
+    if nomelista_atual.roqueiro:
+        emailusuario = nomelista_atual.roqueiro.usuario.email
+        usuario = nomelista_atual.roqueiro.usuario
+    else:
+        emailusuario = nomelista_atual.sem_registro.email_sem_registro
+        usuario = nomelista_atual.sem_registro.usuario_sem_registro
+
+    # associated_users = nomelista_atual.roqueiro.usuario
+
+    subject = f"O pagamento do evento {show} foi aprovado."
+    email_html = "email/pagamento_confirmado.html."
+    email_template_name = "email/confimacao_nome_lista.txt"
+    c = {
+        "nome_lista" : nomelista_atual,
+        "email": emailusuario,
+        # precisa mudar na producao
+        'domain': dominio,
+        "show": show,
+        "usuario": usuario,
+        'site_name': 'Website',
+        "user": nomelista_atual.roqueiro,
+        'protocol': 'http',
+    }
+    html_message = render_to_string(email_html, c)
+    email = render_to_string(email_template_name, c)
+    try:
+        send_mail(subject, email, 'admin@example.com', [emailusuario], html_message=html_message, fail_silently=False)
+
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
+    return redirect("home")
 
 
 def evento(request, id):
@@ -256,7 +310,6 @@ def adicionar_nome_lista(request, id):
     # metodo para adicoonar nome na lista sem cadastro
     if request.method == 'POST':
         nome = request.POST['nome']
-        # TODO validacao cpf
         cpf = request.POST['cpf']
         celular = request.POST['celular']
         shows = request.POST['show']
