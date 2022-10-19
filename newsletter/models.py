@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-
+from django.contrib import messages
 
 
 class Newsletter(models.Model):
@@ -24,6 +24,7 @@ class Newsletter(models.Model):
         subscribers = Usuario.objects.filter(permicao_newslleters=True)
         show = self.corpo_show
         mensagem = self.mensagem_extra
+        counter = 1
         for sub in subscribers:
             from_email = "ageraseev@gmail.com"
             to_emails = sub.usuario.email
@@ -45,6 +46,9 @@ class Newsletter(models.Model):
             # sg.send(message)
             try:
                 send_mail(subject, message, from_email, [to_emails], html_message=lala)
+                messages.success(request, f' enviado {counter} de {len(subscribers)} Emails, enviado para {to_emails}.')
+                counter += 1
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
 
+        messages.success(request, f' Todos Emails enviados.')
