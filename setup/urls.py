@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from newsletter.views import newsletter
 from usuario.views import cadastro, login, logout, dashboard,password_reset_request, upload_comprovante
 from show.views import home, lista, listaevento,comprovante, adicionar_nome_lista_com_cadastro, adicionar_nome_lista, evento, hocus, dashboard_sem_cadastro
 from django.contrib.auth import views as auth_views
@@ -37,6 +38,6 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="senhas/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='senhas/password_reset_complete.html'), name='password_reset_complete'),
 
-
+    path('sair_newslleter/', newsletter , name='sair_newsletter')
 
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

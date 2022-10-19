@@ -4,7 +4,7 @@ from .models import Show, NomeLista
 
 class ListandoShows(admin.ModelAdmin):
     list_display = ('id', 'titulo_show', 'horario_do_show', 'data_do_show',
-                    'publicada', 'pix', 'chave_pix', 'valor')
+                    'publicada', 'pix', 'chave_pix', 'valor','created_at')
     list_display_links = ('id', 'titulo_show', )
     list_editable = ('horario_do_show', 'data_do_show', 'publicada', 'pix', 'chave_pix', 'valor',)
     readonly_fields = ('banner_preview', 'quadrado_preview',)

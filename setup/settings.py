@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'usuario',
     'show',
+    'newsletter',
     'widget_tweaks',
 ]
 

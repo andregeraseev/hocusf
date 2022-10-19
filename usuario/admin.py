@@ -3,9 +3,9 @@ from usuario.models import Usuario, UsuarioSemRegistro
 
 
 class ListandoUsuario(admin.ModelAdmin):
-    list_display = ('id', 'usuario', 'cpf', 'celular')
+    list_display = ('id', 'usuario', 'cpf', 'celular', 'permicao_newslleters')
     list_display_links = ('id', 'usuario',)
-    list_editable = ('celular',)
+    list_editable = ('celular','permicao_newslleters',)
 
 
 admin.site.register(Usuario, ListandoUsuario)

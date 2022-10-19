@@ -20,6 +20,8 @@ class Show(models.Model):
     publicada = models.BooleanField(default=False)
     pix = models.BooleanField(default=False)
     chave_pix = models.CharField(max_length=200, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
 
     def __str__(self):
@@ -46,6 +48,8 @@ class NomeLista(models.Model):
     comprovante = models.ImageField(upload_to='comprovantes', blank=True)
     lista_reserva = models.ForeignKey(Show, on_delete=models.CASCADE, blank=True, null= True,)
     entrou = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         unique_together = ('roqueiro', 'lista_reserva')
