@@ -27,7 +27,8 @@ def cadastro(request):
         senha2 = request.POST['password2']
         cpf = request.POST['cpf']
         celular = request.POST['celular']
-
+        check = request.POST.get('check', '') == 'on'
+        print(check)
         form= {
             "form": request.POST, }
 
@@ -103,7 +104,8 @@ def cadastro(request):
         perfil = Usuario.objects.create(
             usuario=id_usuario,
             cpf=cpf,
-            celular=celular
+            celular=celular,
+            permicao_newslleters =check
         )
 
         user.save()

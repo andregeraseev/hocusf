@@ -24,7 +24,7 @@ class Newsletter(models.Model):
         subscribers = Usuario.objects.filter(permicao_newslleters=True)
         show = self.corpo_show
         mensagem = self.mensagem_extra
-        counter = 1
+        counter = 0
         for sub in subscribers:
             from_email = "ageraseev@gmail.com"
             to_emails = sub.usuario.email
@@ -52,6 +52,6 @@ class Newsletter(models.Model):
                 return HttpResponse("Invalid header found.")
 
         if counter != len(subscribers):
-            messages.info(request, f'foram enviados {counter} de {len(subscribers)} emails.')
+            messages.info(request, f'foram enviados {counter} emails de {len(subscribers)} emails.')
         else:
             messages.success(request, f' Todos Emails enviados.')
