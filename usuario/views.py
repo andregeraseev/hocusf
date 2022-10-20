@@ -15,6 +15,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 import re
+from PIL import Image
 cpf = CPF()
 dominio = '127.0.0.1:8000'
 
@@ -172,7 +173,7 @@ def upload_comprovante(request):
     # """ area para adicionar comprovante"""
     if request.method == 'POST':
 
-        if not 'imagem' in request.FILES:
+        if not 'imagem' in request.FILES: # verifica se o campo imagem não esta vazio
             messages.error(request, "Você precisa anexar um comprovante", "danger")
             return redirect("dashboard")
 
@@ -180,24 +181,18 @@ def upload_comprovante(request):
             imagem = request.FILES['imagem']
             id = request.POST['id']
             imagemsize = imagem.size
+            try: # tenta abrir a imagem atravez do pillow verificando se é uma imagem valida
+                Image.open(imagem)
 
-            if imagemsize > 5485760:
+            except: # caso nao for uma imagem valida envia mensagem
+                messages.warning(request, "Esse tipo de arquivo é invalido")
+                return redirect("dashboard")
+
+            if imagemsize > 5485760: # verifica o tamanho da imagem
                 messages.warning(request, "Você nao pode enviar uma imagem maior que 5Mb")
                 return redirect("dashboard")
             else:
-
-                # form = NomeListaForm(request.POST, request.FILES)
-                # if form.is_valid():
-                #    form.save()
-                #    print("FORMULARIO VALIDO")
-                #    recibo = NomeLista.objects.filter(id=id)
-                #    recibo.update(comprovante=imagem)
-                #    messages.success(request, "Comprovante Adicionado com sucesso")
-                #    return redirect("dashboard")
-
-
-
-
+                # Salva os comprovante
                 fss = FileSystemStorage(location="media/comprovantes",
                                         base_url="comprovantes")
                 filename = fss.save(imagem.name.replace(" ", "_"), imagem)
@@ -269,6 +264,7 @@ def password_reset_request(request):
 
 
 def email_hocus_beta(pegando_id_usuario):
+    # Email para teste Beta
     id_usuario = Usuario.objects.get(id=pegando_id_usuario)
     print(id_usuario)
     # print(id_nomelista, "Numero do nome lista")
