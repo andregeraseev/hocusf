@@ -46,9 +46,12 @@ class Newsletter(models.Model):
             # sg.send(message)
             try:
                 send_mail(subject, message, from_email, [to_emails], html_message=lala)
-                messages.success(request, f' enviado {counter} de {len(subscribers)} Emails, enviado para {to_emails}.')
                 counter += 1
             except BadHeaderError:
+                messages.warning(request, f' {sub.usuario.email } Não pode ser enviado')
                 return HttpResponse("Invalid header found.")
 
-        messages.success(request, f' Todos Emails enviados.')
+        if counter != len(subscribers):
+            messages.info(request, f'foram enviados {counter} de {len(subscribers)} emails.')
+        else:
+            messages.success(request, f' Todos Emails enviados.')
