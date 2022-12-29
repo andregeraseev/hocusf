@@ -29,8 +29,9 @@ admin.site.register(Show, ListandoShows)
 
 
 class ListandoNomeLista(admin.ModelAdmin):
-    list_display = ('id', 'roqueiro', 'sem_registro')
-    list_display_links = ('id', 'roqueiro',)
-
+    list_display = ('id', 'roqueiro', 'sem_registro', 'lista_reserva')
+    list_display_links = ('id', 'roqueiro')
+    list_filter = ( 'lista_reserva', 'roqueiro')
+    search_fields = ['sem_registro__usuario_sem_registro', 'roqueiro__usuario__username' ,]
 
 admin.site.register(NomeLista, ListandoNomeLista)
