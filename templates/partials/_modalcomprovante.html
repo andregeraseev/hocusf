@@ -17,6 +17,7 @@
                     <div class="modal-body text-center">
                         <div class="row ml-lg-auto">
                         <div class=" col-lg-6  col-sm-12 text-lg-left border ">
+
                             <h4>HOCUS PIX</h4>
                             <h5 class="b"> Show selecionado: </h5>
                             <h5 >{{ evento.lista_reserva }} </h5>
@@ -35,15 +36,15 @@
 
                                     let btn = document.querySelector('#copy');
 
-btn.addEventListener('click', function(e) {
+                                        btn.addEventListener('click', function(e) {
 
-  let textArea = document.querySelector('.text');
-  textArea.select();
-  document.execCommand('copy');
+                                          let textArea = document.querySelector('.text');
+                                          textArea.select();
+                                          document.execCommand('copy');
 
-  alert("Pix Copiado!");
+                                          alert("Pix Copiado!");
 
-});
+                                        });
 
                                 </script>
                             </div>

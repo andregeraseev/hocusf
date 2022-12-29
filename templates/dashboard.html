@@ -157,8 +157,30 @@
                                     {% endif %}
                                     {% endif %}
                                 </div>
-                            </div>
+
+<!--                            </div>-->
                         <!-- FIM Button Modal -->
+
+                        <!-- Botao Link de pagamento -->
+<!--                       <div class="row mt-5 justify-content-center">-->
+                                <div class="d-flex ">
+                                    {% if evento.lista_reserva.habilitar_link %}
+
+
+                                    <a type="button" class="btn btn-danger ml-2" role="button"
+                                            href="https://{{ evento.lista_reserva.link_ingreco }}">
+
+
+                                        Compre online
+                                    </a>
+
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+                        <!-- FIM Botao Link de pagamento -->
                     </div>
                 </div>
             </div>
@@ -279,7 +301,7 @@
 
 
                         <!-- Button Modal -->
-                       <div class="row mt-auto justify-content-center">
+                       <div class="row mb-5 justify-content-center">
                                 <div class="d-flex ">
                                     {% if evento.lista_reserva.pix %}
                                     {% if evento.comprovante %}
@@ -295,8 +317,30 @@
                                     {% endif %}
                                     {% endif %}
                                 </div>
-                            </div>
+<!--                            </div>-->
                         <!-- FIM Button Modal -->
+
+                          <!-- Botao Link de pagamento -->
+<!--                       <div class="row mt-5 justify-content-center">-->
+                                <div class="d-flex ">
+                                    {% if evento.lista_reserva.habilitar_link %}
+
+
+                                    <a type="button" class="btn btn-danger ml-2" role="button"
+                                            href="https://{{ evento.lista_reserva.link_ingreco }}">
+
+
+                                        Compre online
+                                    </a>
+
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+                        <!-- FIM Botao Link de pagamento -->
+
                     </div>
                 </div>
             </div>
