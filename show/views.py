@@ -50,7 +50,9 @@ def home(request):
     data_hora = datetime(ano_atual, mes_atual, 1)
     print("weekofmonth", dia_atual, mes_atual, ano_atual, data_hora)
     mes = data_hora.strftime('%m')
+    ano = data_hora.strftime('%Y')
     showmes = Show.objects.filter(data_do_show__month=mes, publicada=True)
+    showano = Show.objects.filter(data_do_show__year=ano, publicada=True)
     semana = testdate.strftime('%V')
     semana_1 = data_hora.strftime('%V')
     semana_2 = int(data_hora.strftime('%V')) + 1
@@ -64,11 +66,40 @@ def home(request):
     showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True).order_by('data_do_show')
     showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True).order_by('data_do_show')
     showsemana5 = Show.objects.filter(data_do_show__week=semana_5, publicada=True).order_by('data_do_show')
+
+    showsdoano = Show.objects.filter(data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_1 = Show.objects.filter(data_do_show__month=1, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_2 = Show.objects.filter(data_do_show__month=2, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_3 = Show.objects.filter(data_do_show__month=3, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_4 = Show.objects.filter(data_do_show__month=4, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_5 = Show.objects.filter(data_do_show__month=5, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_6 = Show.objects.filter(data_do_show__month=6, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_7 = Show.objects.filter(data_do_show__month=7, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_8 = Show.objects.filter(data_do_show__month=8, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_9 = Show.objects.filter(data_do_show__month=9, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_10 = Show.objects.filter(data_do_show__month=10, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_11 = Show.objects.filter(data_do_show__month=11, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+    show_mes_12 = Show.objects.filter(data_do_show__month=12, data_do_show__year=ano, publicada=True).order_by('data_do_show')
+
+
     pessoas = Usuario.objects.all()
-    show = Show.objects.filter(publicada=True)
+    show = Show.objects.filter(publicada=True).order_by('-data_do_show')
     proximos_eventos = Show.objects.filter(publicada=True)
 
     dados = {
+
+        'show_mes_1': show_mes_1,
+        'show_mes_2': show_mes_2,
+        'show_mes_3': show_mes_3,
+        'show_mes_4': show_mes_4,
+        'show_mes_5': show_mes_5,
+        'show_mes_6': show_mes_6,
+        'show_mes_7': show_mes_7,
+        'show_mes_8': show_mes_8,
+        'show_mes_9': show_mes_9,
+        'show_mes_10': show_mes_10,
+        'show_mes_11': show_mes_11,
+        'show_mes_12': show_mes_12,
         'showdasemana5': showsemana5,
         'showdasemana4': showsemana4,
         'showdasemana3': showsemana3,
