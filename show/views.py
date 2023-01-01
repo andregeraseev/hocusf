@@ -61,11 +61,11 @@ def home(request):
     semana_5 = int(data_hora.strftime('%V')) + 4
 
     showsemana = Show.objects.filter(data_do_show__week=semana, publicada=True).order_by('data_do_show')
-    showsemana1 = Show.objects.filter(data_do_show__week=semana_1, publicada=True).order_by('data_do_show')
-    showsemana2 = Show.objects.filter(data_do_show__week=semana_2, publicada=True).order_by('data_do_show')
-    showsemana3 = Show.objects.filter(data_do_show__week=semana_3, publicada=True).order_by('data_do_show')
-    showsemana4 = Show.objects.filter(data_do_show__week=semana_4, publicada=True).order_by('data_do_show')
-    showsemana5 = Show.objects.filter(data_do_show__week=semana_5, publicada=True).order_by('data_do_show')
+    showsemana1 = Show.objects.filter(data_do_show__week=semana_1, data_do_show__month=mes, publicada=True).order_by('data_do_show')
+    showsemana2 = Show.objects.filter(data_do_show__week=semana_2, data_do_show__month=mes, publicada=True).order_by('data_do_show')
+    showsemana3 = Show.objects.filter(data_do_show__week=semana_3, data_do_show__month=mes, publicada=True).order_by('data_do_show')
+    showsemana4 = Show.objects.filter(data_do_show__week=semana_4, data_do_show__month=mes, publicada=True).order_by('data_do_show')
+    showsemana5 = Show.objects.filter(data_do_show__week=semana_5, data_do_show__month=mes, publicada=True).order_by('data_do_show')
 
     showsdoano = Show.objects.filter(data_do_show__year=ano, publicada=True).order_by('data_do_show')
     show_mes_1 = Show.objects.filter(data_do_show__month=1, data_do_show__year=ano, publicada=True).order_by('data_do_show')
